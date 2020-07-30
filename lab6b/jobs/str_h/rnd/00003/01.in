@@ -1,0 +1,50 @@
+&control
+  calculation='relax'
+  restart_mode='from_scratch'
+  prefix='scm2020h'
+  pseudo_dir='../../../pp'
+  etot_conv_thr = 1.0D-6
+  forc_conv_thr = 1
+  outdir='./out'
+  nstep=20000
+  max_seconds=14000
+  tprnfor=.TRUE.
+  tstress=.TRUE.
+  disk_io='none'
+/
+&system
+  ibrav=0
+  a=6.1402504921
+  nat=4
+  ntyp=2,
+  ecutwfc=140
+  ecutrho=560
+  nosym=.TRUE.
+  occupations='smearing'
+  smearing='gaussian'
+  degauss=0.02
+/
+&electrons
+  diagonalization='david'
+  electron_maxstep = 100
+  mixing_beta = 0.7
+  conv_thr = 1.0D-6
+/
+&ions
+/
+K_POINTS automatic 
+2 1 1 0 0 0
+CELL_PARAMETERS {alat}
+ 1.000000000000000   0.000000000000000   0.000000000000000
+ 0.495467528000000   0.868626461000000   0.000000000000000
+-0.747733833000000  -0.434313270000000   0.502260987000000
+
+ATOMIC_SPECIES
+Nb   92.90638   Nb.pbe-spn-kjpaw_psl.1.0.0.UPF 
+Fe   55.84500   Fe.pbe-spn-kjpaw_psl.1.0.0.UPF 
+
+ATOMIC_POSITIONS {angstrom}
+Nb 4.393353549412635 2.39788833888683 0.6508770336086821
+Nb 2.7672240765939544 0.4957568753894243 1.399753687419671
+Nb 1.9055542852608018 2.585740923771865 1.9094072236396737
+Fe 0.6041846648025715 0.6247235447730278 0.512503832514064
