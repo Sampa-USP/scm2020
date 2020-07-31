@@ -1,7 +1,7 @@
 # Simulação Computacional dos Materiais - IFUSP
 ## Aula Lab6b - Cálculos de DFT em lotes (batches)
 
-Nesta aula, trabalharemos com compostos intermetálicos Nb(x)-Fe(y). Escolha uma das pastas disponibilizadas em [jobs](./jobs). Cada pasta contém 20 estruturas com a mesma estequiometria; em cada estrutura (00001-00020), as posições atômicas foram deslocadas em até 0.2 angstrons das posições de equilíbrio, de maneira aleatória. Deste modo, cada estrutura é única e levará a resultados distintos.
+Nesta aula, trabalharemos com compostos intermetálicos Nb(x)-Fe(y). Escolha uma das sete (7) pastas disponibilizadas em [jobs](./jobs). Cada pasta contém 20 estruturas com a mesma estequiometria; em cada estrutura (rnd/00001-rnd/00020), as posições atômicas foram deslocadas em até 0.2 angstrons das posições de equilíbrio, de maneira aleatória. Deste modo, cada estrutura é única e levará a resultados distintos.
 
 Observação: a pasta PP será utilizada por todos os grupos; ela contém pseudopotenciais do tipo PAW-PBE utilizados nos cálculos.
 
@@ -15,7 +15,7 @@ Observação: a pasta PP será utilizada por todos os grupos; ela contém pseudo
 
 - Para visualizar a estrutura 1/20 utilizando o **xcrystden**, digitar:
 ```bash
-cd 00001
+cd rnd/00001
 xcrysden --pwi 01.in
 ```
 - Outra opção é utilizar softwares com interface gráfica como o VESTA. **Dica: Sempre visualize as estruturas antes de alocar recursos computacionais para cálculos de DFT**. 
@@ -50,3 +50,13 @@ tail -f 01.out
 - Depois de realizados os cálculos, verifique a energia final de cada variante. Qual das estruturas apresentou a menor energia? E a maior? 
 
 ## Agradecimentos
+
+As estruturas disponibilizadas nessa aula foram geradas a partir de estruturas do [materials project](http://materialsproject.org/). Para uma visualização das estruturas originais, consultar:
+
+- str_b, /mp-1071283
+- str_c, /mp-999395
+- str_d, /mp-999440
+- str_e, /mp-1077790
+- str_f, /mp-999389
+- str_h, /mp-999438
+- str_i, /mp-568901
