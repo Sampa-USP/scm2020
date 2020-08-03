@@ -730,7 +730,7 @@ pre {
     border: none;
   }
 }
-</style><title>aula1</title></head><body><article class="markdown-body"><h1>
+</style><title>README</title></head><body><article class="markdown-body"><h1>
 <a id="user-content-simulação-computacional-dos-materiais---ifusp" class="anchor" href="#simula%C3%A7%C3%A3o-computacional-dos-materiais---ifusp" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Simulação Computacional dos Materiais - IFUSP</h1>
 <h1>
 <a id="user-content-aula-1---linux-e-bashshell" class="anchor" href="#aula-1---linux-e-bashshell" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Aula 1 - Linux e Bash/Shell</h1>
@@ -744,12 +744,12 @@ pre {
 <li><strong>clear</strong></li>
 </ul>
 <p>Exemplo de código:</p>
-<div class="highlight highlight-source-shell"><pre><span class="pl-k">&gt;</span> ls
-<span class="pl-k">&gt;</span> <span class="pl-c1">cd</span> <span class="pl-k">~</span>/
-<span class="pl-k">&gt;</span> <span class="pl-c1">pwd</span>
-<span class="pl-k">&gt;</span> ls -l
-<span class="pl-k">&gt;</span> <span class="pl-c1">cd</span> /home/
-<span class="pl-k">&gt;</span> clear </pre></div>
+<div class="highlight highlight-source-shell"><pre>ls
+<span class="pl-c1">cd</span> <span class="pl-k">~</span>/
+<span class="pl-c1">pwd</span>
+ls -l
+<span class="pl-c1">cd</span> /home/
+clear </pre></div>
 <p>Gerenciando arquivos:</p>
 <ul>
 <li><strong>mkdir (make directory)</strong></li>
@@ -764,18 +764,18 @@ pre {
 <li><strong>grep</strong></li>
 </ul>
 <p>Exemplo de código:</p>
-<div class="highlight highlight-source-shell"><pre><span class="pl-k">&gt;</span> mkdir teste
-<span class="pl-k">&gt;</span> touch teste.txt
-<span class="pl-k">&gt;</span> mv teste.txt teste2.txt
-<span class="pl-k">&gt;</span> mv ../teste2.txt
-<span class="pl-k">&gt;</span> <span class="pl-c1">cd</span> ../
-<span class="pl-k">&gt;</span> cp teste2.txt teste
-<span class="pl-k">&gt;</span> <span class="pl-c1">cd</span> teste 
-<span class="pl-k">&gt;</span> head teste2.txt
-<span class="pl-k">&gt;</span> tail teste2.txt
-<span class="pl-k">&gt;</span> touch teste1.txt
-<span class="pl-k">&gt;</span> cmp teste1.txt teste2.txt
-<span class="pl-k">&gt;</span> grep <span class="pl-s"><span class="pl-pds">'</span>fim<span class="pl-pds">'</span></span> teste2.txt</pre></div>
+<div class="highlight highlight-source-shell"><pre>mkdir teste
+touch teste.txt
+mv teste.txt teste2.txt
+mv ../teste2.txt
+<span class="pl-c1">cd</span> ../
+cp teste2.txt teste
+<span class="pl-c1">cd</span> teste 
+head teste2.txt
+tail teste2.txt
+touch teste1.txt
+cmp teste1.txt teste2.txt
+grep <span class="pl-s"><span class="pl-pds">'</span>fim<span class="pl-pds">'</span></span> teste2.txt</pre></div>
 <p>Processos:</p>
 <ul>
 <li><strong>ps (process status), top</strong></li>
@@ -872,17 +872,20 @@ nohup <span class="pl-c1">command</span> <span class="pl-k">&lt;</span>input <sp
 <li>Gerenciando trabalhos (usando <em>while</em>):</li>
 </ul>
 <div class="highlight highlight-source-shell"><pre>tail -f file.out
-  <span class="pl-k">&gt;</span> ultima linha escrita no arquivo (...)
-  <span class="pl-k">&gt;</span> (Ctrl+C para sair)
+    ultima linha escrita no arquivo (...)
+    (Ctrl+C para sair)
 
 gnuplot
-  <span class="pl-k">&gt;</span> <span class="pl-c1">set</span> terminal dumb			<span class="pl-c"><span class="pl-c">#</span> graficos no terminal</span>
-  <span class="pl-k">&gt;</span> <span class="pl-c1">set</span> title <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>
-  <span class="pl-k">&gt;</span> <span class="pl-c1">set</span> xrange [-1:1]
-  <span class="pl-k">&gt;</span> <span class="pl-c1">set</span> zeroaxis
-  <span class="pl-k">&gt;</span> <span class="pl-c1">set</span> logscale
-  <span class="pl-k">&gt;</span> p <span class="pl-s"><span class="pl-pds">'</span>file.out<span class="pl-pds">'</span></span> 1:4 			<span class="pl-c"><span class="pl-c">#</span> a partir de um arquivo </span>
-  <span class="pl-k">&gt;</span> p (x/4)<span class="pl-k">**</span>2, sin(x), 1/x</pre></div>
+    <span class="pl-c1">set</span> terminal dumb <span class="pl-c"><span class="pl-c">#</span> graficos no terminal</span>
+    <span class="pl-c1">set</span> title <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>
+    <span class="pl-c1">set</span> xrange [-1:1]
+    <span class="pl-c1">set</span> zeroaxis
+    <span class="pl-c1">set</span> logscale
+    plot <span class="pl-s"><span class="pl-pds">'</span>file.out<span class="pl-pds">'</span></span> using 1:4 with lines <span class="pl-c"><span class="pl-c">#</span> a partir de um arquivo</span>
+    p <span class="pl-s"><span class="pl-pds">'</span>file.out<span class="pl-pds">'</span></span> u 1:4 w l
+    p (x/4)<span class="pl-k">**</span>2, sin(x), 1/x
+    <span class="pl-c1">set</span> key outside
+    plot <span class="pl-k">for</span> [col<span class="pl-k">=</span>1:4] <span class="pl-s"><span class="pl-pds">'</span>file.out<span class="pl-pds">'</span></span> using 0:col with lines</pre></div>
 <h1>
 <a id="user-content-dúvidas" class="anchor" href="#d%C3%BAvidas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dúvidas</h1>
 <p><a href="https://stackoverflow.com/" rel="nofollow">https://stackoverflow.com/</a></p>

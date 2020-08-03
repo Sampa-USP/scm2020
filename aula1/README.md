@@ -12,12 +12,12 @@ Navegação:
 Exemplo de código:
 
 ```bash
-> ls
-> cd ~/
-> pwd
-> ls -l
-> cd /home/
-> clear 
+ls
+cd ~/
+pwd
+ls -l
+cd /home/
+clear 
 ```
 
 Gerenciando arquivos: 
@@ -35,18 +35,18 @@ Gerenciando arquivos:
 Exemplo de código:
 
 ```bash
-> mkdir teste
-> touch teste.txt
-> mv teste.txt teste2.txt
-> mv ../teste2.txt
-> cd ../
-> cp teste2.txt teste
-> cd teste 
-> head teste2.txt
-> tail teste2.txt
-> touch teste1.txt
-> cmp teste1.txt teste2.txt
-> grep 'fim' teste2.txt
+mkdir teste
+touch teste.txt
+mv teste.txt teste2.txt
+mv ../teste2.txt
+cd ../
+cp teste2.txt teste
+cd teste 
+head teste2.txt
+tail teste2.txt
+touch teste1.txt
+cmp teste1.txt teste2.txt
+grep 'fim' teste2.txt
 ```
 
 Processos: 
@@ -152,17 +152,20 @@ nohup process input 1> out.log 2>&1 &
 - Gerenciando trabalhos (usando *while*): 
 ```bash
 tail -f file.out
-  > ultima linha escrita no arquivo (...)
-  > (Ctrl+C para sair)
+    ultima linha escrita no arquivo (...)
+    (Ctrl+C para sair)
 
 gnuplot
-  > set terminal dumb			# graficos no terminal
-  > set title ""
-  > set xrange [-1:1]
-  > set zeroaxis
-  > set logscale
-  > p 'file.out' 1:4 			# a partir de um arquivo 
-  > p (x/4)**2, sin(x), 1/x
+    set terminal dumb # graficos no terminal
+    set title ""
+    set xrange [-1:1]
+    set zeroaxis
+    set logscale
+    plot 'file.out' using 1:4 with lines # a partir de um arquivo
+    p 'file.out' u 1:4 w l
+    p (x/4)**2, sin(x), 1/x
+    set key outside
+    plot for [col=1:4] 'file.out' using 0:col with lines
 ```
 
 # Dúvidas
