@@ -597,8 +597,9 @@ Anote o valor médio obtido, pois ele que será utilizado para construir a isote
 
 A isoterma de adsorção normalmente é reportada como concentração da molécula adsorvida em função da pressão.
 A conversão entre número de moléculas adsorvidas por célula unitária e mol/kg = mmol/g (unidade utilizada comummente) pode ser feita com a fórmula:
-<img src="https://render.githubusercontent.com/render/math?math=q%20%5Cleft(%20%5Cfrac%7Bmol%7D%7Bkg%7D%20%5Cright)%20%3D%20%5Cfrac%7BN%20%5Cleft(%5Cfrac%7Bmolecula
-s%7D%7BUC%7D%5Cright)%7D%7B%5Crho%20V%20N_A%7D">
+
+<img src="https://render.githubusercontent.com/render/math?math=q%20%5Cleft(%20%5Cfrac%7Bmol%7D%7Bkg%7D%5Cright)%20%3D%20%5Cfrac%7B1%7D%7B%5Crho%20V%20N_A%7D%20N%20%5Cleft(%20%5Cfrac%7Bmoleculas%7D%7BUC%7D%20%5Cright)">
+
 Onde `V` é o volume da célula unitária (VESTA), a densidade para a silicalita é conhecida (1760 kg/m3) e N_A é o número de Avogadro.
 Utilizando os valores para a silicalita, chegamos na constante de conversão de `0.18105`, que deve ser multiplicada ao número de moléculas **por célula unitária** para se obter o resultado em mmol/g.
 
