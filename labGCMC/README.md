@@ -52,7 +52,7 @@ A remoção de uma molécula ocorre de maneira similar, para assim poder amostra
 <img src="https://render.githubusercontent.com/render/math?math=acc%20(m%20%5Crightarrow%20n)%20%3D%20%5Cmin%20%5Cleft(%201%2C%20%5Cfrac%7BN_m%20P%5E%7Bbias%7D_%7Bmn%7D%5CLambda%5E3%7D%7BV%7D%20%5Cexp%5B-%5Cbeta%20(U_n%20-%20U_m%20-%20%5Cmu%5E%5Cprime)%5D%20%5Cright)">
 
 Mais detalhes sobre o método GCMC podem ser vistos no livro: *Frenkel, D., Smit, B. (2002). Understanding Molecular Simulation: From Algorithms to Applications. San Diego: Academic Press*. 
-Detalhes sobre a implementação podem ser vistos no [artigo](http://doi.wiley.com/10.1002/jcc.24807) ou [manual](docs/Cassandra_user_guide_1.2.pdf) do Cassandra.
+Detalhes sobre a implementação podem ser vistos no [artigo](http://doi.wiley.com/10.1002/jcc.24807) ou [manual](docs/Cassandra_user_guide_1.2.4.pdf) do Cassandra.
 
 ## Potencial químico para a simulação
 
@@ -247,7 +247,7 @@ rcut_cbmc 6.5
 
 END
 ```
-Detalhes sobre cada um dos comandos podem ser vistos no [manual do Cassandra](docs/Cassandra_user_guide_1.2.pdf).
+Detalhes sobre cada um dos comandos podem ser vistos no [manual do Cassandra](docs/Cassandra_user_guide_1.2.4.pdf).
 Basicamente, o arquivo contém informações sobre a caixa de simulação, como tamanho, número de moléculas, temperatura, e tipo de simulação.
 Nesse caso, iniciamos com uma caixa com 30 moléculas de metano (dado pelo comando `make_config`) e simulamos com o GCMC a uma temperatura de 308 K (dado pelo `Temperature_Info`) por 200000 passos de Monte Carlo (dado pelo `Run` no `Simulation_Length_Info`).
 Escolhemos essa temperatura pois existem dados experimentais na literatura para a isoterma de adsorção de metano na silicalita, e podemos comparar os resultados ao final do tutorial.
