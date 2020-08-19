@@ -173,7 +173,7 @@ true
 !----------------------------------------------------------------------Angstrom
 
 # Molecule_Files
-CH4.mcf  300
+CH4.mcf  1100
 !----------------------------------------------------------one line per species
 
 # Box_Info
@@ -367,7 +367,7 @@ Vamos agora criar a estrutura sólida da silicalita para a simulação.
 Utilizaremos o software [VESTA](https://jp-minerals.org/vesta/en/download.html) que está instalado na sua máquina virtual.
 Abra a estrutura baixada no VESTA:
 ```
-VESTA MFI.cif
+~/Documents/DISCIPLINA/VESTA-x86_64/VESTA MFI.cif
 ```
 
 Iremos criar uma supercélula 2x2x2 (para comportar mais moléculas de metano) e salvar a estrutura como `pdb` para podermos utilizá-la no Cassandra.
@@ -391,6 +391,7 @@ Adicionalmente, precisaremos criar um arquivo `mcf` para a silicalita, dando o p
 
 Primeiro, crie um novo diretório para a simulação com a zeólita.
 Copie para esse diretório o diretório `species1` da simulação em fase gasosa, só que com o nome `species2` (usaremos 2 pois a espécie 1 será a silicalita).
+Copie também o arquivo `CH4.mcf` gerado na parte anterior do tutorial.
 Vamos agora continuar a criar os arquivos de entrada.
 
 Agora, vamos criar nossa estrutura inicial.
@@ -484,7 +485,7 @@ true
 
 # Molecule_Files
 silicalite.mcf 1
-CH4.mcf        1000
+CH4.mcf        1100
 !----------------------------------------------------------one line per species
 
 # Box_Info
