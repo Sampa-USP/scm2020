@@ -122,7 +122,7 @@ atom_type_charge 0.0
 
 Após isso, execute novamente o `mcfgen.py` agora para criar o `mcf`.
 ```
-python2 ~/Documents/PROGRAMAS/Cassandra-1.2.4/Scripts/MCF_Generation/mcfgen.py CH4.pdb
+python3 ~/Documents/PROGRAMAS/Cassandra-1.2.4/Scripts/MCF_Generation/mcfgen.py CH4.pdb
 ``` 
 Com isso, temos o arquivo `CH4.mcf`.
 Visualize esse arquivo e tente entender o seu conteúdo.
@@ -262,7 +262,7 @@ Por possuir somente um átomo efetivo, a molécula irá possuir apenas um fragme
 Moléculas mais complexas (se estivéssemos inserindo butano, por exemplo) são inseridas na caixa passo a passo, e por isso os fragmentos são necessários dentro do algoritmo de Configurational Bias Monte Carlo.
 De qualquer maneira, podemos gerar os fragmentos executando a ferramenta `library_setup.py` que acompanha o Cassandra.
 ```
-python2 ~/Documents/PROGRAMAS/Cassandra-1.2.4/Scripts/Frag_Library_Setup/library_setup.py ~/Documents/PROGRAMAS/Cassandra-1.2.4/Src/cassandra_intel_openMP.exe gcmc.inp CH4.pdb
+python3 ~/Documents/PROGRAMAS/Cassandra-1.2.4/Scripts/Frag_Library_Setup/library_setup.py ~/Documents/PROGRAMAS/Cassandra-1.2.4/Src/cassandra_gfortran_openMP.exe gcmc.inp CH4.pdb
 ```
 Esse comando irá modificar o arquivo `gcmc.inp` e criar o diretório `species1` que contém os arquivo de fragmentos.
 Verifique o que foi alterado na seção `Fragment_Files` do arquivo.
@@ -284,7 +284,7 @@ export OMP_NUM_THREADS=2
 ```
 Para executar o Cassandra, use o comando
 ```
-nohup ~/Documents/PROGRAMAS/Cassandra-1.2.4/Src/cassandra_intel_openMP.exe gcmc.inp > gcmc.out &
+nohup ~/Documents/PROGRAMAS/Cassandra-1.2.4/Src/cassandra_gfortran_openMP.exe gcmc.inp > gcmc.out &
 ```
 A simulação executa em 2-5 minutos (com 2 threads, a depender do número médio de moléculas).
 
@@ -402,7 +402,7 @@ Com isso temos o arquivo `silicalite.xyz`, que deve ser visualizado (por exemplo
 
 Agora, criamos o arquivo de topologia da silicalita, com o mesmo procedimento utilizado para o metano:
 ```
-python2 ~/Documents/PROGRAMAS/Cassandra-1.2.4/Scripts/MCF_Generation/mcfgen.py silicalite.pdb --ffTemplate
+python3 ~/Documents/PROGRAMAS/Cassandra-1.2.4/Scripts/MCF_Generation/mcfgen.py silicalite.pdb --ffTemplate
 LJ
 ```
 Isso vai gerar o arquivo `.ff` que deve ser editado para adicionar os parâmetros do campo de força, que no nosso caso, serão os parâmetros de [June *et al*](https://pubs.acs.org/doi/10.1021/j100384a047):
@@ -582,6 +582,10 @@ Si  CH4_s1    0.0   0.0
 
 Finalmente temos então um arquivo de entrada utilizando parâmetros que descrevem as interações de maneira satisfatória.
 Executamos então as simulações para obter a isoterma de adsorção.
+
+```
+nohup ~/Documents/PROGRAMAS/Cassandra-1.2.4/Src/cassandra_gfortran_openMP.exe gcmc.inp > gcmc.out &
+```
 
 Como em qualquer simulação, iniciamos a análise tendo certeza que amostramos a distribuição de equilíbrio, isto é, que o sistema estava termalizado quando começamos a calcular as propriedades.
 Verificamos isso olhando para a evolução das propriedades com os passos de MC.
