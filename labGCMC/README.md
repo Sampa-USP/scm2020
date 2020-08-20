@@ -98,7 +98,7 @@ END
 Agora iremos criar o arquivo `mcf`, que contém a topologia da molécula estudada.
 Esse arquivo pode ser criado com o auxílio da ferramenta `mcfgen.py` que acompanha o Cassandra (com a opção `--ffTemplate`).
 ```
-python2 $CASSANDRA_SCRIPTS/MCF_Generation/mcfgen.py CH4.pdb --ffTemplate
+python3 $CASSANDRA_SCRIPTS/MCF_Generation/mcfgen.py CH4.pdb --ffTemplate
 ```
 Quando perguntado sobre o tipo de potencial de van der Waals (VDW), responda `LJ`.
 Esse comando irá criar o arquivo `CH4.ff` que é um arquivo intermediário gerado para facilitar a criação do `mcf`.
@@ -286,9 +286,12 @@ Para executar o Cassandra, use o comando
 ```
 nohup cassandra gcmc.inp > gcmc.out &
 ```
-A simulação executa em 2-5 minutos (com 2 threads, a depender do número médio de moléculas).
+Após apertar `Enter` depois de inserir o comando acima, pressione `Enter` novamente para liberar o terminal (o `nohup` serve para isso).
+A simulação executa em 0-5 minutos (com 2 threads, a depender do número médio de moléculas).
+Para acompanhar o andamento da simulação e saber se a mesma foi finalizada, olhe o arquivo `.log`, por exemplo, usando o comando `less`.
+Se no final do arquivo você ver a mensagem `Cassandra simulation complete` juntamente com o tempo gasto para a execução, a simulação foi finalizada com sucesso.
 
-Seguindo esses passos para diferentes potenciais químicos, obtemos a relação de potencial químico e pressão.
+Seguindo esses passos para diferentes potenciais químicos (o que cada aluno está fazendo), obtemos a relação de potencial químico e pressão.
 Primeiro, verificamos que vamos extrair as propriedades de uma simulação convergida, que amostrou configurações em torno do equilíbrio.
 Verificamos isso olhando para a energia, pressão e número de moléculas (e em simulações onde o volume não é constante, o volume).
 Essa informação está contida no arquivo `prp`, que pode ser inspecionado manualmente, com um editor de texto (como o `gedit`), ou ainda graficamente com o auxílio de um dos scripts distribuído com o Cassandra:
@@ -298,13 +301,21 @@ python2 $CASSANDRA_SCRIPTS/Post_Analysis/plot.py ch4mu28.out.prp
 ```
 
 Ao executar o comando acima, você pode selecionar a propriedade a ser graficada inserindo o número indicado e pressionando `Enter`.
-Por exemplo, o gráfico da energia deve ser parecido com o abaixo: 
+Por exemplo, o gráfico da energia para aqueles que executaram simulações com o potencial químico maior que ~ -33 kJ/mol deve ser parecido com o abaixo: 
 
 ![energia](imgs/energia.png)
 
 Note que inicialmente, a energia está próxima de -40 kJ/mol, e com o passos dos passos de MC a energia vai caindo, ficando oscilando em torno de -110 kJ/mol no fim da simulação.
 Esse tipo de comportamento indica que a energia foi "termalizada".
 Para sabermos se a termalização foi concluída, temos que executar uma simulação com um número razoável de passos e observar que, não somente a energia, mas também outras propriedades se mantém oscilando em torno de um valor médio.
+
+Para aqueles que executaram a simulação com um potencial químico menor que ~ -33 kJ/mol, o gráfico de energia fica parecido com o gráfico abaixo:
+
+![energia2](imgs/energia_2.png)
+
+Nesses casos, o gráfico fica dessa maneira, devido a densidade do metano nesses potenciais químicos.
+Como temos uma caixa cúbica com 100 angstrom de lado, nesses potenciais químicos poucas moléculas estão na caixa.
+Devido ao **raio de corte**, utilizado para diminuir o custo computacional, em diversas configurações poucas moléculas, ou até nenhuma em alguns casos, estão interagindo entre si, isto é, estão a uma distância menor que o raio de corte.
 Vamos olhar agora para a pressão:
 
 ![press](imgs/press.png)
@@ -406,7 +417,8 @@ Agora, criamos o arquivo de topologia da silicalita, com o mesmo procedimento ut
 python3 $CASSANDRA_SCRIPTS/MCF_Generation/mcfgen.py silicalite.pdb --ffTemplate
 LJ
 ```
-Isso vai gerar o arquivo `.ff` que deve ser editado para adicionar os parâmetros do campo de força, que no nosso caso, serão os parâmetros de [June *et al*](https://pubs.acs.org/doi/10.1021/j100384a047):
+Isso vai gerar o arquivo `.ff` que deve ser editado para adicionar os parâmetros do campo de força, que no nosso caso, serão os parâmetros de [June *et al*](https://pubs.acs.org/doi/10.1021/j100384a047).
+Abra o arquivo `.ff` e role para baixo (passando pela declaração do tipo de cada átomo da seção `atom-atomtype`) até encontrar a parte referente aos parâmetros do campo de força, e insira os parâmetros como abaixo:
 ```
 nonbonded
 O
@@ -422,10 +434,10 @@ atom_type_charge 0.0
 ```
 Após editar o arquivo, geramos o `mcf` com:
 ```
-python2 $CASSANDRA_SCRIPTS/MCF_Generation/mcfgen.py silicalite.pdb
+python3 $CASSANDRA_SCRIPTS/MCF_Generation/mcfgen.py silicalite.pdb
 ```
 
-Agora, criaremos o arquivo de entrada para a simulação da silicalita + metano (o arquivo `inp`).
+Agora, criaremos o arquivo de entrada para a simulação da silicalita + metano (o arquivo `.inp`).
 Usaremos como base o arquivo utilizado para o metano em fase gasosa, contudo, faremos algumas importantes modificações.
 Precisamos adicionar outra espécie a simulação e dizer que ela está fixa (não se move nem pode ser inserida ou deletada com o GCMC).
 Primeiro, precisamos fazer a caixa do tamanho da célula 2x2x2 que estamos usando para a silicalita.
@@ -436,7 +448,7 @@ Esses valores são especificados no `Box_Info` que agora ao invés de uma caixa 
 
 Para a zeólita não se mover durante a simulação, precisamos atribuir a ela um potencial químico do tipo `none` e definir o deslocamento máximo de uma translação como sendo `0.0`.
 Finalmente utilizamos o `add_to_config` para especificar que o `xyz` inicial contém átomos somente da espécie 1 (silicalita), adicionando um número desejado de moléculas de água.
-Com isso temos o arquivo de input para a simulação com a zeólita.
+Com isso temos o arquivo de input para a simulação com a zeólita, que é dado abaixo.
 Compare esse arquivo com o anterior e tenha certeza que entendeu as diferenças.
 
 ```
@@ -588,9 +600,11 @@ Executamos então as simulações para obter a isoterma de adsorção.
 nohup cassandra gcmc.inp > gcmc.out &
 ```
 
+Novamente, pressione `Enter` duas vezes após inserir o comando, e acompanhe o andamento da simulação (que nesse caso deve demorar um pouco mais, entre 1-10 minutos) visualizando o arquivo `.log`.
+
 Como em qualquer simulação, iniciamos a análise tendo certeza que amostramos a distribuição de equilíbrio, isto é, que o sistema estava termalizado quando começamos a calcular as propriedades.
 Verificamos isso olhando para a evolução das propriedades com os passos de MC.
-Essa informação está contida no arquivo `.prp` e ser visualizada com o auxílio do script para graficar disponibilizado com o Cassandra, conforme já feito na parte do tutorial referente ao metano:
+Assim como na simulação do metano em fase gasosa, essa informação está contida no arquivo `.prp` e ser visualizada com o auxílio do script para graficar disponibilizado com o Cassandra:
 
 ```
 python2 $CASSANDRA_SCRIPTS/Post_Analysis/plot.py silicalite_ch4mu38p5.out.prp -skip 300
