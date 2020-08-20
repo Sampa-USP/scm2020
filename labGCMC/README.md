@@ -98,7 +98,7 @@ END
 Agora iremos criar o arquivo `mcf`, que contém a topologia da molécula estudada.
 Esse arquivo pode ser criado com o auxílio da ferramenta `mcfgen.py` que acompanha o Cassandra (com a opção `--ffTemplate`).
 ```
-python2 ~/Documents/PROGRAMAS/Cassandra-1.2.4/Scripts/MCF_Generation/mcfgen.py CH4.pdb --ffTemplate
+python2 $CASSANDRA_SCRIPTS/MCF_Generation/mcfgen.py CH4.pdb --ffTemplate
 ```
 Quando perguntado sobre o tipo de potencial de van der Waals (VDW), responda `LJ`.
 Esse comando irá criar o arquivo `CH4.ff` que é um arquivo intermediário gerado para facilitar a criação do `mcf`.
@@ -122,7 +122,7 @@ atom_type_charge 0.0
 
 Após isso, execute novamente o `mcfgen.py` agora para criar o `mcf`.
 ```
-python3 ~/Documents/PROGRAMAS/Cassandra-1.2.4/Scripts/MCF_Generation/mcfgen.py CH4.pdb
+python3 $CASSANDRA_SCRIPTS/MCF_Generation/mcfgen.py CH4.pdb
 ``` 
 Com isso, temos o arquivo `CH4.mcf`.
 Visualize esse arquivo e tente entender o seu conteúdo.
@@ -262,7 +262,7 @@ Por possuir somente um átomo efetivo, a molécula irá possuir apenas um fragme
 Moléculas mais complexas (se estivéssemos inserindo butano, por exemplo) são inseridas na caixa passo a passo, e por isso os fragmentos são necessários dentro do algoritmo de Configurational Bias Monte Carlo.
 De qualquer maneira, podemos gerar os fragmentos executando a ferramenta `library_setup.py` que acompanha o Cassandra.
 ```
-python3 ~/Documents/PROGRAMAS/Cassandra-1.2.4/Scripts/Frag_Library_Setup/library_setup.py ~/Documents/PROGRAMAS/Cassandra-1.2.4/Src/cassandra_gfortran_openMP.exe gcmc.inp CH4.pdb
+python3 $CASSANDRA_SCRIPTS/Frag_Library_Setup/library_setup.py ~/Documents/PROGRAMAS/Cassandra-1.2.4/Src/cassandra_gfortran_openMP.exe gcmc.inp CH4.pdb
 ```
 Esse comando irá modificar o arquivo `gcmc.inp` e criar o diretório `species1` que contém os arquivo de fragmentos.
 Verifique o que foi alterado na seção `Fragment_Files` do arquivo.
@@ -284,7 +284,7 @@ export OMP_NUM_THREADS=2
 ```
 Para executar o Cassandra, use o comando
 ```
-nohup ~/Documents/PROGRAMAS/Cassandra-1.2.4/Src/cassandra_gfortran_openMP.exe gcmc.inp > gcmc.out &
+nohup cassandra gcmc.inp > gcmc.out &
 ```
 A simulação executa em 2-5 minutos (com 2 threads, a depender do número médio de moléculas).
 
@@ -294,7 +294,7 @@ Verificamos isso olhando para a energia, pressão e número de moléculas (e em 
 Essa informação está contida no arquivo `prp`, que pode ser inspecionado manualmente, com um editor de texto (como o `gedit`), ou ainda graficamente com o auxílio de um dos scripts distribuído com o Cassandra:
 
 ```
-python2 ~/Documents/PROGRAMAS/Cassandra-1.2.4/Scripts/Post_Analysis/plot.py ch4mu28.out.prp
+python2 $CASSANDRA_SCRIPTS/Post_Analysis/plot.py ch4mu28.out.prp
 ```
 
 Ao executar o comando acima, você pode selecionar a propriedade a ser graficada inserindo o número indicado e pressionando `Enter`.
@@ -323,7 +323,7 @@ Os valores médios podem ser obtidos com o mesmo *script* que faz o gráficos do
 Para descartar os primeiros 200 pontos (onde as propriedades ainda não convergiram para a média) usaremos a opção `-skip 200` na linha de comando:
 
 ```
-python2 ~/Documents/PROGRAMAS/Cassandra-1.2.4/Scripts/Post_Analysis/plot.py ch4mu28.out.prp -skip 200
+python2 $CASSANDRA_SCRIPTS/Post_Analysis/plot.py ch4mu28.out.prp -skip 200
 ```
 
 Ao executar o script e selecionar propriedade, observe o valor médio dado (e a unidade):
@@ -367,7 +367,7 @@ Vamos agora criar a estrutura sólida da silicalita para a simulação.
 Utilizaremos o software [VESTA](https://jp-minerals.org/vesta/en/download.html) que está instalado na sua máquina virtual.
 Abra a estrutura baixada no VESTA:
 ```
-~/Documents/DISCIPLINA/VESTA-x86_64/VESTA MFI.cif
+vesta MFI.cif
 ```
 
 Iremos criar uma supercélula 2x2x2 (para comportar mais moléculas de metano) e salvar a estrutura como `pdb` para podermos utilizá-la no Cassandra.
@@ -403,7 +403,7 @@ Com isso temos o arquivo `silicalite.xyz`, que deve ser visualizado (por exemplo
 
 Agora, criamos o arquivo de topologia da silicalita, com o mesmo procedimento utilizado para o metano:
 ```
-python3 ~/Documents/PROGRAMAS/Cassandra-1.2.4/Scripts/MCF_Generation/mcfgen.py silicalite.pdb --ffTemplate
+python3 $CASSANDRA_SCRIPTS/MCF_Generation/mcfgen.py silicalite.pdb --ffTemplate
 LJ
 ```
 Isso vai gerar o arquivo `.ff` que deve ser editado para adicionar os parâmetros do campo de força, que no nosso caso, serão os parâmetros de [June *et al*](https://pubs.acs.org/doi/10.1021/j100384a047):
@@ -422,7 +422,7 @@ atom_type_charge 0.0
 ```
 Após editar o arquivo, geramos o `mcf` com:
 ```
-python2 ~/Documents/PROGRAMAS/Cassandra-1.2.4/Scripts/MCF_Generation/mcfgen.py silicalite.pdb
+python2 $CASSANDRA_SCRIPTS/MCF_Generation/mcfgen.py silicalite.pdb
 ```
 
 Agora, criaremos o arquivo de entrada para a simulação da silicalita + metano (o arquivo `inp`).
@@ -585,7 +585,7 @@ Finalmente temos então um arquivo de entrada utilizando parâmetros que descrev
 Executamos então as simulações para obter a isoterma de adsorção.
 
 ```
-nohup ~/Documents/PROGRAMAS/Cassandra-1.2.4/Src/cassandra_gfortran_openMP.exe gcmc.inp > gcmc.out &
+nohup cassandra gcmc.inp > gcmc.out &
 ```
 
 Como em qualquer simulação, iniciamos a análise tendo certeza que amostramos a distribuição de equilíbrio, isto é, que o sistema estava termalizado quando começamos a calcular as propriedades.
@@ -593,7 +593,7 @@ Verificamos isso olhando para a evolução das propriedades com os passos de MC.
 Essa informação está contida no arquivo `.prp` e ser visualizada com o auxílio do script para graficar disponibilizado com o Cassandra, conforme já feito na parte do tutorial referente ao metano:
 
 ```
-python2 ~/Documents/PROGRAMAS/Cassandra-1.2.4/Scripts/Post_Analysis/plot.py silicalite_ch4mu38p5.out.prp -skip 300
+python2 $CASSANDRA_SCRIPTS/Post_Analysis/plot.py silicalite_ch4mu38p5.out.prp -skip 300
 ```
 
 Verifique que a simulação está termalizada.
