@@ -737,7 +737,35 @@ pre {
 <p>Shell é um ambiente baseado em texto - ou interface de linha de comando - que permite armazenamento de variáveis, gerenciamento de diretórios e arquivos e execução de programas. Bash é o programa shell presente em sistemas operacionais base GNU (Linux e MacOS). Como Bash possuí um interpretador dos comandos realizados no shell, bash pode ser considerada uma linguagem de programação.</p>
 <h2>
 <a id="user-content-0-antes-de-começar" class="anchor" href="#0-antes-de-come%C3%A7ar" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>0) Antes de começar...</h2>
+<p>Para garantir uma funcionalidade completa da VM, você vai precisar instalar o <strong>VirtualBox Guest Additions</strong>. Baixe o setup <a href="https://download.virtualbox.org/virtualbox/6.1.12/Oracle_VM_VirtualBox_Extension_Pack-6.1.12.vbox-extpack" rel="nofollow">aqui</a>.</p>
+<p>Alternativamente, no caso de Linux, siga as instruções abaixo:</p>
+<div class="highlight highlight-source-shell"><pre>sudo apt update
+sudo apt upgrade
+sudo apt install build-essential dkms linux-headers-<span class="pl-s"><span class="pl-pds">$(</span>uname -r<span class="pl-pds">)</span></span></pre></div>
 <p>Inicie a sua máquina virtual utilizando o VirtualBox. Lembre-se, as senhas de acesso são "scm2020" (máquina Ubuntu "full") e "stds9" (máquina Lubuntu "lite"). Você pode alterar as senhas da sua VM se quiser. Para iniciar o terminal, use o atalho Ctrl+Alt+T.</p>
+<p><strong>Configurações adicionais</strong></p>
+<p>A) Caso seja necessário reinstalar o Guest additions na VM:</p>
+<p>Vá em <strong>Devices &gt; Insert Guest Additions CD</strong> e execute o comando autorun.sh. Isso irá instalar o Guest additions na VM.</p>
+<p>B) Para criar um diretório a ser compartilhado com a VM:</p>
+<ul>
+<li>
+<p>No seu sistema operacional base: criar uma pasta compartilhada, ex: <strong>shared</strong>. Máquinas linnux devem habilitar a leitura e escrita na pasta desejada automaticamente. <strong>Caso você esteja utilizando Windows:</strong></p>
+</li>
+<li>
+<p>No Windows, clique direito &gt; propriedades &gt; compartilhamento &gt; compartilhar &gt; permitir leitura/escrita de qualquer usuário.</p>
+</li>
+<li>
+<p>Na aba avançado &gt; habilite a opção "Compartilhar essa pasta".</p>
+</li>
+</ul>
+<p>C) <strong>Problemas com o teclado?</strong>
+A VM está configurada para um teclado PT-BR com tecla <strong>Ç</strong>. Para alterar, na VM:</p>
+<ul>
+<li>Clique direito na barra inferior</li>
+<li>Add / Remove Panel Items, Add</li>
+<li>Keyboard Layout Handler</li>
+</ul>
+<p>Agora você pode alterar o teclado no canto inferior direito (bandeira do Brasil, ao lado do relógio).</p>
 <h2>
 <a id="user-content-1-os-comandos-principais" class="anchor" href="#1-os-comandos-principais" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1) Os comandos principais:</h2>
 <p>Navegação:</p>
@@ -755,25 +783,28 @@ vim <span class="pl-k">~</span>/.bashrc
 <span class="pl-c"><span class="pl-c">#</span> Para sair do vim, pressione Ctlr+C, :qa!, enter.</span>
 ls
 <span class="pl-c1">cd</span> <span class="pl-k">~</span>/
-<span class="pl-c1">pwd</span>
-ls -l
-<span class="pl-c1">cd</span> /home/
-clear </pre></div>
-<p>Gerenciando arquivos e extraindo informações:</p>
-<ul>
-<li><strong>mkdir (make directory)</strong></li>
-<li><strong>touch</strong></li>
-<li><strong>mv (move)</strong></li>
-<li><strong>rm (remove)</strong></li>
-<li><strong>cp (copy)</strong></li>
-<li><strong>cat (concatenate)</strong></li>
-<li><strong>head</strong></li>
-<li><strong>tail</strong></li>
-<li><strong>comm, cmp (compare)</strong></li>
-<li><strong>grep</strong></li>
-</ul>
-<p>Exemplo de código:</p>
-<div class="highlight highlight-source-shell"><pre>mkdir teste
+<span class="pl-s"><span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span>bash</span>
+<span class="pl-s"><span class="pl-c1">echo</span> Texto</span>
+<span class="pl-s"><span class="pl-c1">echo</span> <span class="pl-smi">$PATH</span></span>
+<span class="pl-s">which <span class="pl-c1">echo</span></span>
+<span class="pl-s">vim <span class="pl-k">~</span>/.bashrc</span>
+<span class="pl-s"></span>
+<span class="pl-s">Gerenciando arquivos e extraindo informações: </span>
+<span class="pl-s">- <span class="pl-k">**</span>mkdir (make directory)<span class="pl-k">**</span></span>
+<span class="pl-s">- <span class="pl-k">**</span>touch<span class="pl-k">**</span></span>
+<span class="pl-s">- <span class="pl-k">**</span>mv (move)<span class="pl-k">**</span></span>
+<span class="pl-s">- <span class="pl-k">**</span>rm (remove)<span class="pl-k">**</span> </span>
+<span class="pl-s">- <span class="pl-k">**</span>cp (copy)<span class="pl-k">**</span></span>
+<span class="pl-s">- <span class="pl-k">**</span>cat (concatenate)<span class="pl-k">**</span></span>
+<span class="pl-s">- <span class="pl-k">**</span>head<span class="pl-k">**</span></span>
+<span class="pl-s">- <span class="pl-k">**</span>tail<span class="pl-k">**</span></span>
+<span class="pl-s">- <span class="pl-k">**</span>comm, cmp (compare)<span class="pl-k">**</span></span>
+<span class="pl-s">- <span class="pl-k">**</span>grep<span class="pl-k">**</span></span>
+<span class="pl-s"></span>
+<span class="pl-s">Exemplo de código:</span>
+<span class="pl-s"></span>
+<span class="pl-s"><span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span></span>bash
+mkdir teste
 touch teste.txt
 mv teste.txt teste2.txt
 mv ../teste2.txt
@@ -889,13 +920,15 @@ nohup <span class="pl-c1">command</span> <span class="pl-k">&lt;</span>input <sp
 </ul>
 <div class="highlight highlight-source-shell"><pre>nohup process input <span class="pl-k">1&gt;</span> out.log <span class="pl-k">2&gt;&amp;1</span> <span class="pl-k">&amp;</span></pre></div>
 <h2>
-<a id="user-content-3-gráficos-com-gnuplot" class="anchor" href="#3-gr%C3%A1ficos-com-gnuplot" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3) Gráficos com gnuplot:</h2>
+<a id="user-content-3-visualização-de-arquivos-gráficos-com-gnuplot" class="anchor" href="#3-visualiza%C3%A7%C3%A3o-de-arquivos-gr%C3%A1ficos-com-gnuplot" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3) Visualização de arquivos; gráficos com gnuplot:</h2>
 <ul>
-<li>Gerenciando trabalhos (usando <em>while</em>):</li>
+<li>Gerenciando trabalhos (usando <em>tail -f</em>):</li>
 </ul>
 <div class="highlight highlight-source-shell"><pre>tail -f file.out
     <span class="pl-c"><span class="pl-c">#</span> ultima linha escrita no arquivo (...) - real time</span>
     <span class="pl-c"><span class="pl-c">#</span> (Ctrl+C para sair)</span>
+
+xcrysden --pwi 01.in
 
 gnuplot
     <span class="pl-c1">set</span> terminal dumb <span class="pl-c"><span class="pl-c">#</span> graficos no terminal</span>

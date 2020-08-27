@@ -5,7 +5,38 @@ Shell é um ambiente baseado em texto - ou interface de linha de comando - que p
 
 ## 0) Antes de começar...
 
+Para garantir uma funcionalidade completa da VM, você vai precisar instalar o **VirtualBox Guest Additions**. Baixe o setup [aqui](https://download.virtualbox.org/virtualbox/6.1.12/Oracle_VM_VirtualBox_Extension_Pack-6.1.12.vbox-extpack).
+
+Alternativamente, no caso de Linux, siga as instruções abaixo:
+```bash
+sudo apt update
+sudo apt upgrade
+sudo apt install build-essential dkms linux-headers-$(uname -r)
+```
+
 Inicie a sua máquina virtual utilizando o VirtualBox. Lembre-se, as senhas de acesso são "scm2020" (máquina Ubuntu "full") e "stds9" (máquina Lubuntu "lite"). Você pode alterar as senhas da sua VM se quiser. Para iniciar o terminal, use o atalho Ctrl+Alt+T.
+
+**Configurações adicionais**
+
+A) Caso seja necessário reinstalar o Guest additions na VM: 
+
+Vá em **Devices > Insert Guest Additions CD** e execute o comando autorun.sh. Isso irá instalar o Guest additions na VM.
+
+B) Para criar um diretório a ser compartilhado com a VM:
+
+- No seu sistema operacional base: criar uma pasta compartilhada, ex: **shared**. Máquinas linnux devem habilitar a leitura e escrita na pasta desejada automaticamente. **Caso você esteja utilizando Windows:**
+
+- No Windows, clique direito > propriedades > compartilhamento > compartilhar > permitir leitura/escrita de qualquer usuário.
+- Na aba avançado > habilite a opção "Compartilhar essa pasta".
+
+C) **Problemas com o teclado?**
+A VM está configurada para um teclado PT-BR com tecla **Ç**. Para alterar, na VM:
+- Clique direito na barra inferior
+- Add / Remove Panel Items, Add
+- Keyboard Layout Handler
+
+Agora você pode alterar o teclado no canto inferior direito (bandeira do Brasil, ao lado do relógio). 
+
 
 ## 1) Os comandos principais:
 
@@ -25,11 +56,11 @@ vim ~/.bashrc
 # Para sair do vim, pressione Ctlr+C, :qa!, enter.
 ls
 cd ~/
-pwd
-ls -l
-cd /home/
-clear 
-```
+```bash
+echo Texto
+echo $PATH
+which echo
+vim ~/.bashrc
 
 Gerenciando arquivos e extraindo informações: 
 - **mkdir (make directory)**
@@ -174,13 +205,15 @@ Comandos (programas) especiais:
 nohup process input 1> out.log 2>&1 &
 ```
 
-## 3) Gráficos com gnuplot:
+## 3) Visualização de arquivos; gráficos com gnuplot:
 
-- Gerenciando trabalhos (usando *while*): 
+- Gerenciando trabalhos (usando *tail -f*): 
 ```bash
 tail -f file.out
     # ultima linha escrita no arquivo (...) - real time
     # (Ctrl+C para sair)
+
+xcrysden --pwi 01.in
 
 gnuplot
     set terminal dumb # graficos no terminal

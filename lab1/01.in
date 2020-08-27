@@ -1,0 +1,54 @@
+&control
+  calculation='relax'
+  restart_mode='from_scratch'
+  prefix='silica'
+  pseudo_dir='pp'
+  etot_conv_thr = 1.0D-6
+  forc_conv_thr = 1.0D-5
+  outdir='./out'
+  nstep=20000
+  max_seconds=14000
+  tprnfor=.TRUE.
+  tstress=.TRUE.
+  disk_io='none'
+/
+&system
+  ibrav=0
+  a=4.1089706421
+  nat=6
+  ntyp=2,
+  ecutwfc=80
+  ecutrho=320
+  nosym=.TRUE.
+  degauss = 3.0D-3
+  smearing='fd'
+  vdw_corr='grimme-d2'
+/
+&electrons
+  diagonalization='david'
+  electron_maxstep = 1000
+  mixing_mode ='local-TF'
+  mixing_beta = 0.2
+  conv_thr = 1.0D-6
+/
+&ions
+/
+
+CELL_PARAMETERS {alat}
+ 1.000000000000000   0.000000000000000   0.000000000000000
+ 0.076135935000000   0.997097447000000   0.000000000000000
+-0.538067996000000  -0.498548750000000   0.679655777000000
+
+K_POINTS automatic
+9 9 9 0 0 0
+ATOMIC_SPECIES
+ C   12.0107    C.pbe-n-kjpaw_psl.1.0.0.UPF 
+ O   15.9990    O.pbe-n-kjpaw_psl.1.0.0.UPF 
+
+ATOMIC_POSITIONS {angstrom}
+C 0.0 0.0 0.0
+C 2.054485262 -5.5e-08 1.396342817
+O 1.662710922 -0.685841269 2.555871538
+O 1.653647125 3.758624096 0.236814159
+O -0.713678534 -0.338419971 1.159528638
+O 1.819131131 1.362680958 1.633156913
