@@ -221,9 +221,24 @@ git merge --continue
 Agora o código salve.py tem ambas as funções (klingon e volcano) implementadas.
 
 ## Git online
+
+### Git clone e git pull (baixando repositórios existentes)
+
+Muitas vezes, gostaríamos de fazer download do conteúdo de um repositório para ter os arquivos localmente.
+Isso é comum até mesmo para programas cujo código fonte é armazenado no GitHub, e temos que baixar os arquivos para compilar.
+A maneira mais fácil de fazer o download do conteúdo, é com o `git clone`, que baixa os arquivos do repositório, e também os metadados do **git**
+
+```
+git clone <url>
+```
+
+Esse comando fará o download do repositório criando um novo diretório no diretório atual, com o nome do repositório.
+Dentro desse diretório criado, e possível utilizar o `git pull` para fazer um *fetch* dos commits mais novos no repositório e dar um merge automaticamente.
+O `git pull` é útil para verificar que a versão que está no diretório é a última versão disponível e, caso não, atualizá-la automaticamente.
+
 ### Git remote (colaborando com outras pessoas online)
 
-Se você quer colaborar com outras pessoas, está na hora de enviar seu repositório local para um servidor remoto utilizando **git remote**.
+Se você tem um repositório local (que não foi baixado com git clone) e quer colaborar com outras pessoas, está na hora de enviar seu repositório local para um servidor remoto utilizando **git remote**.
 
 ```
 git remote add origin <url>
@@ -231,7 +246,23 @@ git push -u origin master
 git log --all --graph --decorate --oneline
 ```
 
-Para iniciar um repositório a partir de um repositório do Github, utilize o comando **git clone**. Para baixar alterações que foram realizadas online, utilize o comando **git fetch**. O comando **git pull** é na verdade uma combinação de fetch + merge. 
+O comando `git remote add`, adicionam ao repositório a fonte remota `<url>`, por exemplo, o GitHub, chamando-a de `origin`.
+Já o comando `git push` é utilizado para enviar as mudanças feitas localmente no seu computador para o servidor remoto, nesse caso, enviando ao servidor `origin` o ramo `master`.
+Note que você pode enviar outros ramos, e manter uma cópia remota deles.
+Finalmente, o `git log` é utilizado para mostrar o histórico de mudanças desse repositório, com as flags indicadas com `--` sendo opções de visualização.
+
+A `<url>` para a qual você enviará o seu repositório pode ser a url de um repositório do GitHub.
+Para isso, você precisa primeiro criar um repositório no GitHub para receber o seu projeto.
+Isso pode ser feito clicando no sinal de `+` presente na barra superior (entre o sino de notificações e sua foto) quando está logado no GitHub.
+Crie um repositório com o nome desejado e sem inicializá-lo com nenhum arquivo (sem README, .gitignore e licença).
+Na página seguinte (a página inicial do repositório vazio), aparecerá um link como `git@github.com:hmcezar/teste.git`.
+Essa é a url do repositório que será adicionada com o `git remote`.
+Mais informações podem ser vistas na [documentação](https://docs.github.com/pt/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line) do próprio GitHub.
+
+Alternativamente, se você ainda não tem um repositório para o projeto atual, é possível criar um repositório com o arquivo README pela interface do GitHub e depois clona-lo.
+Depois de clonado, você pode adicionar os arquivos desejados e fazer um *commit* e *push* (como acima) para enviar os arquivos para o GitHub.
+Note que este também é o procedimento que deve seguir para enviar *commits* para um repositório que você tenha permissão de escrita.
+Para repositórios que você não tem permissão de escrita é necessário criar um [*pull request*](https://docs.github.com/pt/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request), o que foge do escopo desse tutorial.
 
 ### Usando outras funcionalidades do GitHub
 Além de servir como servidor para repositórios **git**, o GitHub possui outras funcionalidades.
@@ -246,7 +277,7 @@ Essas funcionalidades fogem do escopo desse tutorial, contudo, são importantes 
 
 Se você pretende utilizar **git** em seus projetos, procure por mais informações sobre os comandos:
 
-- **git config** ou vim /.gitconfig
+- **git config** ou vim ~/.gitconfig
 - **git clone --shallow** 
 - **git add -p file**
 - **git diff --cached**
@@ -262,4 +293,7 @@ Essa aula foi baseada no seguinte conteúdo:
 - CS-MIT 2020: https://missing.csail.mit.edu/2020/version-control/
 - Missing Semester (youtube): https://www.youtube.com/watch?v=2sjqTHE0zok&t=146s
 
-
+Mais informações podem ser encontradas nas referências:
+- Git Book: https://git-scm.com/book/pt-br/v2
+- Documentação do GitHub: https://docs.github.com/pt
+- Markdown cheat-sheet: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
