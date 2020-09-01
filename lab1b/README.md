@@ -220,6 +220,8 @@ git merge --continue
 
 Agora o código salve.py tem ambas as funções (klingon e volcano) implementadas.
 
+Mais detalhes sobre `branches` e `merge` podem ser vistos, por exemplo, no [Pro Git Book](https://git-scm.com/book/pt-br/v2/Git-Branching-Basic-Branching-and-Merging).
+
 ## Git online
 
 ### Git clone e git pull (baixando repositórios existentes)
@@ -294,6 +296,6 @@ Essa aula foi baseada no seguinte conteúdo:
 - Missing Semester (youtube): https://www.youtube.com/watch?v=2sjqTHE0zok&t=146s
 
 Mais informações podem ser encontradas nas referências:
-- Git Book: https://git-scm.com/book/pt-br/v2
+- Pro Git Book: https://git-scm.com/book/pt-br/v2
 - Documentação do GitHub: https://docs.github.com/pt
 - Markdown cheat-sheet: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
