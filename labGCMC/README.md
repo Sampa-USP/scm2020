@@ -77,6 +77,28 @@ Aluno | Potencial químico | Aluno | Potencial químico
 Note que o potencial químico indicado na tabela não é o potencial químico real, pois o Cassandra utiliza um potencial químico deslocado.
 Isso não muda nada em termos práticos para a simulação, mas pode alterar a comparação de dados com a literatura (se estiver comparando resultados por potencial químico, e não pressão).
 
+## Atualizando o Cassandra na máquina virtual
+
+O Cassandra está instalado na máquina virtual dentro de um ambiente do `conda`.
+Devido a um **bug** presente na versão `1.2.4`, instalada na máquina virtual precisamos atualizar a versão.
+
+Primeiro, vamos entrar no ambiente `conda` no qual está instalado o Cassandra:
+```
+conda activate cassandra
+```
+
+Agora, requisitamos a atualização:
+```
+conda update -c conda-forge cassandra
+```
+Confirme pressionando `y` e depois `Enter`.
+
+Pronto, temos agora a última versão do Cassandra e seus scripts.
+Sempre que for utilizar o programa dentro da máquina virtual, lembre de carregar o ambiente com
+```
+conda activate cassandra
+```
+
 ## Simulação de metano em fase gasosa
 
 Antes de fazer a simulação da adsorção de metano na zeólita, vamos fazer a simulação de metano puro na fase gasosa.
@@ -98,7 +120,7 @@ END
 Agora iremos criar o arquivo `mcf`, que contém a topologia da molécula estudada.
 Esse arquivo pode ser criado com o auxílio da ferramenta `mcfgen.py` que acompanha o Cassandra (com a opção `--ffTemplate`).
 ```
-python3 $CASSANDRA_SCRIPTS/MCF_Generation/mcfgen.py CH4.pdb --ffTemplate
+mcfgen.py CH4.pdb --ffTemplate
 ```
 Quando perguntado sobre o tipo de potencial de van der Waals (VDW), responda `LJ`.
 Esse comando irá criar o arquivo `CH4.ff` que é um arquivo intermediário gerado para facilitar a criação do `mcf`.
@@ -122,7 +144,7 @@ atom_type_charge 0.0
 
 Após isso, execute novamente o `mcfgen.py` agora para criar o `mcf`.
 ```
-python3 $CASSANDRA_SCRIPTS/MCF_Generation/mcfgen.py CH4.pdb
+mcfgen.py CH4.pdb
 ``` 
 Com isso, temos o arquivo `CH4.mcf`.
 Visualize esse arquivo e tente entender o seu conteúdo.
@@ -262,7 +284,7 @@ Por possuir somente um átomo efetivo, a molécula irá possuir apenas um fragme
 Moléculas mais complexas (se estivéssemos inserindo butano, por exemplo) são inseridas na caixa passo a passo, e por isso os fragmentos são necessários dentro do algoritmo de Configurational Bias Monte Carlo.
 De qualquer maneira, podemos gerar os fragmentos executando a ferramenta `library_setup.py` que acompanha o Cassandra.
 ```
-python3 $CASSANDRA_SCRIPTS/Frag_Library_Setup/library_setup.py ~/Documents/PROGRAMAS/Cassandra-1.2.4/Src/cassandra_gfortran_openMP.exe gcmc.inp CH4.pdb
+library_setup.py cassandra.exe gcmc.inp CH4.pdb
 ```
 Esse comando irá modificar o arquivo `gcmc.inp` e criar o diretório `species1` que contém os arquivo de fragmentos.
 Verifique o que foi alterado na seção `Fragment_Files` do arquivo.
@@ -297,7 +319,7 @@ Verificamos isso olhando para a energia, pressão e número de moléculas (e em 
 Essa informação está contida no arquivo `prp`, que pode ser inspecionado manualmente, com um editor de texto (como o `gedit`), ou ainda graficamente com o auxílio de um dos scripts distribuído com o Cassandra:
 
 ```
-python2 $CASSANDRA_SCRIPTS/Post_Analysis/plot.py ch4mu28.out.prp
+python2 ~/scm2020/labGCMC/util/plot.py ch4mu28.out.prp
 ```
 
 Ao executar o comando acima, você pode selecionar a propriedade a ser graficada inserindo o número indicado e pressionando `Enter`.
@@ -334,7 +356,7 @@ Os valores médios podem ser obtidos com o mesmo *script* que faz o gráficos do
 Para descartar os primeiros 200 pontos (onde as propriedades ainda não convergiram para a média) usaremos a opção `-skip 200` na linha de comando:
 
 ```
-python2 $CASSANDRA_SCRIPTS/Post_Analysis/plot.py ch4mu28.out.prp -skip 200
+python2 ~/scm2020/labGCMC/util/plot.py ch4mu28.out.prp -skip 200
 ```
 
 Ao executar o script e selecionar propriedade, observe o valor médio dado (e a unidade):
@@ -414,7 +436,7 @@ Com isso temos o arquivo `silicalite.xyz`, que deve ser visualizado (por exemplo
 
 Agora, criamos o arquivo de topologia da silicalita, com o mesmo procedimento utilizado para o metano:
 ```
-python3 $CASSANDRA_SCRIPTS/MCF_Generation/mcfgen.py silicalite.pdb --ffTemplate
+mcfgen.py silicalite.pdb --ffTemplate
 LJ
 ```
 Isso vai gerar o arquivo `.ff` que deve ser editado para adicionar os parâmetros do campo de força, que no nosso caso, serão os parâmetros de [June *et al*](https://pubs.acs.org/doi/10.1021/j100384a047).
@@ -434,7 +456,7 @@ atom_type_charge 0.0
 ```
 Após editar o arquivo, geramos o `mcf` com:
 ```
-python3 $CASSANDRA_SCRIPTS/MCF_Generation/mcfgen.py silicalite.pdb
+mcfgen.py silicalite.pdb
 ```
 
 Agora, criaremos o arquivo de entrada para a simulação da silicalita + metano (o arquivo `.inp`).
@@ -607,7 +629,7 @@ Verificamos isso olhando para a evolução das propriedades com os passos de MC.
 Assim como na simulação do metano em fase gasosa, essa informação está contida no arquivo `.prp` e ser visualizada com o auxílio do script para graficar disponibilizado com o Cassandra:
 
 ```
-python2 $CASSANDRA_SCRIPTS/Post_Analysis/plot.py silicalite_ch4mu38p5.out.prp -skip 300
+python2 ~/scm2020/labGCMC/util/plot.py silicalite_ch4mu38p5.out.prp -skip 300
 ```
 
 Verifique que a simulação está termalizada.
