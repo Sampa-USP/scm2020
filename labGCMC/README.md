@@ -306,7 +306,7 @@ export OMP_NUM_THREADS=2
 ```
 Para executar o Cassandra, use o comando
 ```
-nohup cassandra gcmc.inp > gcmc.out &
+nohup cassandra.exe gcmc.inp > gcmc.out &
 ```
 Após apertar `Enter` depois de inserir o comando acima, pressione `Enter` novamente para liberar o terminal (o `nohup` serve para isso).
 A simulação executa em 0-5 minutos (com 2 threads, a depender do número médio de moléculas).
@@ -619,7 +619,7 @@ Finalmente temos então um arquivo de entrada utilizando parâmetros que descrev
 Executamos então as simulações para obter a isoterma de adsorção.
 
 ```
-nohup cassandra gcmc.inp > gcmc.out &
+nohup cassandra.exe gcmc.inp > gcmc.out &
 ```
 
 Novamente, pressione `Enter` duas vezes após inserir o comando, e acompanhe o andamento da simulação (que nesse caso deve demorar um pouco mais, entre 1-10 minutos) visualizando o arquivo `.log`.
