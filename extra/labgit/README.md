@@ -37,7 +37,7 @@ No diterório oculto **.git**, é possível ver a estrutura de objetos e referê
 Para indicar quais mudanças devem ser incluídas no próximo snapshot, vamos criar um arquivo de texto e utilizar o comando **git add**
 
 ```
-echo "Detalhes do projeto: (...)" > README.MD
+echo "Detalhes do projeto" > README.MD
 git status
 ```
 
@@ -48,7 +48,7 @@ O **git** irá perceber que um novo arquivo foi criado, mas se ele não for sele
 ```
 git add README.MD
 git status
-git commit -m "Primeira versão do meu projeto (initial commit)"
+git commit -m "Primeira versão do projeto (initial commit)"
 git log
 ```
 
@@ -91,8 +91,9 @@ Para criar um ramo (**branch**) independente de nosso código, usaremos o comand
 Primeiramente, vamos criar um programa inicial com python:
 
 ```
-vim salve.py 
-
+vim salve.py
+```
+```python
 # --start
 import sys
 
@@ -100,18 +101,22 @@ def default():
     print('o que voce quer?')
 
 def main():
-    default()
+    if len(sys.argv) > 1:
+        print(sys.argv[1])
+    else:
+        default()
 
 if __name__ == '__main__':
     main()
 # --end
-
+```
+```
 git status
 git add salve.py
 git commit
 git log 
 ```
-Teste o programa com python salve.py. Ele já foi incluído no controle de versões **git**. Agora vamos implementar outras opções de resposta em um novo *branch* (klingon):
+Teste o programa com "python salve.py". Ele já foi incluído no controle de versões **git**. Agora vamos implementar outras opções de resposta em um novo *branch* (klingon):
 
 ```
 git branch -vv
@@ -121,26 +126,31 @@ git checkout klingon
 git log
 
 vim salve.py 
-
+```
+```python
 # --start
 import sys
-
-def klingon():  #add
-    print('nuqneH')  #add
 
 def default():
     print('o que voce quer?')
 
+def klingon():  #add
+    print('nuqneH')  #add
+
 def main():
-    if sys.argv[1] == 'klingon':  #add
-       klingon()  #add
+    if len(sys.argv) > 1:
+        if sys.argv[1] == 'klingon':  #add
+            klingon()  #add
+        else:
+            print (sys.argv[1])
     else:
-       default()
+        default()
 
 if __name__ == '__main__':
     main()
 # --end
-
+```
+```
 git status 
 git diff
 git add salve.py 
@@ -150,42 +160,47 @@ git log --all --graph --decorate
 
 A função klingon() só foi implementada no ramo klingon. Isso quer dizer que se restaurarmos a versão original (git checkout master), não teremos a função implementada em salve.py. Mas e se houver mais de 1 ramo de desenvolvimento ativo, sendo modificado paralelamente?
 
-Vamos criar um outro branch, a partir do código original, independente do ramo klingon(). Para tal:
+Vamos criar um outro branch, a partir do código original (*master*), independente do ramo klingon(). Nesse caso vamos utilizar o comando reduzido **git checkout -b** para criar um novo branch e ativá-lo (i.e. **HEAD** irá apontar para o branch vulcan):
 
 ```
 git checkout master
-git checkout -b volcano
+git checkout -b vulcan
 git log
 
 vim salve.py 
-
+```
+```python
 # --start
 import sys
-
-def klingon():  #add
-    print('dif-tor heh smusma')  #add
 
 def default():
     print('o que voce quer?')
 
+def vulcan():  #add
+    print('dif-tor heh smusma')  #add
+
 def main():
-    if sys.argv[1] == 'volcano':  #add
-       volcano()  #add
+    if len(sys.argv) > 1:
+        if sys.argv[1] == 'vulcan':  #add
+            vulcan()  #add
+        else:
+            print (sys.argv[1])
     else:
-       default()
+        default()
 
 if __name__ == '__main__':
     main()
 # --end
-
+```
+```
 git status 
 git diff
 git add salve.py 
-git commit -m 'Volcanos encontrados'
+git commit -m 'Vulcanos encontrados'
 git log --all --graph --decorate --oneline
 ```
 
-Ok. Temos três ramos de desenvolvimento distintos. Chegou o momento de unir os esforços de humanos, klingons e volcanos em um único código utilizando o comando **git merge**:
+Ok. Agora temos três ramos de desenvolvimento distintos. Chegou o momento de unir os esforços de humanos, klingons e vulcanos em um único código utilizando o comando **git merge**:
 
 ```
 git checkout master
@@ -195,30 +210,35 @@ git merge klingon
 Aparentemente, a primeira união (merge) ocorreu sem problemas, e a função klingon() foi incorporada em master. 
 
 ```
-git merge volcano
+git merge vulcan
 git merge --abort
 ```
 
-Entretanto, como o ramo volcano partiu de um estado anterior ao atual, **git** está indicando um conflito ao tentar realizar a união. Vamos identificar e resolver esse conflito manualmente:
+Entretanto, como o ramo vulcan partiu de um estado anterior ao atual, **git** está indicando um conflito na função **main()** ao tentar realizar a união. Vamos identificar e resolver esse conflito manualmente:
 
 ```
-git merge volcano
+git merge vulcan
 vim salve.py
-
+```
+```python
 # --
 def main():
-    if sys.argv[1] == 'klingon':
-       klingon()
-    elif sys.argv[1] == 'volcano':	#modified
-       volcano()
+    if len(sys.argv) > 1:
+        if sys.argv[1] == 'klingon':  #add
+            klingon()
+        elif sys.argv[1] == 'vulcan':  #add
+            vulcan()  #add
+        else:
+            print (sys.argv[1])
     else:
-       default()
+        default()
 # --
-
+```
+```
 git merge --continue
 ```
 
-Agora o código salve.py tem ambas as funções (klingon e volcano) implementadas.
+Agora o código salve.py tem ambas as funções (klingon e vulcan) implementadas.
 
 Mais detalhes sobre `branches` e `merge` podem ser vistos, por exemplo, no [Pro Git Book](https://git-scm.com/book/pt-br/v2/Git-Branching-Basic-Branching-and-Merging).
 
