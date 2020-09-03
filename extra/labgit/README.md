@@ -25,11 +25,11 @@ git --version
 
 Se o comando retornar a versão do **git** como, por exemplo, `git version 2.28.0` significa que o git está instalado.
 Se ele não estiver instalado, antes de prosseguir com o tutorial faça a instalação de acordo com o seu sistema operacional.
-Um tutorial de instalação para diversos sistemas pode ser encontrado no [Pro Git Book](https://git-scm.com/book/pt-br/v2/Come%C3%A7ando-Instalando-o-Git)
+Um tutorial de instalação para diversos sistemas pode ser encontrado no [Pro Git Book](https://git-scm.com/book/pt-br/v2/Come%C3%A7ando-Instalando-o-Git).
 Para sistemas baseados no Debian (como o Ubuntu, por exemplo) basta instalar com:
 
 ```bash
-apt install git
+sudo apt install git
 ```
 
 Com o **git** instalado, precisamos configurar o seu nome e email, caso nunca tenha o feito.
