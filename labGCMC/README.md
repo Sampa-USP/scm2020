@@ -319,7 +319,7 @@ Verificamos isso olhando para a energia, pressão e número de moléculas (e em 
 Essa informação está contida no arquivo `prp`, que pode ser inspecionado manualmente, com um editor de texto (como o `gedit`), ou ainda graficamente com o auxílio de um dos scripts distribuído com o Cassandra:
 
 ```
-python2 ~/scm2020/labGCMC/util/plot.py ch4mu28.out.prp
+python2 ~/scm2020/labGCMC/utils/plot.py ch4mu28.out.prp
 ```
 
 Ao executar o comando acima, você pode selecionar a propriedade a ser graficada inserindo o número indicado e pressionando `Enter`.
@@ -356,7 +356,7 @@ Os valores médios podem ser obtidos com o mesmo *script* que faz o gráficos do
 Para descartar os primeiros 200 pontos (onde as propriedades ainda não convergiram para a média) usaremos a opção `-skip 200` na linha de comando:
 
 ```
-python2 ~/scm2020/labGCMC/util/plot.py ch4mu28.out.prp -skip 200
+python2 ~/scm2020/labGCMC/utils/plot.py ch4mu28.out.prp -skip 200
 ```
 
 Ao executar o script e selecionar propriedade, observe o valor médio dado (e a unidade):
@@ -629,7 +629,7 @@ Verificamos isso olhando para a evolução das propriedades com os passos de MC.
 Assim como na simulação do metano em fase gasosa, essa informação está contida no arquivo `.prp` e ser visualizada com o auxílio do script para graficar disponibilizado com o Cassandra:
 
 ```
-python2 ~/scm2020/labGCMC/util/plot.py silicalite_ch4mu38p5.out.prp -skip 300
+python2 ~/scm2020/labGCMC/utils/plot.py silicalite_ch4mu38p5.out.prp -skip 300
 ```
 
 Verifique que a simulação está termalizada.
