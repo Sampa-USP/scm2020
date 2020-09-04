@@ -8,12 +8,6 @@ Para um mesmo sistema, mais de uma parametrização pode existir, e um ou outra 
 
 Para realizar a simulação de DM, utilizaremos o software [LAMMPS](https://lammps.sandia.gov/), que tem o seu nome baseado no acrônimo Large-scale Atomic/Molecular Massively Parallel Simulator.
 
-## Estrutura dos arquivos de entrada para o LAMMPS
-
-Para executar o LAMMPS é necessário criar um arquivo de entrada (arquivo de texto, geralmente iniciado por `in.` ou terminado por `.in`) que contém informações sobre a simulação, como temperatura, **time step**, *ensemble* simulado, frequência da escrita das propriedades calculadas etc.
-Esse mesmo arquivo pode ser utilizado para se construir a **topologia** do sistema, que contém a forma e dimensões da **caixa de simulação**, as coordenadas atômicas, e parâmetros do campo de força. 
-Contudo, para sistemas mais complexos a topologia normalmente é especificada em um outro arquivo, que é incluido no arquivo de entrada principal `in` utilizando o comando `read_data`.
-
 ## Objetivos
 
 Neste tutorial temos como objetivo introduzir os conceitos básicos de DM no LAMMPS. Vamos abordar:
@@ -23,3 +17,61 @@ Neste tutorial temos como objetivo introduzir os conceitos básicos de DM no LAM
 - Simulação no ensemble natural da DM (*NVE*)
 - Simulação no ensemble típico de experimentos (*NPT*)
 - Cálculo de propriedades de interesse em uma simulação de água
+
+## Estrutura dos arquivos de entrada para o LAMMPS
+
+Para executar o LAMMPS é necessário criar um arquivo de entrada (arquivo de texto, geralmente iniciado por `in.` ou terminado por `.in`) que contém informações sobre a simulação, como temperatura, **time step**, *ensemble* simulado, frequência da escrita das propriedades calculadas etc.
+Esse mesmo arquivo pode ser utilizado para se construir a **topologia** do sistema, que contém a forma e dimensões da **caixa de simulação**, as coordenadas atômicas, e parâmetros do campo de força. 
+Contudo, para sistemas mais complexos a topologia normalmente é especificada em um outro arquivo, que é incluido no arquivo de entrada principal `in` utilizando o comando `read_data`.
+
+## Otimizando a estrutura de uma molécula de água
+
+## Criando uma caixa de simulação com diversas moléculas de água
+
+Desejamos realizar simulações de dinâmica molecular da água na fase *bulk* a 300K e 1atm.  Um bom ponto de partida é criar uma configuração molecular que possui a densidade experimental da água nessas condições (1.0 g/cm<sup>3</sup>).
+
+Usaremos o pacote [PACKMOL](http://m3g.iqm.unicamp.br/packmol/home.shtml) para gerar uma configuração inicial  contendo 267 moléculas em uma  caixa de volume  8.0 nm<sup>3</sup>. 
+
+Primeiro, vamos instalar uma dependência que está faltante na VM, e que faz com que os binários não funcionem:
+```bash
+sudo apt install libgfortran3
+```
+Lembre que a senha da VM é `stds9`. Pressione `Enter` para aceitar a instalação dos novos pacotes e continuar a instalação.
+
+Instalada a dependência, vamos criar agora a caixa de simulação com a densidade da água.
+O arquivo `water.inp` contém os comandos de entrada para o PACKMOL, abra e tente entender o seu conteúdo (os comentários após os `#` devem auxiliar).
+Para gerar a configuração, execute  o seguinte comando no diretório `criar_topol`:
+
+```bash
+packmol < water.inp
+```
+
+Podemos visualizar a configuração gerada com o programa *Visual Molecular Dynamics* (VMD):
+
+```bash
+vmd bulk_water.xyz
+```
+
+A partir do arquivo `bulk_water.xyz` podemos gerar o arquivo de  topologia do sistema que deverá conter informações essenciais sobre o campo de força utilizado. Esse arquivo contém os parâmetros   Lennard-Jones e as cargas do potencial de Coulomb, entre outros dados. O arquivo de topologia pode ser gerado através do *script* `topol.sh`:
+
+```bash
+./topol.sh
+```
+
+O arquivo `water_bulk.top` é  gerado replicando as informações sobre uma única molecula contidas no documento `water.top`. Abra-os para visualizar e entender a sua estrutura.
+
+## Simulação no ensemble *NVE*
+
+Execute a seguinte linha de comando para realizar a simulação no ensemble microcanônico:
+
+```bash
+lammps < in.water_nve
+```
+
+Após alguns segundos, os seguintes arquivos serão gerados:
+- `log.lammps`: arquivo com informações da simulação
+- `bulk_water.lammpstrj`: arquivo das trajetórias
+- `prod_bulk_water.top`: arquivo de topologia que poderá ser utilizado em uma próxima simulação.
+
+Vamos agora fazer o gráfico de algumas propriedades.
+Para isso, vamos utilizar o *script* `lammps_plotter.py` que está no diretório `utils`.
