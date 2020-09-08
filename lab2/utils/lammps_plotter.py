@@ -27,6 +27,7 @@ def extant_file(x):
 def parse_log(file, colx, coly, multdt):
   # read data until EOF
   data = {}
+  dt = None
   sim = 1
   with open(file,'r') as f:
     line = f.readline()
@@ -39,12 +40,15 @@ def parse_log(file, colx, coly, multdt):
       if "Time step" in line:
         dt = float(line.split(":")[1])
         continue
+      elif line.strip().startswith("timestep"):
+        dt = float(line.split()[1])
+        continue
 
-      if "Per MPI rank" not in line:
+      if not line.strip().startswith("Step"):
         continue
 
       # if headers were found, read them and the data
-      headers = f.readline()
+      headers = line
       try:
         headx = headers.split()[colx-1]
         heady = headers.split()[coly-1]
@@ -67,13 +71,13 @@ def parse_log(file, colx, coly, multdt):
           sim += 1
           break
 
-        if multdt:
+        if multdt and dt:
           xaxis.append(dt*float(line.split()[colx-1]))
         else:
           xaxis.append(float(line.split()[colx-1]))
         yaxis.append(float(line.split()[coly-1]))
 
-      data[sim] = [(headx,heady),xaxis,yaxis]
+      data[sim] = [(headx,heady),xaxis,yaxis,dt]
       sim += 1
 
   return data
@@ -84,6 +88,7 @@ if __name__ == '__main__':
   parser.add_argument("columnx", type=int, help="column of the x axis (starting from 1)")
   parser.add_argument("columny", type=int, help="column of the y axis (starting from 1)")
   parser.add_argument("--simulation", type=int, help="plot data of a single simulation only")
+  parser.add_argument("--ignore-optimization", action="store_true", help="do not plot simulations that does not have a timestep defined")
   parser.add_argument("--multx-timestep", action="store_true", help="multiply the x axis by the time step (to have time as the axis, for example)")
   parser.add_argument("--output-format", default="pdf", help="format of the output (default pdf)")
 
@@ -108,12 +113,54 @@ if __name__ == '__main__':
     plt.ylabel(data[args.simulation][0][1].replace("_","\_"))
     plt.savefig("plotter_"+str(args.columnx)+"_"+str(args.columny)+"."+args.output_format, bbox_inches="tight")
   else:
-    pass
-  # plt.scatter(step,angles,s=2)
+    # print data of all simulations
+    if args.multx_timestep:
+      optx = []
+      opty = []
+      simx = []
+      simy = []
+      for sim in data:
+        if not data[sim][3]:
+          optlx = data[sim][0][0]
+          optly = data[sim][0][1]
+          optx += data[sim][1]
+          opty += data[sim][2]
+        else:
+          simlx = data[sim][0][0]
+          simly = data[sim][0][1]
+          simx += data[sim][1]
+          simy += data[sim][2]
 
-  # plt.xlabel(r"MC Cycle")
-  # plt.ylabel(r"$\phi$ ($^\circ$)")
-  # plt.xlim([0,step[-1]])
-  # plt.ylim([-180,180])
-  # plt.yticks([-180,-120,-60,0,60,120,180])
-  # plt.savefig(os.path.splitext(args.fangles)[0]+".pdf", bbox_inches='tight')
+     # plot optimization data
+      if args.ignore_optimization:
+        pass
+      else:
+        plt.plot(optx,opty)
+        plt.xlabel(optlx.replace("_","\_"))
+        plt.ylabel(optly.replace("_","\_"))
+        plt.savefig("plotter_opt_"+str(args.columnx)+"_"+str(args.columny)+"."+args.output_format, bbox_inches="tight")
+        plt.clf()
+
+      # plot all simulation data
+      plt.plot(simx,simy)
+      plt.xlabel(simlx.replace("_","\_"))
+      plt.ylabel(simly.replace("_","\_"))
+      plt.savefig("plotter_"+str(args.columnx)+"_"+str(args.columny)+"."+args.output_format, bbox_inches="tight")
+    else:
+      simx = []
+      simy = []
+      for sim in data:
+        if args.ignore_optimization and not data[sim][3]:
+          continue
+
+        simlx = data[sim][0][0]
+        simly = data[sim][0][1]
+        simx += data[sim][1]
+        simy += data[sim][2]
+
+      # plot all simulation data
+      plt.plot(simx,simy)
+      plt.xlabel(simlx.replace("_","\_"))
+      plt.ylabel(simly.replace("_","\_"))
+      plt.savefig("plotter_"+str(args.columnx)+"_"+str(args.columny)+"."+args.output_format, bbox_inches="tight")
+
