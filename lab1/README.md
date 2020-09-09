@@ -56,11 +56,7 @@ vim ~/.bashrc
 # Para sair do vim, pressione Ctlr+C, :qa!, enter.
 ls
 cd ~/
-```bash
-echo Texto
-echo $PATH
-which echo
-vim ~/.bashrc
+```
 
 Gerenciando arquivos e extraindo informações: 
 - **mkdir (make directory)**
