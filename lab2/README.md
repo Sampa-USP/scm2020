@@ -43,7 +43,7 @@ O arquivo `water.inp` contém os comandos de entrada para o PACKMOL, abra e tent
 Para gerar a configuração, execute  o seguinte comando no diretório `criar_topol`:
 
 ```bash
-packmol < water.inp
+./packmol < water.inp
 ```
 
 Podemos visualizar a configuração gerada com o programa *Visual Molecular Dynamics* (VMD):
@@ -58,20 +58,32 @@ A partir do arquivo `bulk_water.xyz` podemos gerar o arquivo de  topologia do si
 ./topol.sh
 ```
 
-O arquivo `water_bulk.top` é  gerado replicando as informações sobre uma única molecula contidas no documento `water.top`. Abra-os para visualizar e entender a sua estrutura.
+O arquivo `bulk_water.top` é  gerado replicando as informações sobre uma única molecula contidas no documento `water.top`. Abra-os para visualizar e entender a sua estrutura.
 
 ## Simulação no ensemble *NVE*
 
 Execute a seguinte linha de comando para realizar a simulação no ensemble microcanônico:
 
 ```bash
-lammps < in.water_nve
+mpirun -np 2 lammps < in.water_nve
 ```
 
-Após alguns segundos, os seguintes arquivos serão gerados:
+O `mpirun -np 2` antes do comando `lammps` indica que o programa deve ser executado usando 2 processadores em **paralelo**.
+Remova-o caso sua máquina virtual esteja configurada com apenas um processador, o resultado deve ser o mesmo, somente o tempo de execução deve mudar.
+
+Após alguns minutos (de 2 a 10), os seguintes arquivos serão gerados:
 - `log.lammps`: arquivo com informações da simulação
 - `bulk_water.lammpstrj`: arquivo das trajetórias
 - `prod_bulk_water.top`: arquivo de topologia que poderá ser utilizado em uma próxima simulação.
 
 Vamos agora fazer o gráfico de algumas propriedades.
 Para isso, vamos utilizar o *script* `lammps_plotter.py` que está no diretório `utils`.
+Para fazer gráficos utilizando o *script* utilize comandos como o abaixo:
+```bash
+./utils/lammps_plotter.py log.lammps 1 2 --ignore-optimization --multx-timestep
+```
+sendo o primeiro argumento o arquivo com o `log` da simulação, o segundo argumento a coluna do eixo `x` do gráfico (nesse caso `1` indica `Step` - visualize o arquivo `log.lammps` para ver o significado de cada coluna) e o terceiro argumento o eixo `y`.
+Com o comando acima você fará um gráfico da evolução da temperatura (coluna `2`) com o tempo (pois utilizamos a opção `--multx-timestep`).
+A opção `--ignore-optimization` serve para não graficar a saída do comando `minimize`.
+
+Faça gráficos da temperatura, energia cinética, energia potencial, energia total e pressão.
