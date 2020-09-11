@@ -1,0 +1,22 @@
+# LAMMPS topology of UA model of methane - TraPPE potential DOI: 10.1021/jp972543+
+
+     1 atoms
+
+     1 atom types
+           
+     0   3.763  xlo xhi
+     0   3.763  ylo yhi
+     0   3.763  zlo zhi
+
+ Masses
+
+     1   16.04246 # CH4
+
+ Pair Coeffs # lj/cut
+
+     1  0.2941 3.73
+
+ Atoms # atomic
+
+     1    1   0.00000   0.00000   0.00000
+

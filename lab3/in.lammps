@@ -1,0 +1,133 @@
+# sistema
+#=================================================================================
+units           real   # <- sistema de unidades reais 
+atom_style      atomic # <- define os atributos de cada atomo 
+boundary        p p p  # <- condições periodicas de contorno em 3D 
+#=================================================================================
+
+
+#=================================================================================
+variable        f       equal 200.0        # pressao (atm)
+variable        T       equal 273.15       # temperatura (K)
+variable        V       equal vol          # volume
+variable        dt      equal 1.0          # passo de tempo (fs)
+
+# para o calculo da viscosidade
+variable        p       equal 6000          # correlation length
+variable        s       equal 4             # sample interval
+variable        d       equal $p*$s         # dump interval
+# convert from LAMMPS real units to SI
+variable        kB      equal 1.3806504e-23    # J/K/ Boltzmann
+variable        atm2Pa  equal 101325.0
+variable        A2m     equal 1.0e-10
+variable        fs2s    equal 1.0e-15
+variable        convert equal ${atm2Pa}*${atm2Pa}*${fs2s}*${A2m}*${A2m}*${A2m}
+#=================================================================================
+
+
+# campo de força
+# ================================================================================
+pair_style lj/cut 15.0 # <- tipo de interação de lennard-jones + coulomb 
+
+pair_modify tail yes             # <- aplicar correções na energia e pressão deevido ao truncamento das interações de longo alcançe  
+
+#===================================================================================
+#
+
+# ler configuração
+# ============================================================================
+read_data      methane.top      # <- ler o arquivo com as informações da topologia do sistema 
+replicate      6 6 6            # <- replica a caixa lida pelo comando acima 6 vezes em cada direção
+neighbor       2 bin            # <- distância adicional na construção da lista de vizinhos de verlet 
+
+group methane type 1
+#==============================================================================
+
+
+# inicializar velocidades
+# ==============================================================================
+velocity all create $T 5910045 rot yes dist gaussian # <- inicializa as velocidades do sistema segundo
+run             0                        
+velocity        all       scale  $T 
+#================================================================================
+
+
+# fase de equilibração
+# ================================================================================
+timestep          1   # 1fs 
+
+thermo_style custom step temp ke pe etotal press density vol lx density spcpu # <- selecionar a informação termodinâmica desejada entre outras
+thermo 1000
+
+dump equil all custom 2000 dump-equil.lammpstrj id type x y z
+dump_modify equil sort id
+
+fix equil all nvt temp $T $T 100.0    
+run 10000               
+unfix equil
+
+compute myTemp all temp
+compute myKE all ke
+compute myPE all pe
+compute myPress all pressure thermo_temp
+fix thermo1 all ave/time 1 1000 1000 c_myTemp    file thermo-equil-temp.dat
+fix thermo2 all ave/time 1 1000 1000 c_myKE      file thermo-equil-ke.dat
+fix thermo3 all ave/time 1 1000 1000 c_myPE      file thermo-equil-pe.dat
+fix thermo4 all ave/time 1 1000 1000 c_myPress   file thermo-equil-press.dat
+
+fix nvtsim all nvt temp $T $T 100.0
+run 100000
+undump equil
+
+write_data topo_equil.top
+unfix thermo1
+unfix thermo2
+unfix thermo3
+unfix thermo4
+#=================================================================================
+
+
+#fase de produção
+#==================================================================================
+reset_timestep 0
+dump production all custom 20000 dump-production.lammpstrj id type x y z
+dump_modify production sort id
+
+compute gr_ch4 all rdf 400 1 1
+fix ave_gr_ch4 all ave/time 10 10000 450000 c_gr_ch4[*] overwrite file gr-ch4.dat mode vector ave running
+compute msd_ch4 methane msd com yes
+fix ave_msd_ch4 all ave/time 1 25000 25000 c_msd_ch4[4] file msd-ch4.dat mode scalar  
+fix thermo1 all ave/time 1 1000 1000 c_myTemp    file thermo-prod-temp.dat
+fix thermo2 all ave/time 1 1000 1000 c_myKE      file thermo-prod-ke.dat
+fix thermo3 all ave/time 1 1000 1000 c_myPE      file thermo-prod-pe.dat
+fix thermo4 all ave/time 1 1000 1000 c_myPress   file thermo-prod-press.dat
+
+# Viscosity 
+#--------------------------------------------------
+variable        pxy     equal    pxy
+variable        pxz     equal    pxz
+variable        pyz     equal    pyz
+variable        V       equal    vol
+fix             SS      all      ave/correlate  $s $p $d &
+                v_pxy   v_pxz    v_pyz type auto file S0St.dat ave running
+variable        scale   equal    ${convert}/(${kB}*$T)*$V*$s*${dt}
+variable        v11     equal    trap(f_SS[3])*${scale}
+variable        v22     equal    trap(f_SS[4])*${scale}
+variable        v33     equal    trap(f_SS[5])*${scale}
+
+variable        visc    equal    (v_v11+v_v22+v_v33)/3.0
+#------------------------------------------------------
+ 
+  
+thermo          $d
+thermo_style    custom step temp press spcpu  density  v_visc 
+run 2000000
+write_data topo_final.top
+#=================================================================================
+
+
+# Viscosidade Final
+#-------------------------------------------------------
+variable        v equal (v_v11+v_v22+v_v33)/3.0
+print           "Average viscosity: $v Pa.s"
+#--------------------------------------------------------
