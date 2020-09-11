@@ -24,8 +24,6 @@ Para executar o LAMMPS é necessário criar um arquivo de entrada (arquivo de te
 Esse mesmo arquivo pode ser utilizado para se construir a **topologia** do sistema, que contém a forma e dimensões da **caixa de simulação**, as coordenadas atômicas, e parâmetros do campo de força. 
 Contudo, para sistemas mais complexos a topologia normalmente é especificada em um outro arquivo, que é incluido no arquivo de entrada principal `in` utilizando o comando `read_data`.
 
-## Otimizando a estrutura de uma molécula de água
-
 ## Criando uma caixa de simulação com diversas moléculas de água
 
 Desejamos realizar simulações de dinâmica molecular da água na fase *bulk* a 300K e 1atm.  Um bom ponto de partida é criar uma configuração molecular que possui a densidade experimental da água nessas condições (1.0 g/cm<sup>3</sup>).
@@ -87,3 +85,4 @@ Com o comando acima você fará um gráfico da evolução da temperatura (coluna
 A opção `--ignore-optimization` serve para não graficar a saída do comando `minimize`.
 
 Faça gráficos da temperatura, energia cinética, energia potencial, energia total e pressão.
+Essa simulação chegou ao equilíbrio?
