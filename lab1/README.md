@@ -56,11 +56,7 @@ vim ~/.bashrc
 # Para sair do vim, pressione Ctlr+C, :qa!, enter.
 ls
 cd ~/
-```bash
-echo Texto
-echo $PATH
-which echo
-vim ~/.bashrc
+```
 
 Gerenciando arquivos e extraindo informações: 
 - **mkdir (make directory)**
@@ -124,9 +120,11 @@ ls -l | tail -1
 ls -l | tail -1 > lastfile.txt
 ```
 
-- Gerenciando trabalhos (usando *while*): 
+- Criando pastas e gerenciando trabalhos (usando *while*): 
 ```bash
 #!/bin/bash
+#Criando pastas com base em uma lista (list.txt)
+
 if ! [ -e list.txt ]; then
   echo "Could not find a list.txt"
   echo "STOP"
@@ -134,21 +132,38 @@ if ! [ -e list.txt ]; then
 fi
 
 while read i; do
-  if [ -e ../$i/01.out ]
+  mkdir $i
+done <list.txt
+```
+
+```bash
+#!/bin/bash
+#Criando arquivos nas pastas
+
+if ! [ -e list.txt ]; then
+  echo "Could not find a list.txt"
+  echo "STOP"
+  exit
+fi
+
+while read i; do
+  cd $i
+  if [ -e 01.out ]
     then
       echo $i
     else
-      source job.sh
-      sleep 10
+      echo 'Output file' > 01.out
+      sleep 5
       echo $i
   fi
+  cd ../
 done <list.txt
 ```
 
 - Gerenciando trabalhos (usando *for*): 
 ```bash
 #!/bin/bash
-n=100
+n=5
 for i in `seq -f "%03g" $n`
 do
   cd $i
@@ -157,13 +172,12 @@ do
       echo $i		
     else
       source job.sh
+      python python_script.py
       sleep 10
       echo $i
     fi
   cd ..
 done
-
-python python_script.py
 ```
 
 - Gerenciando trabalhos no terminal:
