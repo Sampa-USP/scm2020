@@ -1,0 +1,30 @@
+# Input do LAMMPS para a minimização da energia da molécula de etanol
+
+# informações gerais ---------------------------------------
+boundary	p p p     # condições periodicas de contorno em todas as direções
+units           real      # unidades utilizadas para a simulação
+
+# informações sobre o campo de força -----------------------
+atom_style      full      # tipo de descrição dos átomos, com cargas e parâmetros LJ
+bond_style      harmonic  # forma funcional dos termos de ligação
+angle_style     harmonic  # forma funcional dos termos de ângulo
+dihedral_style  opls      # forma funcional dos termos de diedro
+improper_style  harmonic  # forma funcional dos termos de diedro impróprio
+pair_style      lj/cut/coul/long 10.0 10.0  # tipo de interação para os termos não ligados
+
+pair_modify 	mix arithmetic tail yes     # tipo de mistura de parâmetros para espécies diferentes
+
+kspace_style    pppm 1e-4 # modo de cálculo das interações eletrostáticas de longo alcance
+
+# lê informação da topologia -------------------------------
+read_data	EtOH.lmp
+
+# faz minimização ------------------------------------------
+thermo_style custom step pe            # informações que serão impressas na tela
+min_style cg                           # algoritmo utilizado para a minimização
+minimize 1.0e-20 1.0e-20 100000 100000 # realiza a minimização com os critério definidos
+
+dump    1 all xyz 1 min.xyz            # especifica arquivo de saída para a estrutura
+dump_modify 1 element C H C O H        # substitui os números atômicos pelos labels
+
+run 0                                  # executa simulaçao por 0 passos para imprimir estrutura
