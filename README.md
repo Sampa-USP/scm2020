@@ -4,13 +4,15 @@
 Bem-vindo ao repositório da disciplina Simulação Computacional dos Materiais, IFUSP. Links para as aulas podem ser encontrados na lista a seguir:
 
 1. [Lab 1](./lab1) Introdução ao uso do terminal (Linux) e scripts em bash/shell.
-2. [Lab 2](./lab2) Introdução à dinâmica molecular com o LAMMPS. 
-3. [labGCMC](./labGCMC) Simulações gás-sólido com Grand-Canonical Monte Carlo.
-4. [Lab 6b](./lab6b) Cálculos de DFT em lotes (batches).
+2. [Lab 2](./lab2) Introdução a campos de força e ao LAMMPS.
+3. [Lab 3](./lab3) Propriedades do metano em alta pressão com dinâmica molecular.
+4. [labGCMC](./labGCMC) Simulações gás-sólido com Grand-Canonical Monte Carlo.
+5. [Lab 6b](./lab6b) Cálculos de DFT em lotes (batches).
 
 Conteúdos extra:
 
 1. [Lab git](./extra/labgit) Introdução ao git e GitHub.
+1. [Lab água](./extra/labWater) Cálculo de propriedades da água com o LAMMPS.
 
 Para obter todos os materiais deste repositório, digitar no terminal:
 
