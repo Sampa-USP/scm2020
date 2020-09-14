@@ -1,0 +1,13 @@
+set term pdfcairo
+set output 'msd.pdf'
+
+set xlabel 'Time (ps)' font "times,16"
+set ylabel 'MSD (A^2)' font "times,16"
+set key left top box
+
+f(x)=a1*x+b1
+fit f(x) 'msd-ch4.dat' using 1:2 via a1,b1
+set label 1 sprintf("D_{CM} = %3.4f * 10^{-8} m^2/s",a1*1000.0/6.0) at 15,200000 font "times,16"
+
+plot 'msd-ch4.dat' using ($1*0.001):2 with linespoints linewidth 2 linecolor rgb 'black' title 'Mean Squared Displacement Carbon' ,\
+     f(x) linetype 2 linecolor rgb 'black' title 'Linear fit of MSD-CH4'

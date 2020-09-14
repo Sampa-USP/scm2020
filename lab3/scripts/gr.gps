@@ -1,0 +1,8 @@
+set term pdfcairo
+set output 'gdr.pdf'
+
+set xlabel 'Radius (Å)' font "times,16"
+set ylabel 'g(r)' font "times,16"
+set key right top box
+
+plot 'gr-ch4.dat' u 2:3 with lines linewidth 2 linecolor rgb 'black' title 'g(r) CM-CM',\
