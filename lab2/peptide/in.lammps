@@ -1,30 +1,34 @@
-# Solvated 5-mer peptide
+# Input para a minimização de um peptídeo 5-mer
 
-units		real
-atom_style	full
+# informações gerais ---------------------------------------
+boundary  p p p     # condições periodicas de contorno em todas as direções
+units		  real      # unidades utilizadas para a simulação
 
-pair_style	lj/charmm/coul/long 8.0 10.0 10.0
-bond_style      harmonic
-angle_style     charmm
-dihedral_style  charmm
-improper_style  harmonic
+# informações sobre o campo de força -----------------------
+atom_style	full   # tipo de descrição dos átomos, com cargas e parâmetros LJ
+pair_style	lj/charmm/coul/long 8.0 10.0 10.0  # tipo de interação para os termos não ligados
+bond_style      harmonic  # forma funcional dos termos de ligação
+angle_style     charmm  # tipo de interação para os termos não ligados
+dihedral_style  charmm  # forma funcional dos termos de ligação
+improper_style  harmonic  # forma funcional dos termos de diedro impróprio
 kspace_style	pppm 0.0001
 
+# lê informação da topologia -------------------------------
 read_data	peptide.lmp
 
-neighbor	2.0 bin
-neigh_modify	delay 5
-
+# imprime configuração inicial -----------------------------
 dump		1 all xyz 1 initial.xyz
 dump_modify  	1 element C C O H N C C C O H H S
 
 run 0
 undump 1
 
+# faz minimização ------------------------------------------
 thermo_style custom step pe            # informações que serão impressas na tela
 min_style cg                           # algoritmo utilizado para a minimização
 minimize 1.0e-20 1.0e-20 100000 100000 # realiza a minimização com os critério definidos
 
+# imprime configuração final -------------------------------
 dump		1 all xyz 1 final.xyz
 dump_modify  	1 element C C O H N C C C O H H S
 
