@@ -1,5 +1,5 @@
 set term pdfcairo
-set output 'gdr.pdf'
+set output 'gr.pdf'
 
 set xlabel 'Radius (Å)' font "times,16"
 set ylabel 'g(r)' font "times,16"

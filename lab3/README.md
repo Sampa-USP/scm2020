@@ -13,7 +13,7 @@ Nesse caso, a pressão será uma das propriedades que podemos obter com a simula
 ## Objetivos
 
 - Introduzir o aluno à simulações com dinâmica molecular.
-- Realizar uma simulação do gás metano em alta pressão, obtendo a distribuição radial de pares, o coeficiente de auto-difusão com a fórmula de Einstein e a viscosidade com Green-Kubo.
+- Realizar uma simulação do gás metano em alta pressão, obtendo a distribuição radial de pares, o coeficiente de auto-difusão com a relação de Einstein e a viscosidade com Green-Kubo.
 
 ## Simulação de metano considerando diferentes temperaturas e pressões
 
@@ -68,18 +68,87 @@ No caso do metano, isso significa que temos um único "átomo" do tipo `CH4`.
 Esse átomo `CH4` possui a massa da molécula de metano e um <img src="https://render.githubusercontent.com/render/math?math=%5Cepsilon"> e <img src="https://render.githubusercontent.com/render/math?math=%5Csigma"> diferentes para tentar compensar pela falta de átomos de hidrogênio.
 
 Utilizar modelos UA significa reduzir consideravelmente o custo computacional da simulação.
-Isso porque temos menos átomos interagindo (neste caso apenas 1/5 dos átomos), e também permite utilizar um *timestep* para integração ligeiramente maior, por não precisar considerar o tempo característico das vibrações dos átomos de hidrogênio.
+Isso porque temos menos átomos interagindo (neste caso apenas 1/5 dos átomos), e também porque podemos utilizar um *timestep* para integração ligeiramente maior, já que não precisamos considerar o tempo característico das vibrações dos átomos de hidrogênio.
+Por esses motivos, utilizaremos esse potencial para essa simulação.
 
+Contudo, potenciais UA podem simplificar exageradamente a molécula e interferir nos valores médios de algumas propriedades.
+Por exemplo, no cálculo da viscosidade que faremos neste tutorial, teremos um valor da propriedade ligeiramente superestimado, especialmente para densidades acima de 200 kg/m<sup>3</sup>.
+Por esse motivo, deve-se sempre considerar quais as propriedades de interesse e condições da simulação no momento da escolha do campo de forças.
 
-### Determinando o tamanho da caixa
+Outro detalhe interessante sobre essa topologia é que temos somente uma molécula de metano.
+Mesmo utilizando condições periódicas de contorno, não seria possível simular um ensemble de um gás ou líquido de metano com somente uma molécula.
+O motivo de termos somente uma molécula na topologia, é que utilizaremos nosso arquivo de entrada `in.lammps` para replicar a topologia 6 vezes em cada direção, o que nos dará uma caixa de simulação com 216 moléculas, o que é o suficiente para as amostragens que faremos aqui.
+Sendo assim, para a nossa caixa de simulação construída com as réplicas ter a densidade desejada, precisamos que a unidade utilizada para construí-la tenha essa densidade.
 
-O tamanho da caixa deve ser determinado à partir da densidade a ser simulada.
-Como a caixa é gerada replicando uma caixa com somente uma molécula, precisamos calcular o volume ocupado por uma molécula de metano condirando uma certa densidade.
-Para isso calculamos o volume molar do metano, e dividimos pelo número de Avogadro, obtendo então o volume ocupado por uma molécula.
-Com isso, podemos calcular qual o lado de uma caixa cúbica contendo uma única molécula de metano que dá aquela densidade.
+#### Determinando o tamanho da caixa
 
-Sumarizando, podemos obter o lado da caixa cúbica correspondente a uma certa densidade de metano com:
+Como a caixa de simulação é gerada replicando uma caixa com somente uma molécula de metano, precisamos calcular o volume ocupado por essa molécula considerando uma certa densidade.
+Para isso calculamos o volume molar do metano (V<sub>m</sub> = massa molar/densidade), e dividimos pelo número de Avogadro, obtendo então o volume ocupado por uma molécula.
+Com isso, podemos calcular qual o lado *L* de uma caixa cúbica contendo uma única molécula de metano que resulta na densidade desejada.
 
-<img src="https://render.githubusercontent.com/render/math?math=%5Cleft(%5Cfrac%7B160424.6%7D%7B6.022%5Crho%7D%5Cright)%5E%7B1%2F3%7D">
+<img src="https://render.githubusercontent.com/render/math?math=L=%5Cleft(%5Cfrac%7B160424.6%7D%7B6.022%5Crho%7D%5Cright)%5E%7B1%2F3%7D">Å
 
 sendo <img src="https://render.githubusercontent.com/render/math?math=%5Crho"> a densidade de metano (em kg/m<sup>3</sup>) desejada para a simulação.
+
+**Altere a topologia** para que a caixa tenha lado igual ao calculado considerando a densidade em que fará sua simulação.
+
+### Cálculo de propriedades e parâmetros da simulação
+
+Com a topologia pronta, precisamos agora do arquivo de entrada contendo as palavras-chave do LAMMPS, que dará os parâmetros e condições da simulação, bem como quais propriedades serão calculadas.
+
+Estamos interessados em obter a pressão média, o coeficiente de auto-difusão e a viscosidade do metano com a nossa simulação.
+
+#### Coeficiente de auto-difusão com a relação de Einstein
+
+Costumamos pensar em difusão como o processo que ocorro quando há um gradiente de concentração de uma certa partícula que leva ao equilíbrio onde há uniformidade.
+Contudo, mesmo em um líquido em equilíbrio, as moléculas não estão paradas, mas sim em movimento Browniano.
+Esse movimento, leva ao conceito de auto difusão, denominada aqui por *D*.
+
+Esse coeficiente pode ser obtido tanto utilizando as velocidades (na formulação de Green-Kubo) ou as posições das partículas (pela relação de Einstein).
+Ambos os coeficientes deveriam, em princípio, ser equivalentes. 
+Usaremos aqui a relação de Einstein para o cálculo do coeficiente de auto-difusão do metano nas condições simuladas.
+
+Para calcular o coeficiente de auto-difusão com a relação de Einstein, precisamos calcular o desvio quadrático médio (MSD) das posições das partículas em função do tempo.
+O MSD é proporcional ao tempo de observação conforme o tempo vai a infinito.
+Essa proporcionalidade é dada pela constante de auto-difusão *D*, que em 3 dimensões é dada por:
+
+<img src="https://render.githubusercontent.com/render/math?math=D%20%3D%20%5Clim_%7Bt%5Cto%5Cinfty%7D%20%5Cfrac%7B%5Clangle%20%5Cvert%20r(t)-r(0)%20%5Cvert%5E2%20%5Crangle%20%7D%7B6t%7D">
+
+onde `r(t)` é p deslocamento da molécula em relação a posição inicial em `t = 0`.
+Note na equação acima que o coeficiente angular dividido por 6 é igual a *D* quando o tempo vai para infinito.
+Na prática, calculamos *D* armazenando o valor do MSD em diversos tempos, e depois fazendo um ajuste linear a curva `t vs MSD`.
+
+#### Viscosidade com a fórmula de Green-Kubo
+
+Outra propriedade que estamos interessados em calcular é a viscosidade.
+A viscosidade é uma propriedade de transporte que caracteriza a resistência de um fluido ao escoamento.
+Podemos computar a viscosidade com uma simulação de molecular utilizando a formulação de Green-Kubo, que utiliza a função de correlação das componentes do tensor de *stress* conforme a equação abaixo.
+
+<img src="https://render.githubusercontent.com/render/math?math=%5Ceta%20%3D%20%5Cfrac%7BV%7D%7B3%20k_BT%7D%20%5Cint_%7B0%7D%5E%7B%5Cinfty%7D%5Clangle%20%5Csum_%7Bx%3Cy%7D%20P_%7Bxy%7D(t)P_%7Bxy%7D(0)%20%5Crangle%20dt">
+
+onde *V* é o volume da caixa; *T* é a temperatura do ensemble; k<sub>B</sub> a constante de Boltzman; P<sub>xy</sub> são os termos não diagonais do tensor de *stress*, sendo que o termo dentro da integral representa a função de correlação do tensor de *stress*.
+
+#### Arquivo in.lammps
+
+O arquivo de entrada que utilizaremos para as simulações do metano, apesar do potencial mais simples, é ligeiramente mais complexo que os arquivos de entrada utilizados para a minimização de energia no [laboratório 2](../lab2).
+Nesse caso, temos que definir além do potencial de interação, as propriedades que queremos calcular e como faremos a integração das equações de movimento.
+Também separamos a simulação em fase de termalização, onde temos a equilibração do sistema e fase de produção, onde as propriedades são de fato calculadas.
+
+Para facilitar a mudança de alguns parâmetros da simulação, foram definidas variáveis no começo do arquivo.
+**Altere a temperatura** para a temperatura em que fará a simulação conforme a tabela acima.
+Mude também a *seed* do gerador de números aleatórios.
+A *seed* é um número utilizado para inicializar o gerador de números aleatórios que, por sua vez, inicializa as velocidades.
+
+Sobre o campo de força, note que temos uma interação somente com o potencial de Lennard-Jones, especificada na keywork `pair_style`.
+Como estamos utilizando um potencial UA onde a molécula é representada por uma única partícula (que tem carga zero, assim como a molécula) não temos de nos preocupar com a interação Coulombiana.
+Note também que após ler a topologia, replicamos o sistema 6 vezes em cada direção com a keyword `replicate`.
+
+Leia o restante do arquivo, e tente entender como é definido o tipo de simulação (neste caso, no ensemble *NVT*) e como as propriedades são calculadas.
+Não se preocupe em memorizar as palavras chave, mas tente entender cada uma delas.
+Para isso, verifique qual a função de cada uma no [Manual do LAMMPS](https://lammps.sandia.gov/doc/Manual.html).
+Note a função dos `compute` e dos `fix` para definir o que ocorre na simulação.
+
+## Executando a simulação
+
+## Analisando os resultados
+
