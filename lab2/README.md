@@ -55,6 +55,7 @@ Veja que temos que especificar diversas informações para fazer a simulação, 
 
 Neste arquivo de entrada, queremos fazer a minimização de energia.
 Para isso, utilizamos a palavra-chave `minimize`, seguida dos parâmetros utilizados na minimização, como o critério de convergência de força e energia utilizado para finalizar a simulação e o número máximo de passos.
+Para entender mais o que cada comando do arquivo faz, procure-os no [Manual do LAMMPS](https://lammps.sandia.gov/doc/Manual.html).
 
 Vamos agora executar a simulação.
 Para isso, utilizamos o comando:
