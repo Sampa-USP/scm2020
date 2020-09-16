@@ -1,0 +1,8 @@
+set term pdfcairo
+set output 'thermo-equil-press.pdf'
+
+set xlabel 'Time (ps)'      font "times,16"
+set ylabel 'Pressure (atm)' font "times,16"
+set key left top box
+
+plot 'thermo-equil-press.dat' using ($1*0.0005):2 with linespoints linewidth 2 linecolor rgb 'black' title 'Pressure',\

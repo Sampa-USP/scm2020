@@ -1,0 +1,9 @@
+set term pdfcairo
+set output 'thermo-equil-energies.pdf'
+
+set xlabel 'Time (ps)'           font "times,16"
+set ylabel 'Energies (kcal/mol)' font "times,16"
+set key left center box
+
+plot 'thermo-equil-ke.dat' using ($1*0.0005):2 with lines linewidth 2 linecolor rgb 'black' title 'Kinectic Energy' ,\
+     'thermo-equil-pe.dat' using ($1*0.0005):2 with lines linewidth 2 linecolor rgb 'red'   title 'Potential Energy'

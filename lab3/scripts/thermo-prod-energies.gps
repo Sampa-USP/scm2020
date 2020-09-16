@@ -1,0 +1,9 @@
+set term pdfcairo
+set output 'thermo-prod-energies.pdf'
+
+set xlabel 'Time (ps)'           font "times,16"
+set ylabel 'Energies (kcal/mol)' font "times,16"
+set key left center box
+
+plot 'thermo-prod-ke.dat' using ($1*0.0005):2 with lines linewidth 2 linecolor rgb 'black' title 'Kinectic Energy' ,\
+     'thermo-prod-pe.dat' using ($1*0.0005):2 with lines linewidth 2 linecolor rgb 'red'   title 'Potential Energy'
