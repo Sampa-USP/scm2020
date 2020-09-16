@@ -21,31 +21,30 @@ Para obter curvas de como as propriedades que estudaremos variam com a temperatu
 
 Aluno | Temperatura (K) | Densidade (kg/m<sup>3</sup>)
 ----- | --------------- | ------------------
-1     | 273.15          | 50
-2     | 273.15          | 100
-3     | 273.15          | 150
-4     | 273.15          | 200
-5     | 273.15          | 250
-6     | 273.15          | 300
-7     | 273.15          | 350
-8     | 273.15          | 400
-9     | 273.15          | 450
-10    | 273.15          | 500
-11    | 273.15          | 550
-12    | 273.15          | 600
-13    | 303.15          | 50
-14    | 303.15          | 100
-15    | 303.15          | 150
-16    | 303.15          | 200
-17    | 303.15          | 250
-18    | 303.15          | 300
-19    | 303.15          | 350
-20    | 303.15          | 400
-21    | 303.15          | 450
-22    | 303.15          | 500
-23    | 303.15          | 550
-24    | 303.15          | 600
-
+1     | 273.15          | 25
+2     | 273.15          | 50
+3     | 273.15          | 75
+4     | 273.15          | 100
+5     | 273.15          | 150
+6     | 273.15          | 200
+7     | 273.15          | 250
+8     | 273.15          | 300
+9     | 273.15          | 350
+10    | 273.15          | 400
+11    | 273.15          | 450
+12    | 273.15          | 500
+13    | 303.15          | 25
+14    | 303.15          | 50
+15    | 303.15          | 75
+16    | 303.15          | 100
+17    | 303.15          | 150
+18    | 303.15          | 200
+19    | 303.15          | 250
+20    | 303.15          | 300
+21    | 303.15          | 350
+22    | 303.15          | 400
+23    | 303.15          | 450
+24    | 303.15          | 500
 
 ## Arquivos de entrada para a simulação
 
@@ -150,5 +149,30 @@ Note a função dos `compute` e dos `fix` para definir o que ocorre na simulaç�
 
 ## Executando a simulação
 
+Antes de executar as simulações, certifique-se de que alterou o tamanho da caixa de simulação e a temperatura para realizer a simulação nas condições conforme a tabela.
+
+Devido ao cálculo do coeficiente de auto-difusão e da viscosidade, temos de executar uma simulação por no mínimo alguns nanosegundos.
+Isso implica em um tempo total de CPU para realizar a simulação de até 30 minutos (com 2 processadores), para algumas das condições simuladas.
+Por esse motivo, se possível, disponibilize 2 processadores para a máquina virtual nas configurações e execute a simulação com:
+
+```bash
+nohup mpirun -np 2 lammps < in.lammps > out.lammps &
+```
+após entrar com o comando, pressione `Enter` duas vezes para liberar o terminal enquanto a simulação executa no fundo.
+
+Caso não seja possível utilizar dois processadores, execute o mesmo comando acima, mas sem o `mpirun -np 2`.
+
+Acompanhe a execução da simulação no arquivo `out.lammps`.
+Visualize o arquivo (ou parte dele) com um dos comandos abaixo e aguarde até o término da simulação:
+
+```bash
+tail out.lammps
+less out.lammps
+more out.lammps
+```
+
+A simulação terá terminado com sucesso quando a última linha começar com `Total wall time:`.
+
 ## Analisando os resultados
+
 
