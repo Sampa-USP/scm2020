@@ -47,9 +47,7 @@ group methane type 1
 
 # inicializar velocidades
 # ==============================================================================
-velocity all create $T ${seed} rot yes dist gaussian # <- inicializa as velocidades do sistema segundo
-run             0                        
-velocity        all       scale  $T 
+velocity all create $T ${seed} dist gaussian # <- inicializa as velocidades do sistema segundo distribuição gaussiana
 #================================================================================
 
 
@@ -58,40 +56,24 @@ velocity        all       scale  $T
 timestep          ${dt}   # <- define o passo de integração do algoritmo velocity-verlet (default)
 
 thermo_style custom step temp ke pe etotal press spcpu # <- selecionar a informação termodinâmica desejada entre outras
-thermo 1000
+thermo 500
 
 dump equil all custom 2000 dump-equil.lammpstrj id type x y z # <- especifica a saída da trajetória
 dump_modify equil sort id
 
-fix equil all nvt temp $T $T 100.0  # <- define que é uma simulação no ensemble NVT, o que automaticamente acopla um termostato de Nosé-Hoover.
-run 10000  # <- executa a simulação - serve como uma "minimização" inicial
-unfix equil
+fix nvtsim all nvt temp $T $T 100.0 # <- define o termostato que será utilizado pelo resto da simulação
 
-# abaixo computamos algumas médias e imprimimos elas em arquivos
-compute myTemp all temp
-compute myKE all ke
-compute myPE all pe
-compute myPress all pressure thermo_temp
-fix thermo1 all ave/time 1 1000 1000 c_myTemp    file thermo-equil-temp.dat
-fix thermo2 all ave/time 1 1000 1000 c_myKE      file thermo-equil-ke.dat
-fix thermo3 all ave/time 1 1000 1000 c_myPE      file thermo-equil-pe.dat
-fix thermo4 all ave/time 1 1000 1000 c_myPress   file thermo-equil-press.dat
-
-fix nvtsim all nvt temp $T $T 100.0
 run 100000 # <- executa a termalização, computando as médias acima
 undump equil
 
 write_data topo_equil.top
-unfix thermo1
-unfix thermo2
-unfix thermo3
-unfix thermo4
 #=================================================================================
 
 
 # fase de produção <--------------------------
 #==================================================================================
 reset_timestep 0 # <- volta o tempo para 0
+
 dump production all custom 20000 dump-production.lammpstrj id type x y z
 dump_modify production sort id
 
@@ -103,13 +85,8 @@ fix ave_gr_ch4 all ave/time 10 10000 450000 c_gr_ch4[*] overwrite file gr-ch4.da
 compute msd_ch4 methane msd com yes
 fix ave_msd_ch4 all ave/time 1 1 12000 c_msd_ch4[4] file msd-ch4.dat mode scalar  
 
-# algumas médias
-fix thermo1 all ave/time 1 1000 1000 c_myTemp    file thermo-prod-temp.dat
-fix thermo2 all ave/time 1 1000 1000 c_myKE      file thermo-prod-ke.dat
-fix thermo3 all ave/time 1 1000 1000 c_myPE      file thermo-prod-pe.dat
-fix thermo4 all ave/time 1 1000 1000 c_myPress   file thermo-prod-press.dat
-
 # Computa a média da pressão para escrever no final
+compute myPress all pressure thermo_temp
 fix fpress all ave/time 1 10000 10000 c_myPress ave running
 
 # Viscosidade
@@ -127,10 +104,10 @@ variable        v33     equal    trap(f_SS[5])*${scale}
 
 variable        visc    equal    (v_v11+v_v22+v_v33)/3.0
 #------------------------------------------------------
- 
-  
+
 thermo          $d
 thermo_style    custom step temp press spcpu v_visc 
+
 run 1992000 # <- executa a simulação de produção. OBS: o número de passos deve ser múltiplo de $d
 write_data topo_final.top
 #=================================================================================

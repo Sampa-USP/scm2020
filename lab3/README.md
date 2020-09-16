@@ -160,7 +160,7 @@ nohup mpirun -np 2 lammps < in.lammps > out.lammps &
 ```
 após entrar com o comando, pressione `Enter` duas vezes para liberar o terminal enquanto a simulação executa no fundo.
 
-Caso não seja possível utilizar dois processadores, execute o mesmo comando acima, mas sem o `mpirun -np 2`.
+Caso não seja possível utilizar dois processadores, execute o comando acima sem o `mpirun -np 2`.
 
 Acompanhe a execução da simulação no arquivo `out.lammps`.
 Visualize o arquivo (ou parte dele) com um dos comandos abaixo e aguarde até o término da simulação:
@@ -171,8 +171,78 @@ less out.lammps
 more out.lammps
 ```
 
-A simulação terá terminado com sucesso quando a última linha começar com `Total wall time:`.
+A simulação terá terminado com sucesso quando a última linha começar com `Total wall time:`, indicando o tempo total gasto para realizar a simulação.
 
 ## Analisando os resultados
 
+Vamos agora colocar os resultados obtidos na [**PLANILHA DO TUTORIAL**](https://docs.google.com/spreadsheets/d/1QZ8aAl9Badit1GjiGgZIxhBJYMW4YH85lrDjnc5lUog/edit?usp=sharing) para poder comparar nossos resultados com resultados experimentais e de outras simulações.
+Mas antes disso, vamos nos certificar de que a simulação de produção de fato amostrou de uma distribuição de equilíbrio.
+Para isso, vamos analisar a evolução da temperatura, energia e pressão com o tempo, e verificar que todas **oscilam em torno de um valor médio** durante a simulação de produção.
 
+Podemos analisar as curvas olhando para a evolução temporal dos valores instantâneos.
+Os valores impressos no arquivo `out.lammps` durante a simulação representam os valores instantâneos da propriedade naquele passo de simulação (com exceção da viscosidade, onde imprimimos o valor médio acumulativo com o `ave running`).
+Temos então que graficar esses valores para acompanhar a evolução temporal de cada um deles.
+
+Para isso utilizaremos o *script* `lammps_plotter.py`, que está no diretório `utils`.
+No script, selecionamos quais colunas queremos graficar, juntamente com qual das simulações queremos graficar.
+Para cada comando `run` no input, o *script* interpreta como uma simulação.
+Portanto, a "simulação 1" é a termalização, e a "simulação 2" é a etapa de produção.
+No diretório onde se encontra o arquivo `out.lammps` execute os comandos abaixo para plotar informações referentes a termalização (de 100000 passos = 100 ps):
+
+```bash
+python ~/scm2020/lab3/utils/lammps_plotter.py out.lammps 1 2 --simulation 1
+```
+Para plotar evolução da temperatura função do passo de simulação (tempo em fs).
+
+```bash
+python ~/scm2020/lab3/utils/lammps_plotter.py out.lammps 1 5 --simulation 1
+```
+Para plotar a energia total em função dos passos de simulação e
+
+```bash
+python ~/scm2020/lab3/utils/lammps_plotter.py out.lammps 1 6 --simulation 1
+```
+Para graficar a pressão.
+
+Arquivos de saída no formato `plotter_1_X.pdf` serão gerados, onde o `X` representa a coluna referente àquela propriedade.
+Abra os arquivos para a visualização utilizando:
+```bash
+evince plotter_1_X.pdf &
+```
+Renomeie esses arquivos para um nome mais significativo (como `temperatura_termalizacao.pdf`) utilizando o comando `mv`.
+
+Repita o mesmo para as colunas `1 2`, `1 3` e `1 5` da simulação 2 (fase de produção).
+Você obterá gráficos para a temperatura, pressão e viscosidade, respectivamente (veja o arquivo de saída e conte as colunas para verificar).
+Analise esses gráficos, especialmente o da viscosidade.
+Perceba como a convergência do valor médio da viscosidade é muito mais lento que o das outras propriedades.
+
+Como vimos que o valor final da viscosidade está já próximo de convergir, e também que os valores instantâneos das propridades termodinâmicas oscilam em torno de uma média, podemos considerar agora os valores finais das propriedades que temos interesse.
+No nosso arquivo de entrada do LAMMPS, pedimos para as médias finais da pressão e viscosidade serem impressas no final da simulação.
+Veja quais são os valores obtidos utilizando:
+```bash
+grep Average out.lammps
+```
+Copie os valores obtidos para a [**PLANILHA DO TUTORIAL**](https://docs.google.com/spreadsheets/d/1QZ8aAl9Badit1GjiGgZIxhBJYMW4YH85lrDjnc5lUog/edit?usp=sharing).
+
+Vamos agora obter o coeficiente de auto-difusão *D*.
+Note que no arquivo de entrada, escrevemos o MSD no arquivo `msd-ch4.dat`, onde temos os resultados de MSD por passo de simulação.
+Copie o *script* `msd.gps` que se encontra na pasta `scripts` para o diretório com o arquivo `.dat`.
+Execute o *script* para graficar a curva e também realizar o ajuste linear, obtendo o valor de *D*:
+```bash
+gnuplot msd.gps
+```
+Visualize o arquivo com `evince msd.pdf &` e preencha o valor de *D* na [**PLANILHA DO TUTORIAL**](https://docs.google.com/spreadsheets/d/1QZ8aAl9Badit1GjiGgZIxhBJYMW4YH85lrDjnc5lUog/edit?usp=sharing).
+
+## Unindo os dados das diferentes densidades
+
+Com a [**PLANILHA DO TUTORIAL**](https://docs.google.com/spreadsheets/d/1QZ8aAl9Badit1GjiGgZIxhBJYMW4YH85lrDjnc5lUog/edit?usp=sharing) totalmente preenchida vamos comparar os resultados obtidos com os resultados disponíveis na literatura.
+Para a pressão e viscosidade compararemos com [dados de simulação](https://doi.org/10.1063/1.4896538) de dois diferentes potenciais utilizados para descrever o metano (o TraPPE que usamos e o OPLS) e dados do [NIST](https://webbook.nist.gov/cgi/cbook.cgi?ID=C74828&Mask=4).
+Já o coeficiente de auto-difusão será comparado apenas com os dados dos dois potenciais, já que o NIST não disponibiliza dados para essa propriedade.
+
+## Extra
+
+Também salvamos os dados referentes a distribuição radial de pares (g(r)).
+Utilize o *script* `gr.gps` para fazer um gráfico.
+
+A sua g(r) se parece com a de um gás ou de um líquido?
+Veja o [diagrama de fase do metano](https://media.cheggcdn.com/study/95d/95d4dd24-1f9c-43f6-9470-3d2529ac88bc/13347-11.5SE-2IPE1.png) e tente encontrar o ponto que simulou.
