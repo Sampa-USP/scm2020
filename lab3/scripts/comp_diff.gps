@@ -2,9 +2,9 @@ set term pdfcairo
 set output 'diff_273-15.pdf'
 
 set xlabel 'Density (kg/m^3)' font "times,16"
-set ylabel 'Viscosity (10^{-5} Pa*s)' font "times,16"
+set ylabel 'D_{self} (10^{-8} m^2/s)' font "times,16"
 set key left top box
 
-plot 'sim_data.dat' u 1:4 with lines linewidth 2 title 'Our TraPPE',\
-     'TraPPE_273.15K.dat' u 1:4 w li lw 2 title 'Lit. TraPPE',\
-     'OPLS_273.15K.dat' u 1:4 w li lw 2 ti 'Lit. OPLS',\
+plot 'sim_data.dat' u 1:4 w lp linewidth 2 title 'Our TraPPE',\
+     'TraPPE_273.15K.dat' u 1:4 w lp lw 2 title 'Lit. TraPPE',\
+     'OPLS_273.15K.dat' u 1:4 w lp lw 2 ti 'Lit. OPLS',\

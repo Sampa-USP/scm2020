@@ -5,7 +5,7 @@ set xlabel 'Density (kg/m^3)' font "times,16"
 set ylabel 'Pressure (MPa)' font "times,16"
 set key left top box
 
-plot 'sim_data.dat' u 1:2 with lines linewidth 2 title 'Our TraPPE',\
-     'TraPPE_273.15K.dat' u 1:2 w li lw 2 title 'Lit. TraPPE',\
-     'OPLS_273.15K.dat' u 1:2 w li lw 2 ti 'Lit. OPLS',\
-     'NIST_273.15K.dat' u 1:2 w li lw 2 ti 'NIST'
+plot 'sim_data.dat' u 1:2 w lp linewidth 2 title 'Our TraPPE',\
+     'TraPPE_273.15K.dat' u 1:2 w lp lw 2 title 'Lit. TraPPE',\
+     'OPLS_273.15K.dat' u 1:2 w lp lw 2 ti 'Lit. OPLS',\
+     'NIST_273.15K.dat' u 1:2 w lp lw 2 ti 'NIST'
