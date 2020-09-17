@@ -1,14 +1,14 @@
 # Simulação de metano em alta pressão com dinâmica molecular
 
-Neste laboratório vamos estudar o comportamento do metano em condições de alta pressão.
-Para isso, vamos utilizar simulações de dinâmica molecular e comparar os resultados obtidos com resultados disponíveis na literatura.
+Neste laboratório vamos estudar o comportamento do metano na fase supercrítica (alta pressão).
+Para isso, vamos utilizar simulações de dinâmica molecular e comparar os resultados obtidos com resultados disponíveis na literatura, experimentais e de simulação.
 Este laboratório dá sequência ao [laboratório 2](../lab2), tenha certeza de ter entendido o conteúdo antes desse laboratório antes de prosseguir.
 
-Estaremos interessados em observar propriedades dependentes de médias temporais.
+Estaremos interessados em observar propriedades de transporte, que são dependentes do tempo e só podem ser calculados com dinâmica molecular (não podemos utilizar Monte Carlo).
 Especificamente, vamos calcular o coeficiente de auto-difusão e a viscosidade nas diferentes condições de simulação.
 Para isso, faremos simulações no ensemble *NVT*, simulando em diferentes densidades.
 Como o volume é mantido constante nesse tipo de simulação, diferentes densidades são equivalentes a diferentes pressões.
-Nesse caso, a pressão será uma das propriedades que podemos obter com a simulação.
+Nesse caso, a pressão será uma das propriedades que podemos obter com a simulação, diferente de simulações no *ensemble* *NPT*, onde a pressão é controlada por um barostato.
 
 ## Objetivos
 
@@ -17,7 +17,7 @@ Nesse caso, a pressão será uma das propriedades que podemos obter com a simula
 
 ## Simulação de metano considerando diferentes temperaturas e pressões
 
-Para obter curvas de como as propriedades que estudaremos variam com a temperatura e pressão, cada aluno vai realizar a simulação em uma temperatura e pressão conforme a tabela abaixo.
+Para obter curvas de como as propriedades que estudaremos variam com a temperatura e pressão, cada aluno vai realizar a simulação em uma temperatura e densidade conforme a tabela abaixo.
 
 Aluno | Temperatura (K) | Densidade (kg/m<sup>3</sup>)
 ----- | --------------- | ------------------
@@ -64,7 +64,7 @@ Utilizaremos nesse laboratório um modelo **united atom (UA)** para o metano.
 
 Este tipo de modelo, utiliza-se do fato de que os hidrogênios de hidrocarbonetos interagem pouco com outros átomos e moléculas (por exemplo, não formam ligação de hidrogênio) para incluí-los de maneira efetiva no potencial do carbono.
 No caso do metano, isso significa que temos um único "átomo" do tipo `CH4`.
-Esse átomo `CH4` possui a massa da molécula de metano e um <img src="https://render.githubusercontent.com/render/math?math=%5Cepsilon"> e <img src="https://render.githubusercontent.com/render/math?math=%5Csigma"> diferentes para tentar compensar pela falta de átomos de hidrogênio.
+Esse átomo `CH4` possui a massa da molécula de metano e um <img src="https://render.githubusercontent.com/render/math?math=%5Cepsilon"> e <img src="https://render.githubusercontent.com/render/math?math=%5Csigma"> diferentes do carbono simples, para tentar compensar pela falta de átomos de hidrogênio na molécula.
 
 Utilizar modelos UA significa reduzir consideravelmente o custo computacional da simulação.
 Isso porque temos menos átomos interagindo (neste caso apenas 1/5 dos átomos), e também porque podemos utilizar um *timestep* para integração ligeiramente maior, já que não precisamos considerar o tempo característico das vibrações dos átomos de hidrogênio.
@@ -83,7 +83,7 @@ Sendo assim, para a nossa caixa de simulação construída com as réplicas ter 
 
 Como a caixa de simulação é gerada replicando uma caixa com somente uma molécula de metano, precisamos calcular o volume ocupado por essa molécula considerando uma certa densidade.
 Para isso calculamos o volume molar do metano (V<sub>m</sub> = massa molar/densidade), e dividimos pelo número de Avogadro, obtendo então o volume ocupado por uma molécula.
-Com isso, podemos calcular qual o lado *L* de uma caixa cúbica contendo uma única molécula de metano que resulta na densidade desejada.
+Com isso, podemos calcular qual o lado *L* de uma caixa cúbica contendo uma única molécula de metano que resulta na densidade desejada:
 
 <img src="https://render.githubusercontent.com/render/math?math=L=%5Cleft(%5Cfrac%7B160424.6%7D%7B6.022%5Crho%7D%5Cright)%5E%7B1%2F3%7D">Å
 
@@ -113,7 +113,7 @@ Essa proporcionalidade é dada pela constante de auto-difusão *D*, que em 3 dim
 
 <img src="https://render.githubusercontent.com/render/math?math=D%20%3D%20%5Clim_%7Bt%5Cto%5Cinfty%7D%20%5Cfrac%7B%5Clangle%20%5Cvert%20r(t)-r(0)%20%5Cvert%5E2%20%5Crangle%20%7D%7B6t%7D">
 
-onde `r(t)` é p deslocamento da molécula em relação a posição inicial em `t = 0`.
+onde `r(t)` é o deslocamento da molécula em relação a posição inicial em `t = 0`.
 Note na equação acima que o coeficiente angular dividido por 6 é igual a *D* quando o tempo vai para infinito.
 Na prática, calculamos *D* armazenando o valor do MSD em diversos tempos, e depois fazendo um ajuste linear a curva `t vs MSD`.
 
@@ -129,7 +129,7 @@ onde *V* é o volume da caixa; *T* é a temperatura do ensemble; k<sub>B</sub> a
 
 #### Arquivo in.lammps
 
-O arquivo de entrada que utilizaremos para as simulações do metano, apesar do potencial mais simples, é ligeiramente mais complexo que os arquivos de entrada utilizados para a minimização de energia no [laboratório 2](../lab2).
+O arquivo de entrada que utilizaremos para as simulações do metano, apesar do potencial mais simples com relação aos do [laboratório 2](../lab2), é ligeiramente mais complexo que os arquivos de entrada utilizados para a minimização de energia.
 Nesse caso, temos que definir além do potencial de interação, as propriedades que queremos calcular e como faremos a integração das equações de movimento.
 Também separamos a simulação em fase de termalização, onde temos a equilibração do sistema e fase de produção, onde as propriedades são de fato calculadas.
 
@@ -238,6 +238,42 @@ Visualize o arquivo com `evince msd.pdf &` e preencha o valor de *D* na [**PLANI
 Com a [**PLANILHA DO TUTORIAL**](https://docs.google.com/spreadsheets/d/1QZ8aAl9Badit1GjiGgZIxhBJYMW4YH85lrDjnc5lUog/edit?usp=sharing) totalmente preenchida vamos comparar os resultados obtidos com os resultados disponíveis na literatura.
 Para a pressão e viscosidade compararemos com [dados de simulação](https://doi.org/10.1063/1.4896538) de dois diferentes potenciais utilizados para descrever o metano (o TraPPE que usamos e o OPLS) e dados do [NIST](https://webbook.nist.gov/cgi/cbook.cgi?ID=C74828&Mask=4).
 Já o coeficiente de auto-difusão será comparado apenas com os dados dos dois potenciais, já que o NIST não disponibiliza dados para essa propriedade.
+
+Na pasta `docs` estão os dados que utilizaremos para a comparação.
+Copie os dados referente a temperatura que quer graficar para um diretório novo, juntamente com os scripts `comp_diff.gps`, `comp_pres.gps` e `comp_visc.gps` que estão no diretório `scripts`.
+Neste diretório, crie um documento de texto chamado `sim_data.dat`, copie as colunas da [**PLANILHA DO TUTORIAL**](https://docs.google.com/spreadsheets/d/1QZ8aAl9Badit1GjiGgZIxhBJYMW4YH85lrDjnc5lUog/edit?usp=sharing) selecionando os valores e colando no documento de texto, de modo que o arquivo ficará como:
+
+```
+25  3.69318994754743  0.943466944878371 59.1383
+50  7.0276858290188   1.34414639344123  28.6355 
+.
+.
+.
+```
+
+Sendo a primeira coluna a densidade, a segunda a pressão, a terceira a viscosidade e a quarta o coeficiente de auto-difusão.
+Note que é a mesma sequência da planilha, por isso é só copiar e colar.
+
+Abra os arquivos `.gps` e certifique-se que eles fazem referência aos nomes de arquivo correto, isto é, para plotar os dados da temperatura de `303.15 K` você precisará substituir `273.15` por `303.15` dentro de cada arquivo.
+
+As curvas, não considerando os dados gerados por vocês, devem ter a seguinte forma:
+
+- Pressão:
+
+![pressao](imgs/pressao_303-15.png)
+- Viscosidade:
+
+![viscosidade](imgs/viscosidade_303-15.png)
+- Coeficiente de auto-difusão:
+
+![difusao](imgs/difusao_303-15.png)
+
+Veja o excelente acordo para a pressão e o bom acordo para a viscosidade, especialmente para baixas densidades.
+Os desvios da viscosidade para altas densidades são maiores para potenciais UA, conforme discutido [na literatura](https://doi.org/10.1063/1.4896538).
+
+Em princípio, os dados gerados nas nossas simulações deveriam coincidir com os da curva `Lit. TraPPE`.
+Contudo, vocês devem observar alguns desvios com relação a essa curva, mesmo que o potencial utilizado seja o mesmo.
+Vocês conseguem explicar esses desvios? 
 
 ## Extra
 
