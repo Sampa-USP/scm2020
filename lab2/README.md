@@ -125,7 +125,7 @@ Esta topologia foi adaptada de um dos exemplos do LAMMPS, que se encontra no dir
 Note a complexidade muito maior da topologia, que possui mais tipos de átomos, ligações, ângulos e diedros, e que agora também introduz diedros impróprios.
 Muito provavelmente, essa topologia foi construída com o auxílio de alguma ferramenta como o [TopoTools](https://sites.google.com/site/akohlmey/software/topotools), o [MolTemplate](http://www.moltemplate.org/) ou o [LigParGen](http://zarbi.chem.yale.edu/ligpargen/).
 
-**IMPORTANTE**: Se utilizar alguma ferramenta automática para a construção da topologia, *SEMPRE* verifique se a topologia gerada está correta. A topologia estiver errada, *TODA* a simulação é inválida.
+**IMPORTANTE**: Se utilizar alguma ferramenta automática para a construção da topologia, *SEMPRE* verifique se a topologia gerada está correta. Se a topologia estiver errada, *TODA* a simulação é inválida.
 
 Depois de visualizar a topologia, abra o arquivo de entrada do LAMMPS.
 Compare com os arquivos anteriores.
