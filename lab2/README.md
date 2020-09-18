@@ -10,7 +10,7 @@ O LAMMPS, assim como outros programas que realizam dinâmica molecular, lê as c
 
 - Entender a estrutura básica do arquivo de topologia do LAMMPS
 - Entender a estrutura básica do arquivo de entrada do LAMMPS
-- Realizar a minimização de energia de diferentes moléculas
+- Realizar a minimização de energia de diferentes sistemas
 
 ## Otimização da molécula de metano no campo de força OPLS-AA
 
@@ -145,3 +145,46 @@ As mudanças não são tão grandes, como é mostrado numa superposição das du
 ![peptideo](imgs/peptide.png)
 
 A estrutura inicial é a com transparência, enquanto a final é a opaca.
+
+## Otimização de um nanotubo de carbono com defeito topológico descrito pelo AIREBO
+
+Nos exemplos anteriores realizamos a minimização de energia de moléculas descritas por campos de força que possuem forma funcional onde ligações covalentes, ângulos, diedros e diedros impróprios precisam ser explicitamente declarados na topologia.
+Devido ao potencial harmônico presente nas ligações covalentes, não é possível romper ligações nesse tipo de potencial.
+Por esse motivo, em simulações que se deseja observar a formação ou quebra de ligações químicas, é necessário o uso de potenciais reativos.
+
+Esses potenciais, em geral, são mais custosos computacionalmente, e dependendo da propriedade de interesse, não necessariamente fornecem a melhor descrição para o sistema.
+Contudo, a flexibilidade de poder trabalhar com a quebra de ligações é fundamental em alguns casos, como no estudo de curvas de *stress vs strain*, onde o sistema é esticado até romper.
+
+Nesta parte do tutorial vamos utilizar o potencial AIREBO, que é um potencial reativo e tem as características mencionadas anteriormente.
+Iremos realizar a otimização de energia de um nanotubo de carbono com um defeito topológico.
+Esse defeito, foi gerado à partir do nanotubo pristino, removendo dois átomos e realizando o que seria a rotação de duas ligações (que não são explícitas nesse caso).
+Ao introduzir o defeito, precisamos que o sistema relaxe para a configuração de mais baixa energia com aquele defeito, se quisermos realizar outras simulações com esse nanotubo.
+
+Entre no diretório `CNT` e primeiramente visualize a estrutura do nanotubo com `jmol CNT.xyz &`.
+Encontre o defeito na estrutura.
+Após isso, feche o `jmol` e visualize a topologia (`CNT.data`).
+Repare como não declaramos *bonds*, *angles* e *torsionals*.
+
+Agora abra o arquivo de entrada do LAMMPS `in.lammps` e tente entendê-lo.
+Veja como na parte do potencial o AIREBO é definido como `pair_style`, e que no `pair_coeff` (onde colocaríamos as constantes do potencial) é feita a referência a um outro arquivo, o `CH.airebo`.
+Este arquivo não foi feito por nós, mas sim pelos autores do potencial. 
+Arquivos desse tipo são normalmente disponibilizados juntos com os artigos onde os potenciais desenvolvidos são apresentados.
+Após tentar entender o `in.lammps`, visualize o arquivo do potencial.
+Tentar entender o conteúdo do `CH.airebo` está fora do escopo deste tutorial, mas pense que assim como utilizávamos os `pair_coeff` para fixar os valores do epsilon e sigma do potencial de Lennard-Jones, o arquivo contém as constantes necessárias da parametrização dessas interações.
+
+Finalmente, execute a minimização de energia com:
+```bash
+lammps < in.lammps
+```
+
+Veja que a minimização vai demorar alguns segundos para terminar.
+Este aumento do tempo de CPU não é somente pelo maior número de átomos, ele ocorre principalmente pelo custo computacional do AIREBO.
+Veja a diferença de energia entre a estrutura final e inicial (se atente para as unidades!).
+
+Agora visualize as estruturas `inicial.xyz` e `final.xyz` lado a lado para tentar enxergar as mudanças.
+Você deve observar algo como na figura abaixo:
+
+![CNT](imgs/CNT_comb.png)
+
+Note que os comprimentos de ligação e ângulos foram ajustados de modo que a estrutura final é mais simétrica.
+

@@ -1,0 +1,70 @@
+# minimize 136.310669 x 6.779741 x 6.779741 nanotube 
+
+##---------------INITIALIZATION-------------------------------
+
+units          metal # <- unidades diferentes das usadas anteriormente! veja o manual
+dimension 	   3 
+boundary       p f f # <- y e z não são periódicas
+atom_style 	   atomic
+newton 		     on
+
+##---------------ATOM DEFINITION------------------------------
+
+read_data 	   CNT.data
+
+##---------------FORCE FIELD----------------------------------
+
+pair_style 	   airebo 3.0 1 0
+pair_coeff     * * CH.airebo C
+
+##---------------COMPUTES-------------------------------------
+
+compute    peratom all pe/atom
+compute    pe all reduce sum c_peratom
+
+compute    0 all pair airebo
+variable   REBO     equal c_0[1]
+variable   LJ       equal c_0[2]
+variable   TORSION  equal c_0[3]
+
+##---------------INITIAL VALUES-------------------------------
+
+thermo 	10
+thermo_style custom step pe c_pe ke etotal epair v_REBO v_LJ v_TORSION lx ly lz 
+
+dump    1 all xyz 1 initial.xyz
+dump_modify 1 element C
+
+run 0
+undump 1
+
+variable N equal count(all)
+variable No equal $N
+
+variable E equal "c_pe"
+variable Ei equal $E
+
+print "Values before minimization"
+print "Total number of atoms = ${No}"
+print "Initial energy of atoms = ${Ei}"
+
+##---------------RUN MINIMIZATION-----------------------------
+
+min_style cg
+minimize 1e-15 1e-15 5000 5000
+
+dump    1 all xyz 1 final.xyz
+dump_modify 1 element C
+
+run 0
+undump 1
+
+variable N equal count(all)
+variable No equal $N
+
+variable E equal "c_pe"
+variable Ei equal $E
+
+print "Values after minimization"
+print "Total number of atoms = ${No}"
+print "Final energy of atoms = ${Ei}"
