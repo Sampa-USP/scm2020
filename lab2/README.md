@@ -153,7 +153,7 @@ Devido ao potencial harmônico presente nas ligações covalentes, não é poss�
 Por esse motivo, em simulações que se deseja observar a formação ou quebra de ligações químicas, é necessário o uso de potenciais reativos.
 
 Esses potenciais, em geral, são mais custosos computacionalmente, e dependendo da propriedade de interesse, não necessariamente fornecem a melhor descrição para o sistema.
-Contudo, a flexibilidade de poder trabalhar com a quebra de ligações é fundamental em alguns casos, como no estudo de curvas de *stress vs strain*, onde o sistema é esticado até romper.
+Contudo, a flexibilidade de poder trabalhar com a quebra de ligações é fundamental em alguns casos, como no estudo de curvas de *stress vs strain*, onde o sistema é tracionado até romper ([veja um exemplo](https://streamable.com/h3lntp)).
 
 Nesta parte do tutorial vamos utilizar o potencial AIREBO, que é um potencial reativo e tem as características mencionadas anteriormente.
 Iremos realizar a otimização de energia de um nanotubo de carbono com um defeito topológico.
