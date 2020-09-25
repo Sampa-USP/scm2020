@@ -7,10 +7,10 @@ boundary        p p p  # <- condições periodicas de contorno em 3D
 
 
 #=================================================================================
-variable        T       equal 273.15       # temperatura (K)
+variable        T       equal 303.15       # temperatura (K) !!! ALTERE AQUI !!!
 variable        V       equal vol          # volume
 variable        dt      equal 1.0          # passo de tempo para integração (fs)
-variable        seed    equal 710383       # semente do PRNG
+variable        seed    equal 710383       # semente do PRNG !!! ALTERE AQUI !!!
 
 # para o calculo da viscosidade
 variable        p       equal 6000          # comprimento de correlação
@@ -71,7 +71,7 @@ write_data topo_equil.top
 
 
 # fase de produção <--------------------------
-#==================================================================================
+#=================================================================================
 reset_timestep 0 # <- volta o tempo para 0
 
 dump production all custom 20000 dump-production.lammpstrj id type x y z

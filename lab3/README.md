@@ -18,33 +18,34 @@ Nesse caso, a pressão será uma das propriedades que podemos obter com a simula
 ## Simulação de metano considerando diferentes temperaturas e pressões
 
 Para obter curvas de como as propriedades que estudaremos variam com a temperatura e pressão, cada aluno vai realizar a simulação em uma temperatura e densidade conforme a tabela abaixo.
+Veja qual seu número de discente encontrando seu número USP na [**PLANILHA DO TUTORIAL**](https://docs.google.com/spreadsheets/d/1QZ8aAl9Badit1GjiGgZIxhBJYMW4YH85lrDjnc5lUog/edit?usp=sharing).
 
-Aluno | Temperatura (K) | Densidade (kg/m<sup>3</sup>)
------ | --------------- | ------------------
-1     | 273.15          | 25
-2     | 273.15          | 50
-3     | 273.15          | 75
-4     | 273.15          | 100
-5     | 273.15          | 150
-6     | 273.15          | 200
-7     | 273.15          | 250
-8     | 273.15          | 300
-9     | 273.15          | 350
-10    | 273.15          | 400
-11    | 273.15          | 450
-12    | 273.15          | 500
-13    | 303.15          | 25
-14    | 303.15          | 50
-15    | 303.15          | 75
-16    | 303.15          | 100
-17    | 303.15          | 150
-18    | 303.15          | 200
-19    | 303.15          | 250
-20    | 303.15          | 300
-21    | 303.15          | 350
-22    | 303.15          | 400
-23    | 303.15          | 450
-24    | 303.15          | 500
+Discente | Temperatura (K) | Densidade (kg/m<sup>3</sup>)
+-------- | --------------- | ------------------
+1        | 273.15          | 25
+2        | 273.15          | 50
+3        | 273.15          | 75
+4        | 273.15          | 100
+5        | 273.15          | 150
+6        | 273.15          | 200
+7        | 273.15          | 250
+8        | 273.15          | 300
+9        | 273.15          | 350
+10       | 273.15          | 400
+11       | 273.15          | 450
+12       | 273.15          | 500
+13       | 303.15          | 25
+14       | 303.15          | 50
+15       | 303.15          | 75
+16       | 303.15          | 100
+17       | 303.15          | 150
+18       | 303.15          | 200
+19       | 303.15          | 250
+20       | 303.15          | 300
+21       | 303.15          | 350
+22       | 303.15          | 400
+23       | 303.15          | 450
+24       | 303.15          | 500
 
 ## Arquivos de entrada para a simulação
 
@@ -83,7 +84,7 @@ Sendo assim, para a nossa caixa de simulação construída com as réplicas ter 
 
 Como a caixa de simulação é gerada replicando uma caixa com somente uma molécula de metano, precisamos calcular o volume ocupado por essa molécula considerando uma certa densidade.
 Para isso calculamos o volume molar do metano (V<sub>m</sub> = massa molar/densidade), e dividimos pelo número de Avogadro, obtendo então o volume ocupado por uma molécula.
-Com isso, podemos calcular qual o lado *L* de uma caixa cúbica contendo uma única molécula de metano que resulta na densidade desejada:
+Com isso, podemos calcular qual o lado *L* de uma **caixa cúbica** contendo uma única molécula de metano que resulta na densidade desejada:
 
 <img src="https://render.githubusercontent.com/render/math?math=L=%5Cleft(%5Cfrac%7B160424.6%7D%7B6.022%5Crho%7D%5Cright)%5E%7B1%2F3%7D">Å
 
@@ -135,7 +136,7 @@ Também separamos a simulação em fase de termalização, onde temos a equilibr
 
 Para facilitar a mudança de alguns parâmetros da simulação, foram definidas variáveis no começo do arquivo.
 **Altere a temperatura** para a temperatura em que fará a simulação conforme a tabela acima.
-Mude também a *seed* do gerador de números aleatórios.
+**Mude também a _seed_** do gerador de números aleatórios.
 A *seed* é um número utilizado para inicializar o gerador de números aleatórios que, por sua vez, inicializa as velocidades.
 
 Sobre o campo de força, note que temos uma interação somente com o potencial de Lennard-Jones, especificada na keywork `pair_style`.
