@@ -57,22 +57,23 @@ Detalhes sobre a implementação podem ser vistos no [artigo](http://doi.wiley.c
 ## Potencial químico para a simulação
 
 Cada aluno irá simular com um potencial químico diferente (cada valor de potencial químico está associado a uma pressão).
-Ao final, teremos dados em 22 pressões diferentes, que poderão ser utilizados para obter a isoterma de adsorção de metano na silicalita.
-Veja o potencial químico que utilizará nas suas simulações na tabela abaixo:
+Ao final, teremos dados em 24 pressões diferentes, que poderão ser utilizados para obter a isoterma de adsorção de metano na silicalita.
+Veja o potencial químico que utilizará na [**PLANILHA DO TUTORIAL**](https://docs.google.com/spreadsheets/d/1X2Xy7CRzym9jnWCmL4UMnxemVm_gDE7aG2BNmNT9slM/edit?usp=sharing), que utiliza os potenciais qúimicos da tabela abaixo:
 
-Aluno | Potencial químico | Aluno | Potencial químico
------ | ----------------- | ----- | -----------------
-1     | -28.0             | 12    | -37.0
-2     | -29.0             | 13    | -37.5
-3     | -30.0             | 14    | -38.0
-4     | -31.0             | 15    | -38.5
-5     | -32.0             | 16    | -39.0
-6     | -33.0             | 17    | -39.5
-7     | -34.0             | 18    | -40.0
-8     | -35.0             | 19    | -40.5
-9     | -35.5             | 20    | -41.0
-10    | -36.0             | 21    | -42.0
-11    | -36.5             | 22    | -43.0
+Discente | Potencial químico | Discente | Potencial químico
+-------- | ----------------- | -------- | -----------------
+1        | -28.0             | 13       | -37.0
+2        | -29.0             | 14       | -37.5
+3        | -30.0             | 15       | -38.0
+4        | -31.0             | 16       | -38.5
+5        | -32.0             | 17       | -39.0
+6        | -33.0             | 18       | -39.5
+7        | -34.0             | 19       | -40.0
+8        | -34.5             | 20       | -40.5
+9        | -35.0             | 21       | -41.0
+10       | -35.5             | 22       | -42.0
+11       | -36.0             | 23       | -43.0
+12       | -36.5             | 24       | -44.0
 
 Note que o potencial químico indicado na tabela não é o potencial químico real, pois o Cassandra utiliza um potencial químico deslocado.
 Isso não muda nada em termos práticos para a simulação, mas pode alterar a comparação de dados com a literatura (se estiver comparando resultados por potencial químico, e não pressão).
