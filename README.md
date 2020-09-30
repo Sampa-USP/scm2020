@@ -6,8 +6,9 @@ Bem-vindo ao repositório da disciplina Simulação Computacional dos Materiais,
 1. [Lab 1](./lab1) Introdução ao uso do terminal (Linux) e scripts em bash/shell.
 2. [Lab 2](./lab2) Introdução a campos de força e ao LAMMPS.
 3. [Lab 3](./lab3) Propriedades do metano em alta pressão com dinâmica molecular.
-4. [labGCMC](./labGCMC) Simulações gás-sólido com Grand-Canonical Monte Carlo.
-5. [Lab 6b](./lab6b) Cálculos de DFT em lotes (batches).
+4. [Lab 4](./lab4) Adsorção de metano em zeólita com Grand-Canonical Monte Carlo.
+5. [Lab 5b](./lab5) Aprendizado não supervisionado.
+6. [Lab 6b](./lab6b) Cálculos de DFT em lotes (batches).
 
 Conteúdos extra:
 
