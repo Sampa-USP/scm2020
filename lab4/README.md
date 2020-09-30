@@ -1,23 +1,23 @@
-# Simulações gás-sólido com Grand-Canonical Monte Carlo
+# Adsorção de metano em zeólita com Grand-Canonical Monte Carlo
 
-Uma das aplicações mais importantes de métodos de Monte Carlo é para a simulações em condições termodinâmicas de alta temperatura e pressão.
-Nessas condições, o uso da dinâmica molecular é dificultado pela dificuldade em convergir em alguns casos, e também pela dependência de termostatos e barostatos para simular o ensemble desejado.
-Além disso, com Monte Carlo a utilização de ensembles abertos (onde `N` varia) é feita de maneira trivial.
+Uma das aplicações mais importantes de métodos de Monte Carlo é para a simulação de ensembles abertos (onde `N` varia). 
+Esse tipo de simulação é utilizado para estudar, por exemplo, a adsorção de gases em materiais porosos, como faremos nesse tutorial.
 Desses ensembles, dois são de extrema importância:
 
  - O ensemble grande-canônico, onde o potencial químico <img src="https://render.githubusercontent.com/render/math?math=\mu">, o volume *V* e a temperatura *T* são mantidas constantes
  - O ensemble de Gibbs, utilizado para simular a coexistência gás-líquido
 
 Neste tutorial, vamos aprender a fazer a simulação de sistemas gás-sólido utilizando o Gran-Canonical Monte Carlo (GCMC).
-Mais especificamente, iremos estudar a adsorção de gases em sistemas porosos, no caso, em uma zeólita.
+Mais especificamente, iremos estudar a adsorção de metano em uma zeólita, a silicalita.
 Esse tipo de simulação é de grande importância tanto em pesquisa básica quanto para aplicações industriais.
 
 Iremos utilizar o software [Cassandra](http://cassandra.nd.edu/) um programa de código aberto capaz de realizar simulações de Monte Carlo de sistemas moleculares.
 
 ## Objetivos
 
-Temos como objetivo principal, obter a curva da isoterma de adsorção de metano na silicalita (zeólita com estrutura de poros do tipo MFI).
-Essa curva é conhecida na literatura, e já foi obtida tanto experimentalmente quanto utilizando diferentes potenciais e métodos de GCMC.
+- Entender como são realizadas simulações com Monte Carlo
+- Entender a estrutura básica dos arquivos de entrada do Cassandra
+- Obter a curva da isoterma de adsorção de metano na silicalita (zeólita com estrutura de poros do tipo MFI) e comparar com dados de simulação e experimentais.
 
 ## Resumo da teoria
 
