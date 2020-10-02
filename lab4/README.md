@@ -100,6 +100,15 @@ Sempre que for utilizar o programa dentro da máquina virtual, lembre de carrega
 conda activate cassandra
 ```
 
+Também precisamos instalar o pacote `python-tk` para poder utilizar o script de visualização do Cassandra.
+Para isso, execute o comando:
+
+```bash
+sudo apt install python-tk
+```
+
+Lembrando que a senha da máquina virtual é `stds9`.
+
 ## Simulação de metano em fase gasosa
 
 Antes de fazer a simulação da adsorção de metano na zeólita, vamos fazer a simulação de metano puro na fase gasosa.
@@ -156,7 +165,7 @@ Nomearemos esse arquivo `gcmc.inp`, e ele terá como conteúdo:
 ! This is the input file for a GCMC short simulation of CH4 in gas phase
 
 # Run_Name
-ch4mu38p5.out
+ch4mu33p5.out
 !------------------------------------------------------------------------------
 
 # Sim_Type
@@ -212,7 +221,7 @@ CUBIC
 !------------------------------------------------------------------------Kelvin
 
 # Chemical_Potential_Info
--38.5
+-33.5
 !------------------------------------------------------------------------kJ/mol
 
 # Move_Probability_Info
@@ -292,13 +301,13 @@ Verifique o que foi alterado na seção `Fragment_Files` do arquivo.
 
 Vamos agora criar um diretório e executar a simulação em um potencial químico específico.
 ```
-mkdir 38.5
-cp -R species1/ 38.5
-cp gcmc.inp 38.5
-cp CH4.mcf 38.5
+mkdir 33.5
+cp -R species1/ 33.5
+cp gcmc.inp 33.5
+cp CH4.mcf 33.5
 ```
-Contudo, mude o valor 38.5 para o valor do potencial químico que irá simular.
-Edite o arquivo `gcmc.inp` do diretório em que copiou alterando o `# Chemical_Potential_Info` para o valor desejado (no exemplo acima, -38.5).
+Contudo, mude o valor 33.5 para o valor do potencial químico que irá simular.
+Edite o arquivo `gcmc.inp` do diretório em que copiou alterando o `# Chemical_Potential_Info` para o valor desejado (no exemplo acima, -33.5).
 
 Antes de executar o Cassandra, definimos a variável de ambiente `OMP_NUM_THREADS`, que determinar o número de *threads* a serem utilizadas na execução paralela.
 Por estamos executando um sistema de pouquíssimos átomos, utilizar 2 threads é o suficiente:
@@ -320,7 +329,7 @@ Verificamos isso olhando para a energia, pressão e número de moléculas (e em 
 Essa informação está contida no arquivo `prp`, que pode ser inspecionado manualmente, com um editor de texto (como o `gedit`), ou ainda graficamente com o auxílio de um dos scripts distribuído com o Cassandra:
 
 ```
-python2 ~/scm2020/labGCMC/utils/plot.py ch4mu28.out.prp
+python2 ~/scm2020/lab4/utils/plot.py ch4mu33p5.out.prp
 ```
 
 Ao executar o comando acima, você pode selecionar a propriedade a ser graficada inserindo o número indicado e pressionando `Enter`.
@@ -339,6 +348,10 @@ Para aqueles que executaram a simulação com um potencial químico menor que ~ 
 Nesses casos, o gráfico fica dessa maneira, devido a densidade do metano nesses potenciais químicos.
 Como temos uma caixa cúbica com 100 angstrom de lado, nesses potenciais químicos poucas moléculas estão na caixa.
 Devido ao **raio de corte**, utilizado para diminuir o custo computacional, em diversas configurações poucas moléculas, ou até nenhuma em alguns casos, estão interagindo entre si, isto é, estão a uma distância menor que o raio de corte.
+Mesmo as que estão interagindo (distância menor que 50 angstroms) muitas vezes tem uma energia de interação muito fraca por estarem distantes.
+Para ter uma ideia disso visualize o arquivo de saída com as estruturas (o `.xyz`) usando o `jmol`.
+Clique com o botão direito na tela do Jmol, vá em console e digite `spacefill 3.0` para visualizar melhor as moléculas.
+
 Vamos olhar agora para a pressão:
 
 ![press](imgs/press.png)
@@ -357,20 +370,19 @@ Os valores médios podem ser obtidos com o mesmo *script* que faz o gráficos do
 Para descartar os primeiros 200 pontos (onde as propriedades ainda não convergiram para a média) usaremos a opção `-skip 200` na linha de comando:
 
 ```
-python2 ~/scm2020/labGCMC/utils/plot.py ch4mu28.out.prp -skip 200
+python2 ~/scm2020/lab4/utils/plot.py ch4mu33p5.out.prp -skip 200
 ```
 
 Ao executar o script e selecionar propriedade, observe o valor médio dado (e a unidade):
 ```
 Output: Pressure (bar) 
 
-**************************************************
+****************************************************
 
-      File Name         Average        Std Dev.
-**************************************************
+        File Name         Average        Std Dev.
+****************************************************
 
-ch4mu28.out.prp      32.3855918       0.3651656
-
+ch4mu33p5.out.prp       3.7936816       0.0349850
 ```
 
 Anote esse valor, pois utilizaremos o valor médio da pressão da simulação do metano em fase gasosa na simulação da adsorção de metano na silicalita.
@@ -401,7 +413,7 @@ Vamos agora criar a estrutura sólida da silicalita para a simulação.
 Utilizaremos o software [VESTA](https://jp-minerals.org/vesta/en/download.html) que está instalado na sua máquina virtual.
 Abra a estrutura baixada no VESTA:
 ```
-vesta MFI.cif
+VESTA MFI.cif
 ```
 
 Iremos criar uma supercélula 2x2x2 (para comportar mais moléculas de metano) e salvar a estrutura como `pdb` para podermos utilizá-la no Cassandra.
@@ -478,7 +490,7 @@ Compare esse arquivo com o anterior e tenha certeza que entendeu as diferenças.
 ! This is the input file for a GCMC simulation of CH4 in a zeolite framework
 
 # Run_Name
-silicalite_ch4mu38p5.out
+silicalite_ch4mu33p5.out
 !------------------------------------------------------------------------------
 
 # Sim_Type
@@ -536,7 +548,7 @@ orthogonal
 !------------------------------------------------------------------------Kelvin
 
 # Chemical_Potential_Info
-none -38.5
+none -33.5
 !------------------------------------------------------------------------kJ/mol
 
 # Move_Probability_Info
@@ -630,7 +642,7 @@ Verificamos isso olhando para a evolução das propriedades com os passos de MC.
 Assim como na simulação do metano em fase gasosa, essa informação está contida no arquivo `.prp` e ser visualizada com o auxílio do script para graficar disponibilizado com o Cassandra:
 
 ```
-python2 ~/scm2020/labGCMC/utils/plot.py silicalite_ch4mu38p5.out.prp -skip 300
+python2 ~/scm2020/lab4/utils/plot.py silicalite_ch4mu33p5.out.prp -skip 300
 ```
 
 Verifique que a simulação está termalizada.
@@ -664,7 +676,7 @@ set xlabel 'P (kPa)'
 set ylabel 'Adsorbed molecules (mol/kg)'
 set logscale x
 plot "isotherm.dat" u 1:2 w lp lw 2 ti 'GCMC 308 K',\
-     "experimental.dat" u 1:2 w lp lw 2 ti 'Exp. 308 K'
+     "experimental_308K.dat" u 1:2 w lp lw 2 ti 'Exp. 308 K'
 ```
 
 Note que usamos uma escala logaritmica em x (pressão), que permite visualizar melhor a variação do número de moléculas adsorvidas.
