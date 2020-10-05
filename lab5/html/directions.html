@@ -1,0 +1,237 @@
+<title>Quantum Mechanics: 1-Dimensional Particle States Applet</title>
+<body>
+<hr>
+<a href="index.html">Click here to go to the applet.</a>
+<p>
+This java applet is a quantum mechanics simulation that shows the
+behavior of a single particle in bound states in one dimension.  It solves
+the Schr&ouml;dinger equation and allows you to visualize the solutions.
+<p>
+At the top of the applet you will see a graph of the potential, along
+with horizontal lines showing the energy levels.  By default
+it is an infinite well (zero everywhere inside, infinite at the
+edges).  Below that you will see the probability distribution of
+the particle's position, oscillating back and
+forth in a combination of two states.  Below the particle's position
+you will see a graph of its momentum.  (This is just the fourier transform
+of the particle's position.)  At the bottom of the screen is
+a set of phasors showing the magnitude and phase of all the possible
+states.
+<p>
+To view a state, move
+the mouse over its energy level on the potential graph.  To select a
+single state, click on it.
+<p>
+You may also select a single state by picking one of the phasors at the
+bottom and double-clicking on it.  Or, you may click on the phasor and
+drag its value to modify the magnitude and phase.  In this way, you can
+create a combination of states.  To delete a state, click on the phasor
+and then drag the mouse far away from it.
+<p>
+Between each graph is a horizontal line which may be dragged up and down
+to adjust the size of each graph.
+<p>
+Each graph also has a red line, indicating the expectation value
+for that observable.
+<p>
+<p>
+The <b>Setup Popup</b> allows you to select a predefined potential.  The
+choices are:
+<ul>
+<li><b>Infinite Well</b>: this is the "particle in a box"; the particle
+is confined between two walls of infinite potential.  The width of the
+well is adjustable.  Only a finite number of the states are shown;
+increase the resolution to see more states.
+<li><b>Finite Well</b>: this is a square well of finite depth.  Only
+the bound states are shown in this applet.  The width and depth of the
+well are adjustable.
+<li><b>Harmonic Oscillator</b>: this is a harmonic oscillator
+potential.  The "spring constant" of the oscillator and its offset
+are adjustable.  (If you have a particle in a stationary state and then
+translate it in momentum space, then the particle is
+put in a coherent quasi-classical
+state that oscillates like a classical particle.)
+<li><b>Well Pair</b>: this is two square wells of finite depth.  The
+width and separation of the two wells
+are adjustable.
+<li><b>Coupled Well Pair</b>: this is two square wells with an adjustable
+wall between them.  The separation of the two wells and the
+potential of the wall between them
+are adjustable.
+<li><b>Asymmetric Well</b>: this is two attached square wells with
+different widths and depths.
+<li><b>Infinite Well + Field</b>: this is an infinite square well
+with a uniform electric field, which causes the potential to slope
+downward.  The width of the well and the field direction and strength
+are adjustable.
+<li><b>Coupled Wells + Field</b>: this is two square wells with a
+wall between them, in an electric field.
+<li><b>Coulomb</b>: this is vaguely similar to a coulomb potential,
+except that it doesn't become infinite near the center, and it is
+bounded on the left and right sides.
+<li><b>Quartic Oscillator</b>.
+<li><b>Well Array (square)</b>: this is a series of square wells.  The
+number of wells and their depth are adjustable.
+<li><b>Well Array (harmonic)</b>: this is a series of wells with a
+harmonic oscillator shape.
+<li><b>Well Array (coulomb)</b>: this is a series of wells with a
+coulomb shape.
+<li><b>Well Array + Field</b>: this is a series of square wells with
+an electric field.
+<li><b>Well Array w/ Impurity</b>: this is a series of square wells with
+one well which has a different depth.
+<li><b>Well Array w/ Dislocation</b>: this is a series of square wells with
+one well offset slightly.
+<li><b>Random Well Array</b>: this is a series of square wells with
+random separations.
+<li><b>2 Well Array</b>: this is a series of square wells with alternating
+depths.
+<li><b>Delta Fn Array</b>: this is a set of up to 30 delta function
+wells.  (Actually they aren't true delta functions since the well width
+and well depth are both finite, but the resulting wave functions look
+like the theory predicts.  The wells are as narrow as the applet's
+resolution will allow.)  The number of wells and their separation are
+adjustable.  If the number of wells and the well separation
+are both too large, then not all the wells will fit on the screen.
+</ul>
+<p>
+The <b>Mouse Popup</b> determines what happens when the mouse is
+clicked.  The choices are:
+<ul>
+<li><b>Set Eigenstate</b>: if you click on the energy, position, or
+momentum graph, then the particle will be put in an eigenstate of that
+observable.  So if you click on the energy graph, the particle will be
+placed in a stationary state.  If you click on the position graph,
+the particle will be localized at that point (but will quickly spread
+out).  If you click on the momentum graph, the particle will have the
+selected momentum.
+<p>
+It may not be possible to put the particle in the eigenstate you selected,
+because this applet only deals with bound states, and there are a limited
+number of them because of finite resolution.  For example, you can't
+put the particle outside a finite square well.  If you try, then the
+applet will just do the best it can.
+<p>
+Clicking on the position graph will cause the particle to be localized
+as much as possible, which will often give unsatisfactory results because
+the momentum spectrum will be so spread out.  To
+localize the particle with a little more uncertainty, use <b>Edit Function</b>
+to sweep out an area of possible locations for the particle, or
+use <b>Create Gaussian</b> to create a more spread-out distribution.
+<p>
+<li><b>Edit Function</b>: this allows you to edit the potential energy
+graph or position distribution by clicking and dragging on the appropriate
+graph.  When editing the position distribution, it's not possible to edit
+the phase; the old phase is retained.  (Again, it may not be possible to
+make the changes you specified
+to the particle's position distribution since it may require eigenstates
+which are unbound.)
+<li><b>Create Gaussian</b>: this allows you to create a gaussian distribution
+on either the position or momentum graph.  The width of the distribution
+can be controlled by moving the mouse up and down.  (Again, it may not
+be possible to make a well-formed gaussian because it may require
+eigenstates that are unbound.)
+<li><b>Translate Function</b>: this allows you to drag the particle from
+side to side, to change its position.  You can also drag it in momentum space,
+to change its momentum.
+</ul>
+<p>
+The <b>Clear</b> button clears out all states.
+<P>
+The <b>Normalize</b> button normalizes the set of particle
+states.  (By default, the states are not shown normalized because the
+interface is easier to use if they are not.  They are normalized internally
+when calculating the wave functions, however.)
+<p>
+The <b>Maximize</b> button changes the magnitude of the
+particle states so that they are all as large as possible.  This makes
+them easier to see.  (It won't change the wave function at all
+because the states are normalized internally.)
+<p>
+The <b>Ground State</b> button selects the ground state wave function.
+<p>
+The <b>Rescale Graphs</b> button changes the scale of all the graphs
+so that everything is as large as possible.  Normally, the scale is
+adjusted only when necessary, so click this button if the wave functions
+are too small to see clearly.
+<p>
+The <b>Stopped</b> checkbox stops the evolution of the wave function.
+<p>
+The <b>Simulation Speed</b> slider changes the speed of the wave
+function evolution.
+<p>
+The <b>Resolution</b> slider changes the resolution of the applet.
+The higher the resolution, the more accurate the wave functions and
+energy levels will be.
+<p>
+The <b>Particle Mass</b> slider changes the mass of the particle.
+<p>
+The <b>View Menu</b> has the following items:
+<ul>
+<li><b>Energy</b>: show the energy/potential graph (on by default)
+<li><b>Position</b>: show the position graph (on by default)
+<li><b>Momentum</b>: show the momentum graph (on by default)
+<li><b>Sum All States</b>: show the sum of the probability distributions
+of all states.
+<li><b>Parity</b>: show a graph of parity.
+<li><b>Probability Current</b>: show the probability current.  This is
+zero for stationary states.  For states that are not stationary, the
+probability current is positive where the wave function is moving
+to the right and negative where it is moving to the left.
+<li><b>Left/Right Waves</b>: show the wave function decomposed into
+two separate waves, one moving to the left (negative momentum) and
+one moving to the right (positive momentum).  This option only works with
+the unmodified infinite well and harmonic oscillator potentials.
+For best results,
+select the <b>Wave Function -> Magnitude and Phase</b> menu item.
+<li><b>Values/Dimensions</b>: show some quantitative detail about the
+potential and the wave function.
+<li><b>State Phasors</b>: show the set of state phasors (on by default)
+<li><b>Expectation Values</b>: show expectation values as red lines
+<li><b>Uncertainties</b>: show uncertainties as blue lines to the
+left and right of the expectation value.  The distance from the blue
+lines to the red line is the uncertainty.  This is not available on
+the probability current graph, because that is not an observable.
+<li><b>Wave Function</b>: display the wave function in one of four
+ways: as a probability (magnitude squared), as a probability with the
+phase shown using colors, as real and imaginary parts graphed
+separately, or as a magnitude with the phase shown using colors.
+</ul>
+<p>
+The <b>Measure Menu</b> has the following items:
+<ul>
+<li><b>Measure Energy</b>: take a measurement of the energy by
+picking a random state (using the state coefficients to determine
+probability) and putting the particle in that state.
+<li><b>Measure Position</b>: take a measurement of the position by
+picking a random position (using the probability distribution)
+and locating the particle at that point.
+</ul>
+<p>
+The <b>Options Menu</b> has the following items:
+<ul>
+<li><b>Always Normalize</b>: always normalize the state coefficients.
+<li><b>Always Maximize</b>: always maximize the state coefficients.
+<p>
+<p>
+If neither one of these items is selected, then the applet will
+maximize the state coefficients whenever major changes are made,
+and leave them alone otherwise.
+<p>
+<li><b>Adiabatic Changes</b>: this option determines what happens when
+you make a change to the potential.  Let's say the particle is in the
+ground state.  If you make a change (like making the potential well wider),
+and this option is checked, the particle will be in the ground
+state of the new potential.  If it's not checked, then the particle will remain
+in the ground state of the old potential, and evolve from there
+(spreading out to fill the well).
+</ul>
+<p>
+If you like this applet you may be interested in the book <a href="http://www.kfunigraz.ac.at/imawww/vqm/">Visual Quantum Mechanics</a>.
+<hr>
+<a href="index.html">Click here to go to the applet.</a>
+<hr>
+<a href="http://www.falstad.com/mathphysics.html"><img src="/mathphysics_small.gif"></a>
+<a href="http://www.falstad.com/index.html"><img src="/me_small.gif"></a>
+<br><i>java@</i><i>falstad.com</i>
+</body>
