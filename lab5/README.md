@@ -36,12 +36,15 @@ primeiro estado excitado. Descreva para cada potencial e os parâmetros a ele
 associado, o comportamento dos níveis de energia e da dispersão do pacote de
 ondas.
 
+## Executando o applet
 
 Para seguir os próximos passos entre no index.html com o Firefox:
 
 ```bash
 firefox html/index.html &
 ```
+
+E clique no link `1-D Quantum Mechanics Applet.`.
 
 ## Caso 1: Poço finito (Finite Well)
 
@@ -74,12 +77,12 @@ Compare com o caso anterior (caso 2).
 - Também comparando-se com o caso 2, qual o efeito de termos uma
 série de poços periódicos ?
 
-## Caso 5: Impurezas (Well Array w/ Impurity).
+## Caso 5: Impurezas (Well Array w/ Impurity)
 
 Nesse caso, queremos analisar o efeito de uma impureza. Observe o que ocorre
 com o pacote de ondas quando é localizado próximo e afastado da impureza.
 
-##Caso 6: Discordância (Well Array w/ Dislocation)
+## Caso 6: Discordância (Well Array w/ Dislocation)
 
 Repita o mesmo que o caso 5 com um potencial que descreve o efeito de uma
 discordância.
