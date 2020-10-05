@@ -7,8 +7,9 @@ Bem-vindo ao repositório da disciplina Simulação Computacional dos Materiais,
 2. [Lab 2](./lab2) Introdução a campos de força e ao LAMMPS.
 3. [Lab 3](./lab3) Propriedades do metano em alta pressão com dinâmica molecular.
 4. [Lab 4](./lab4) Adsorção de metano em zeólita com Grand-Canonical Monte Carlo.
-5. [Lab 5b](./lab5) Aprendizado não supervisionado.
-6. [Lab 6b](./lab6b) Cálculos de DFT em lotes (batches).
+5. [Lab 5](./lab5) Mecânica Quântica, Soluções da equação de Schrödinger em 1-D e dispositivos eletrônicos.
+6. [Lab 5b](./lab5b) Aprendizado não supervisionado.
+7. [Lab 6b](./lab6b) Cálculos de DFT em lotes (batches).
 
 Conteúdos extra:
 
