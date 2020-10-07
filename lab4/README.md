@@ -123,7 +123,7 @@ Crie um arquivo `CH4.pdb` com o conteúdo:
 
 ```
 COMPND    UA methane 
-HETATM    1  C   UNM     1       0.000   0.000   0.000  1.00  0.00           C CH4  
+HETATM    1  C   UNM     1       0.000   0.000   0.000  1.00  0.00          C4  
 END
 ```
 
@@ -146,10 +146,10 @@ Localize no arquivo o átomo do tipo CH4 e edite os parâmetros manualmente:
 
 ```
 nonbonded
-CH4
+C4
 Sigma 2.73 
 Epsilon 148.0
-atom_type_charge 0.0 
+atom_type_charge 0.0
 ```
 
 Após isso, execute novamente o `mcfgen.py` agora para criar o `mcf`.
