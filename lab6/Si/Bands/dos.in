@@ -1,0 +1,6 @@
+&dos
+prefix = 'Si_exc2' ,
+outdir = '../Bands' ,
+fildos='dos.dat',
+Emin=-6.0, Emax=10.0, DeltaE=0.001
+/

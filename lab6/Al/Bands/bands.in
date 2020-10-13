@@ -1,0 +1,5 @@
+&bands
+prefix = 'Al_exc2'
+outdir='/home/sampa/Lab6/Al/Bands/outdir'
+filband = 'bands.dat'
+/
