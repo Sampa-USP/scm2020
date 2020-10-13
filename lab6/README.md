@@ -97,10 +97,12 @@ A energia de corte para ondas planas (ecutwfc) determina o valor máximo da ener
 **A1** - Execute o código para alguns valores de ecutwfc, para obter  o valor da energia. Salve o valor de energia para cada valor ecutwfc, no arquivo `si.etotvsecut`
 
 Neste exemplo, você pode tentar alguns valores de ecutwfc (em Ry):
-16
-20
-24
-32
+ecutwfc |
+:-:
+16 |
+20 |
+24 |
+32 |
 
 Para executar o código: 
 
@@ -124,9 +126,9 @@ Para considerar corretamente a periodicidade do sistema, é necessário um conju
 * nk1 nk2 nk3 k1 k2 k3
 * com nk1=nk2=nk3=2, 4, 6, 8, 10, 12 (número crescente de k-points), k1=k2=k3=1;]
 
-**B2**- Execute `pw.x`, **complete as entradas no arquivo si.etotvsnks**  (nks é o número real de k-points na BZ irredutível usados no cálculo, impressos no output)
+**B2** Execute `pw.x`, **complete as entradas no arquivo si.etotvsnks**  (nks é o número real de k-points na BZ irredutível usados no cálculo, impressos no output)
 
-**B3**- Plote a coluna 3 vs coluna 1, para obter o gráfico energia versus nks
+**B3** Plote a coluna 3 vs coluna 1, para obter o gráfico energia versus nks
 
 ### Tarefa 2: Cálculo de Bulk Modulus
 
@@ -211,18 +213,26 @@ Entre no diretório Bandas
 * dos.in: arquivo de entrada para calcular a densidade de estados.
 
 **(a) Cálculos autoconsistentes (scf) para Si**
- **3.1** Abra e leia o arquivo de amostra `Si.scf.in`
- **3.2** Escolhemos os valores de celldm (1), ecutwfc, nk1, nk2 e nk3 com base em nossos resultados obtidos na tarefa 1. Você pode escolher os mesmos valores que estes ou substituir seus valores.
- **3.3** Execute o cálculo de scf
- $  pw.x <Si.scf.in> Si.scf.out
+
+**3.1** Abra e leia o arquivo de amostra `Si.scf.in`
+
+**3.2** Escolhemos os valores de celldm (1), ecutwfc, nk1, nk2 e nk3 com base em nossos resultados obtidos na tarefa 1. Você pode escolher os mesmos valores que estes ou substituir seus valores.
+
+**3.3** Execute o cálculo de scf
+
+```bash
+$ pw.x <Si.scf.in> Si.scf.out
+``` 
 
 **(b) Estrutura de bandas do Si**
- **3.4** Abra o arquivo Si.band.in
- **3.5** Leia e confira as modificações realizadas neste arquivo Si.band.in 
+
+**3.4** Abra o arquivo `Si.band.in`
+
+**3.5** Leia e confira as modificações realizadas neste arquivo `Si.band.in` 
  
 * Para realizar os cálculos não autoconsistentes (nscf), os quiasserão usados ​​para obter a estrutura da banda, configurando o arquivo **calculation = 'bands'**.
 * Utiliza-se o **nbnd = 8**, à lista de nomes & SYSTEM para especificar o número de bandas calculadas. Observe que para uma célula de Si de 2 átomos, temos 8 elétrons e, portanto, apenas 4 bandas ocupadas, mas vamos calcular algumas bandas extras (vazias).
-* O  **K_POINTS** para especificar o caminho ao longo das direções de simetria na zona Brillouin. Para isso, você pode usar as informações fornecidas no arquivo chamado caminho do ponto-k, que contém uma lista de pontos-k ao longo de direções de alta simetria no BZ, ou seja, L (½, ½, ½) para Gama ( 0, 0, 0) a X (0, 0, 1) a W (0, ½, 1) a X (0, 1, 1) a Gama (0, 0, 0). Você pode colar esse arquivo em **Si.band.in** após o cartão ** K_POINTS**.
+* O  **K_POINTS** para especificar o caminho ao longo das direções de simetria na zona Brillouin. Para isso, você pode usar as informações fornecidas no arquivo chamado caminho do ponto-k, que contém uma lista de pontos-k ao longo de direções de alta simetria no BZ, ou seja, L (½, ½, ½) para Gama ( 0, 0, 0) a X (0, 0, 1) a W (0, ½, 1) a X (0, 1, 1) a Gama (0, 0, 0). Você pode colar esse arquivo em **Si.band.in** após o cartão **K_POINTS**.
  
  **3.6** Execute o cálculo de 'bandas':
 
@@ -269,7 +279,7 @@ Você pode ver a estrutura da banda desenhada no formato ps (bands.ps) usando um
 * **3.9** Agora fazemos o pós-processamento para extrair a densidade de carga
 
 * Abra o arquivo `Si.pp_rho.in`
-* Certifique-se de que o valor do prefixo seja igual aos valores usados ​​nos cálculos de scf.
+* Certifique-se de que o valor do prefixo seja igual aos valores usados nos cálculos de scf.
 * **filplot = 'Si.charge'** salva a densidade de carga extraída e é usado para plotagem definindo **filepp (1) = 'Si.charge'** e os dados a serem plotados escritos em **fileout = 'Si.rho.dat'** .
 * **plotnum =0** indicates that the quantity to be extracted is the charge denisty (for other possible options, see INPUT_PP).
 * **iflag** e **output_format** especificam a dimensionalidade do gráfico.
@@ -290,8 +300,7 @@ Veja o arquivo **Si.rho.dat**
 $ plotrho.x <Si.plotrho.in> Si.plotrho.out
 ```
 
-Use ghostview, ggv ou algum arquivo de pdf para ver a densidade de carga do Si Si.rho.ps
-.
+Use ghostview, ggv ou algum arquivo de pdf para ver a densidade de carga do Si `Si.rho.ps`.
  
 **(d) Gráfico da densidade de estados do Si**
 * Primeiro execute um cálculo nscf para obter os estados do DOS
@@ -335,8 +344,8 @@ Nesta prática de laboratório iremos calcular algumas propriedades para metais,
 
 Nesta tarefa iremos calcular a energia total para o Alumínio, através do cálculo autoconsistente (scf). Faremos dois testes de convergência:
 
-* 1.  Convergência dos raios de corte (cutoffs) para as funções de onda:  ("ecutwfc")
-* 2.  Convergência da energia total e pontos K (k-points)
+1.  Convergência dos raios de corte (cutoffs) para as funções de onda:  ("ecutwfc")
+2.  Convergência da energia total e pontos K (k-points)
 
 Entre na pasta Al/Estrutura, 
 Você verá os seguintes arquivos:
@@ -367,7 +376,8 @@ $ pw.x <Al.sample.in> Al.sample.out
 ```
 
 **3**.  Leia a saída e responda às seguintes perguntas:
-*  **3.1**. Quantas bandas foram calculadas? Como isso se compara ao número de elétrons?
+
+* **3.1**. Quantas bandas foram calculadas? Como isso se compara ao número de elétrons?
 * **3.2**. Qual é a energia Fermi? 
 
 **4.** Faça os testes de convergência em relação ao corte de onda plana:
@@ -377,17 +387,20 @@ Em princípio, você deve agora executar uma série de cálculos com diferentes 
 **5.**  Agora faça os testes de convergência em relação à amostragem da zona de Brillouin  e smearing width:
 Vamos decidir simultaneamente qual malha de k-pontos (valores de nk1, nk2, nk3 ) e o valor de smearing width (degauss) usar. Para simplificar, vamos supor agora que usaremos apenas o  smearing  Marzari-Vanderbilt.
 
-* 5.1**. Vamos calcular um loop de nk1, nk2, nk3 = 6 6 6, 8 8 8, 12 12 12, 16 16 16
+**5.1**. Vamos calcular um loop de nk1, nk2, nk3 = 6 6 6, 8 8 8, 12 12 12, 16 16 16
+
 * Para cada uma dessas malhas de k-pontos, faça um loop sobre degauss variando de 0.02 a 0.10 (em intervalos escolhidos por você).
 * Para cada valor de malhas de k-pontos teremos um arquivo al.m-p.nks (por exemplo, al.m-p.12 nk1, nk2, nk3 = 12 12 12 ) que contém duas colunas, a primeira  contém o  degauss, e a segunda contendo a energia total.
+
 ** Observação: Nós já calculamos algumas malhas de k-pontos usando um loop sobre os  degauss variando de 0,02 a 0,10. Abra os arquivos:
-  * al.m-v.6 que corresponde nk1, nk2, nk3 = 6 6 6 e calcule a energia para os valores de degauss que faltam no arquivo;
+ * al.m-v.6 que corresponde nk1, nk2, nk3 = 6 6 6 e calcule a energia para os valores de degauss que faltam no arquivo;
  * al.m-v.8 que corresponde nk1, nk2, nk3 = 8 8 8 e calcule a energia para os valores de degauss que faltam no arquivo;
  * nk1, nk2, nk3 = 12 12 12, 16 16 16 os cálculos estão completos**
 
 **5.2.** Faça um gráfico mostrando como a energia total varia com o número de pontos k e com o degauss , usando um programa de plotagem de sua escolha. 
 
 **O mesmo pode ser realizado usando o  smearing  gauss (arquivos, al.g.) e methfessel-paxton (arquivos, al.m-p.)**
+
 O resultado convergente 'verdadeiro' é obtido no limite de mancha zero e um número infinito de k-pontos.  Com base nisso, decida quais valores de nk1 = nk2 = nk3 e degauss que você considera satisfatórios.
 
 ### Tarefa 2: Bulk Modulus
@@ -400,15 +413,15 @@ Proceda como fez para Si, procure uma constante de rede que esteja no intervalo 
 
 ### Tarefa 3: Estrutura de Bandas do Alumínio
 
-**3.1**  Abra  o diretório  Al /Bands
+**3.1** Abra  o diretório  `Al/Bands`
 Você verá os seguintes arquivos:
 
-**Al.scf.in** este é um modelo de input para uma célula Al primitiva.
-**Al.nscf.in** este é um modelo de input para realizar cálculos não consistentes. 
-**Al.dos.in**, este é um modelo de input para realizar cálculos de densidade de estados.
-**Al.bands.in** este é um modelo de input para  gerar a estrutura de bandas.
- **k-point-path** este é um arquivo que contém uma lista de k-points ao longo de direções de simetria na zona de Brillouin.
-**Al.plotband.in** este é um arquivo de entrada para colocar os dados da estrutura da banda em um formato plotável.
+- **Al.scf.in** este é um modelo de input para uma célula Al primitiva.
+- **Al.nscf.in** este é um modelo de input para realizar cálculos não consistentes. 
+- **Al.dos.in**, este é um modelo de input para realizar cálculos de densidade de estados.
+- **Al.bands.in** este é um modelo de input para  gerar a estrutura de bandas.
+- **k-point-path** este é um arquivo que contém uma lista de k-points ao longo de direções de simetria na zona de Brillouin.
+- **Al.plotband.in** este é um arquivo de entrada para colocar os dados da estrutura da banda em um formato plotável.
 
 **3.2** Abra e leia o arquivo de amostra  `Al.scf.in`
 Altere os valores de degauss e K_POINTS  obtidos no cálculo da convergência do exercício 1 
@@ -420,32 +433,49 @@ $ pw.x <Al.sample.in> Al.sample.out
 ```
 
 **4** Cálculos não autoconsistentes (nsfc):
+
 **4.1** Abra o arquivo Al.nscf.in 
+
 **4.2** Observe as diferenças entre scf para nscf 
-  **4.2.1**   o cálculo do sinalizador = 'nscf'
-   **4.2.2** occupations='tetrahedra' in the namelist &SYSTEM.
- ** 4.2.3**  K_POINTS card is hanged from “6 6 6 1 1 1” to “12 12 12 1 1 1”, isso porque agora queremos calcular os valores próprios em uma malha mais fina no espaço k.
+
+**4.2.1**   o cálculo do sinalizador = 'nscf'
+
+**4.2.2** occupations='tetrahedra' in the namelist &SYSTEM.
+
+**4.2.3**  K_POINTS card is hanged from “6 6 6 1 1 1” to “12 12 12 1 1 1”, isso porque agora queremos calcular os valores próprios em uma malha mais fina no espaço k.
   
 Lembre-se de que as mesmas funções de onda (conforme obtidas nos cálculos de scf) devem ser usadas, então o MESMO prefixo dos cálculos de scf !
 
 **4.3** Execute os cálculos nscf: 
 
+```bash
 $pw.x <Al.nscf.in> Al.nscf.out
- 
+```
+
 **5** Cálculos DOS para o Al:
 
-Abra o input Al.dos.in
+Abra o input `Al.dos.in`
+
 **5.1** Certifique-se de que tem o mesmo prefixo usado nos cálculos de scf.
+
 **5.2** Verifique a faixa de energia dos valores próprios obtidos no arquivo de saída nscf Si.nscf.out. Emin e Emax fornecem esse intervalo. 
+
 **5.3** Os resultados do DOS são escritos em fildos = dos.dat
+
 **5.4** Execute cálculos de densidade de estados
- $  dos.x <Al.dos.in> Al.dos.out
+
+```bash
+$ dos.x <Al.dos.in> Al.dos.out
+```
  
-**5.5** Dê uma olhada em dos.out e o arquivo de dados Al.dos.dat .
+**5.5** Dê uma olhada em dos.out e o arquivo de dados `Al.dos.dat`.
+
 **5.6** Plote dos.dat para ver o gráfico do DOS (você pode usar os programas gnuplot ou xmgrace ).
 
 **6** Cálculos da estrutura de banda para Al
+
 **6.1** Siga o mesmo procedimento que foi usado para o exemplo de Si. (Os arquivos de entrada para Al são fornecidos nesta pasta.)
+
 **6.2** Escreva as diferenças entre a estrutura de bandas do Si e do Al.
 
 
@@ -477,6 +507,7 @@ $ pw.x <confr10.in> confr10.out
 
 **3.2** Informe o valor da energia para cada ponto calculado no arquivo docs:
 https://docs.google.com/document/d/1gSY29GHpGXS6kiEKzpyWHJpTDBXt0j93eBJ71_zf-Vo/edit
+
 * Note que no arquivo do docs tem quatro configurações diferentes para o metanol.
 
 **3.3** Agora, repita o processo para as configurações 2, 3 e 4.
