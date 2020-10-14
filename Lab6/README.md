@@ -39,7 +39,7 @@ O arquivo de saída de `pw.x` nos fornece todas as informações sobre a estrutu
 
 Após atualizar a pasta `scm2020` com o `git pull`, copie o diretório do GitHub para o `home` com:
 ```bash
-cp -r ~/scm2020/lab6 /home/sampa/Lab6
+cp -r ~/scm2020/Lab6 /home/sampa/Lab6
 ```
 **Note que o diretório no home PRECISA estar com o "L" maiúsculo!**
 
