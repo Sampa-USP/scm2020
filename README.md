@@ -8,7 +8,7 @@ Bem-vindo ao repositório da disciplina Simulação Computacional dos Materiais,
 3. [Lab 3](./lab3) Propriedades do metano em alta pressão com dinâmica molecular.
 4. [Lab 4](./lab4) Adsorção de metano em zeólita com Grand-Canonical Monte Carlo.
 5. [Lab 5](./lab5) Mecânica Quântica, Soluções da equação de Schrödinger em 1-D e dispositivos eletrônicos.
-6. [Lab 6](./lab6) Cálculos de Primeiros Princípios.
+6. [Lab 6](./Lab6) Cálculos de Primeiros Princípios.
 7. [Lab ML](./labML) Aprendizado não supervisionado.
 8. [Lab DFT batch](./labDFTbatch) Cálculos de DFT em lotes (batches).
 
