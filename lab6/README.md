@@ -34,21 +34,29 @@ bands.x < input > output
 
 ### ARQUIVOS DE SAÍDA:
 O arquivo de saída de `pw.x` nos fornece todas as informações sobre a estrutura eletrônica do sistema bem como resume as informações de entrada, geometria, forças e tensões sob os átomos.
- **É muito importante deixar a pasta Lab6 no /home/sampa para evitar alguns bugs!**
+
+**É muito importante deixar a pasta Lab6 no /home/sampa para evitar alguns bugs!**
+
+Após atualizar a pasta `scm2020` com o `git pull`, copie o diretório do GitHub para o `home` com:
+```bash
+cp -r ~/scm2020/lab6 /home/sampa/Lab6
+```
+**Note que o diretório no home PRECISA estar com o "L" maiúsculo!**
+
 
 ## Sistema 0: Testes iniciais com uma molécula de metanol
 
 Nesta prática de laboratório iremos otimizar uma molécula de metanol
 
-**1.** Entre no diretório `lab6/Metanol/molecula_isolada` e abra com o seu editor de preferência ou entrada `espresso.in`;
+**1.** Entre no diretório `Lab6/Metanol/molecula_isolada` e abra com o seu editor de preferência o arquivo `espresso.in`;
 
-**2.** Use o Xcrysden para visualizar uma estrutura no arquivo de amostra:
+**2.** Use o Xcrysden para visualizar a estrutura no arquivo de amostra:
 
 ```bash
 $ xcrysden --pwi espresso.in &
 ```
 
-observe uma estrutura, como posições atômicas da molécula. Crie uma estrutura, explore o menu do software.
+observe a estrutura, e explore o menu do software.
 
 **3.** Para executar o código:
 
@@ -57,7 +65,7 @@ $ pw.x <espresso.in> espresso.out
 ```
 
 ## Sistema 1: Testes iniciais com o Silício Si
-Nesta prática de laboratório iremos calcular algumas propriedades para o Silício. Você encontrará dentro da pasta `lab6/Si` arquivos com três diretórios (Estrutura, Bulk_Modulus e Bandas), os quais serão utilizados nas tarefas desta prática.
+Nesta prática de laboratório iremos calcular algumas propriedades para o Silício. Você encontrará dentro da pasta `Lab6/Si` arquivos com três diretórios (Estrutura, Bulk_Modulus e Bands), os quais serão utilizados nas tarefas desta prática.
 
 **Esses arquivos contém:**
 
@@ -69,10 +77,10 @@ Nesta prática de laboratório iremos calcular algumas propriedades para o Silí
 
 Nesta tarefa iremos calcular a energia total para o silício, através do cálculo autoconsistente (scf). Faremos dois testes de convergência:
 
-1. Convergência dos raios de corte (cutoffs) para as funções de onda:  (“ecutwfc”)
+1. Convergência dos raios de corte (cutoffs) para as funções de onda:  ("ecutwfc")
 2. Convergência da energia total e pontos K (k-points)
 
-Entre no diretório  `lab6/Si/Estrutura` e abra com o seu editor de preferência o input `si.scf.in`:
+Entre no diretório  `Lab6/Si/Estrutura` e abra com o seu editor de preferência o input `si.scf.in`:
 1. Utilize o software XCRYSDEN para visualizar a estrutura:
 digite no terminal `xcrysden`;
 2. Abra o menu `File > Open PWscf > Open PWscf input file`
@@ -80,7 +88,7 @@ digite no terminal `xcrysden`;
 4. Observe a estrutura, as posições atômicas na célula unitária. Gire a estrutura, explore o menu do software;
 5. Abra o arquivo de texto e observe algumas informações relevantes:
 
-* **ibrav =2**: define o tipo de célula, 2 corresponde ao tipo cúbica de face centrada (fcc, face centered cubic): v1 = (a/2)(-1,0,1) v2 = (a/2)(0,1,1) v3 = (a/2)(-1,1,0);
+* **ibrav =2**: define o tipo de célula, 2 corresponde ao tipo de célula: cúbica de face centrada (fcc, face centered cubic): v1 = (a/2)(-1,0,1) v2 = (a/2)(0,1,1) v3 = (a/2)(-1,1,0);
 *  **celldm(1)=10.2625**,  define o parâmetro a= 10.2625 bohr (1 bohr = 0.529177 Å);
 * **nat=2**: número de átomos na célula;
 *  **ntyp=1**: tipo de átomos do sistema
@@ -90,7 +98,7 @@ digite no terminal `xcrysden`;
 
 ### Parte A:  convergência  do cutoff 
 
-A energia de corte para ondas planas (ecutwfc) determina o valor máximo da energia cinética das ondas planas incluídas no cálculo. Como este conjunto de bases é infinito, realizaremos testes de convergência da energia potencial (energia de KS) para determinar o valor de **ecutwfc** para o qual as funções de base de ondas planas serão truncadas.
+A energia de corte para ondas planas (ecutwfc) determina o valor máximo da energia cinética das ondas planas incluídas no cálculo. Como este conjunto de bases é infinito, realizaremos alguns testes de convergência da energia potencial (energia de KS) para determinar o valor de **ecutwfc** para o qual as funções de base de ondas planas serão truncadas.
 
 **Exercício**: Edite o input si.scf.in, e estude diferentes valores de ecutwfc
 
@@ -112,7 +120,7 @@ $ pw.x <si.scf.in > si.scf.out
 
 **A2**.  Preencha os dados no arquivo **si.etotvsecut**;
 
-**A3**. Plote o arquivo si.etotvsecut usando seu programa de plotagem preferido.
+**A3**. Plote o arquivo si.etotvsecut usando seu programa preferido.
 
 **A4**. Discuta o resultado
 
@@ -169,7 +177,13 @@ Aqui fazemos duas propostas para analisar a equação de estado de Murnaghan:
 
 Nesta parte iremos "brincar" com as unidades do arquivo `bulk_modulus_Si.dat`. Iremos converter a energia para eV (1Ry=13.605 eV) e o parâmetro de rede para angstroms (1 bohr = 0.529177Ang). Essa conversão pode ser realizada através do xmgrace:
 
-Selecione: data >>> transformations>>>evaluate expression
+Execute 
+
+```bash
+$ xmgrace bulk_modulus_Si.dat
+```
+
+Selecione: `data >>> transformations>>> evaluate expression`
 Na caixa: evaluate expression
 1. Selecione os dois set
 2. Edita a seguinte Fórmula `x = x * 0.529177` e clica em apply
@@ -216,7 +230,7 @@ Entre no diretório Bandas
 
 **3.1** Abra e leia o arquivo de amostra `Si.scf.in`
 
-**3.2** Escolhemos os valores de celldm (1), ecutwfc, nk1, nk2 e nk3 com base em nossos resultados obtidos na tarefa 1. Você pode escolher os mesmos valores que estes ou substituir seus valores.
+**3.2** Escolhemos os valores de celldm (1), ecutwfc, nk1, nk2 e nk3 com base em nossos resultados obtidos na tarefa 1 e 2. Você pode escolher os mesmos valores que estes ou substituir seus valores.
 
 **3.3** Execute o cálculo de scf
 
@@ -230,9 +244,9 @@ $ pw.x <Si.scf.in> Si.scf.out
 
 **3.5** Leia e confira as modificações realizadas neste arquivo `Si.band.in` 
  
-* Para realizar os cálculos não autoconsistentes (nscf), os quiasserão usados ​​para obter a estrutura da banda, configurando o arquivo **calculation = 'bands'**.
+* Para realizar os cálculos não autoconsistentes (nscf), os quais serão usados ​​para obter a estrutura da banda, configurando o arquivo **calculation = 'bands'**.
 * Utiliza-se o **nbnd = 8**, à lista de nomes & SYSTEM para especificar o número de bandas calculadas. Observe que para uma célula de Si de 2 átomos, temos 8 elétrons e, portanto, apenas 4 bandas ocupadas, mas vamos calcular algumas bandas extras (vazias).
-* O  **K_POINTS** para especificar o caminho ao longo das direções de simetria na zona Brillouin. Para isso, você pode usar as informações fornecidas no arquivo chamado caminho do ponto-k, que contém uma lista de pontos-k ao longo de direções de alta simetria no BZ, ou seja, L (½, ½, ½) para Gama ( 0, 0, 0) a X (0, 0, 1) a W (0, ½, 1) a X (0, 1, 1) a Gama (0, 0, 0). Você pode colar esse arquivo em **Si.band.in** após o cartão **K_POINTS**.
+* O  **K_POINTS** para especificar o caminho ao longo das direções de simetria na zona Brillouin. Para isso, você pode usar as informações fornecidas no arquivo chamado caminho do ponto-k, que contém uma lista de pontos-k ao longo de direções de alta simetria no BZ, ou seja, L (½, ½, ½) para Gama ( 0, 0, 0) a X (0, 0, 1) a W (0, ½, 1) a X (0, 1, 1) a Gama (0, 0, 0). Você pode colar esse arquivo em **Si.band.in** após o card **K_POINTS**.
  
  **3.6** Execute o cálculo de 'bandas':
 
@@ -243,8 +257,8 @@ $ pw.x <Si.bands.in> Si.bands.out
 * Que diferenças você vê entre o arquivo de saída obtido aqui e o arquivo de saída obtido com o cálculo de scf?
 **3.7** Aqui, iremos coletar algumas informações para plotar a estrutura de bandas
 * Olhe para o arquivo bands.in
-* Observe que você deve usar o mesmo prefixo neste cálculo que foi usado nos cálculos de bandas AND de scf.
-* A bandeira **filband** define o nome do arquivo no qual os dados das bandas são armazenados.
+* Observe que você deve usar o mesmo prefixo neste cálculo que foi utilizado nos cálculos de bandas AND de scf.
+* **filband** define o nome do arquivo no qual os dados das bandas são armazenados.
 * Caso ocorra algum erro, é necessário informar em outdir o endereço completo dos arquivos terminados em .wfc1, por exemplo **outdir** = '/home/sampa/Lab6/Si/outdir'.
 
 **Execute**
@@ -274,12 +288,12 @@ $ plotband.x <Si.plotband.in> Si.plotband.out
 
 Você pode ver a estrutura da banda desenhada no formato ps (bands.ps) usando um visualizador de postscript (por exemplo, ghostview, ggv, ou o editor de pdf).
 
-**(c) Densidade de carga para S**i 
+**(c) Densidade de carga para Si** 
 
-* **3.9** Agora fazemos o pós-processamento para extrair a densidade de carga
+**3.9** Agora, faremos o pós-processamento para extrair a densidade de carga
 
 * Abra o arquivo `Si.pp_rho.in`
-* Certifique-se de que o valor do prefixo seja igual aos valores usados nos cálculos de scf.
+* Certifique-se de que o valor do prefixo é igual aos valores usados nos cálculos de scf.
 * **filplot = 'Si.charge'** salva a densidade de carga extraída e é usado para plotagem definindo **filepp (1) = 'Si.charge'** e os dados a serem plotados escritos em **fileout = 'Si.rho.dat'** .
 * **plotnum =0** indicates that the quantity to be extracted is the charge denisty (for other possible options, see INPUT_PP).
 * **iflag** e **output_format** especificam a dimensionalidade do gráfico.
@@ -307,7 +321,7 @@ Use ghostview, ggv ou algum arquivo de pdf para ver a densidade de carga do Si `
 * Copie Si.scf.in para Si.nscf.in
 * Altere o cálculo do sinalizador = **'nscf'**
 * Altere o número de bandas para adicionar alguns estados vazios na lista de nomes & SYSTEM (nbnd = 8).
-* Defina **occupations='tetrahedra’** na lista de nomes & SISTEMA.
+* Defina **occupations='tetrahedra’** na lista do & SISTEMA.
 * Modifique o  **K_POINTS** de '6 6 6 1 1 1' para '12 12 12 1 1 1 ', porque agora queremos calcular os valores próprios em uma malha mais fina no espaço k.
 * Lembre-se de que as mesmas funções de onda (conforme obtidas nos cálculos de scf) devem ser usadas, portanto, **NÃO mude o prefixo.**
 
@@ -331,14 +345,14 @@ $ pw.x <Si.nscf.in> Si.nscf.out
 $ dos.x <dos.in> dos.out
 ```
 
-* Dê uma olhada em `dos.out` e o arquivo de dados `dos.dat`.
+* Dê uma olhada em `dos.out` e no arquivo de dados `dos.dat`.
 * Plote o arquivo dos.dat para ver o gráfico do DOS (você pode usar os programas gnuplot ou xmgrace).
 
 **Discuta os resultados obtidos nesta etapa**
  
 ## Sistema 2: Testes com o Alumínio 
 
-Nesta prática de laboratório iremos calcular algumas propriedades para metais, em especial o Alumínio (Al). Você encontrará dentro da pasta `lab6/Al` arquivos com três diretórios (Estrutura, Bulk_Modulus e Bands), os quais serão utilizados nas tarefas desta prática.
+Nesta prática de laboratório iremos calcular algumas propriedades para metais, em especial o Alumínio (Al). Você encontrará dentro da pasta `Lab6/Al` arquivos com três diretórios (Estrutura, Bulk_Modulus e Bands), os quais serão utilizados nas tarefas desta prática.
 
 ### Tarefa 1: Estrutura: convergência  do cutoff e pontos  K
 
@@ -377,12 +391,12 @@ $ pw.x <Al.sample.in> Al.sample.out
 
 **3**.  Leia a saída e responda às seguintes perguntas:
 
-* **3.1**. Quantas bandas foram calculadas? Como isso se compara ao número de elétrons?
-* **3.2**. Qual é a energia Fermi? 
+**3.1**. Quantas bandas foram calculadas? Como isso se compara ao número de elétrons?
+**3.2**. Qual é a energia Fermi? 
 
 **4.** Faça os testes de convergência em relação ao corte de onda plana:
 
-Em princípio, você deve agora executar uma série de cálculos com diferentes valores de ecutwfc (como fez para Si) e ver em qual valor de ecutwfc sua energia total convergiu. No entanto, para economizar tempo, vamos supor que isso tenha sido feito. Continue trabalhando com ecutwfc = 12 .
+Em princípio, você deve agora executar uma série de cálculos com diferentes valores de ecutwfc (como fez para o Si) e ver em qual valor de ecutwfc sua energia total convergiu. No entanto, para economizar tempo, vamos supor que isso tenha sido feito. Continue trabalhando com ecutwfc = 12 .
 
 **5.**  Agora faça os testes de convergência em relação à amostragem da zona de Brillouin  e smearing width:
 Vamos decidir simultaneamente qual malha de k-pontos (valores de nk1, nk2, nk3 ) e o valor de smearing width (degauss) usar. Para simplificar, vamos supor agora que usaremos apenas o  smearing  Marzari-Vanderbilt.
@@ -404,10 +418,10 @@ Vamos decidir simultaneamente qual malha de k-pontos (valores de nk1, nk2, nk3 )
 O resultado convergente 'verdadeiro' é obtido no limite de mancha zero e um número infinito de k-pontos.  Com base nisso, decida quais valores de nk1 = nk2 = nk3 e degauss que você considera satisfatórios.
 
 ### Tarefa 2: Bulk Modulus
-Altere os valores de degauss e K_POINTS  obtidos no cálculo da convergência do exercício 1  no input `Al.sc`
+Altere os valores de degauss e K_POINTS  obtidos no cálculo da convergência do exercício 1  no input `Al.scf.in`
 
 **2.1.** Obtenha a constante de rede de equilíbrio do Al:
-Proceda como fez para Si, procure uma constante de rede que esteja no intervalo de 7.0 a 8.0 bohr  variando 0.1 e edite o arquivo `bulk_modulus_Al.dat`.
+Proceda como fez para o Si, procure uma constante de rede que esteja no intervalo de 7.0 a 8.0 bohr  variando 0.1 e edite o arquivo `bulk_modulus_Al.dat`.
 
 **2.2**  Faça o gráfico de energia verus constante de rede. Qual é o valor da constante de rede? Compare com trabalhos experimentais da literatura.
 
@@ -442,14 +456,14 @@ $ pw.x <Al.sample.in> Al.sample.out
 
 **4.2.2** occupations='tetrahedra' in the namelist &SYSTEM.
 
-**4.2.3**  K_POINTS card is hanged from “6 6 6 1 1 1” to “12 12 12 1 1 1”, isso porque agora queremos calcular os valores próprios em uma malha mais fina no espaço k.
+**4.2.3**  K_POINTS card is hanged from "6 6 6 1 1 1" to "12 12 12 1 1 1", isso porque agora queremos calcular os valores próprios em uma malha mais fina no espaço k.
   
 Lembre-se de que as mesmas funções de onda (conforme obtidas nos cálculos de scf) devem ser usadas, então o MESMO prefixo dos cálculos de scf !
 
 **4.3** Execute os cálculos nscf: 
 
 ```bash
-$pw.x <Al.nscf.in> Al.nscf.out
+$ pw.x <Al.nscf.in> Al.nscf.out
 ```
 
 **5** Cálculos DOS para o Al:
@@ -460,9 +474,9 @@ Abra o input `Al.dos.in`
 
 **5.2** Verifique a faixa de energia dos valores próprios obtidos no arquivo de saída nscf Si.nscf.out. Emin e Emax fornecem esse intervalo. 
 
-**5.3** Os resultados do DOS são escritos em fildos = dos.dat
+**5.3** Os resultados do DOS são escritos em **fildos = dos.dat**
 
-**5.4** Execute cálculos de densidade de estados
+**5.4** Execute os cálculos de densidade de estados
 
 ```bash
 $ dos.x <Al.dos.in> Al.dos.out
@@ -472,9 +486,9 @@ $ dos.x <Al.dos.in> Al.dos.out
 
 **5.6** Plote dos.dat para ver o gráfico do DOS (você pode usar os programas gnuplot ou xmgrace ).
 
-**6** Cálculos da estrutura de banda para Al
+**6** Cálculos de estrutura de banda de metais
 
-**6.1** Siga o mesmo procedimento que foi usado para o exemplo de Si. (Os arquivos de entrada para Al são fornecidos nesta pasta.)
+**6.1** Siga o mesmo procedimento que foi usado para o exemplo do Si. (Os arquivos de entrada para Al são fornecidos nesta pasta.)
 
 **6.2** Escreva as diferenças entre a estrutura de bandas do Si e do Al.
 
@@ -483,23 +497,23 @@ $ dos.x <Al.dos.in> Al.dos.out
 
 Nesta prática iremos calcular através da computação voluntária a energia de interação entre os homodímeros do metanol, através de algumas configurações. O objetivo dessa prática é obter um conjunto de dados para criar um campo de força via Machine Learning para o metanol. Depois de obter o campo de força, iremos implementar esse sistema em um cálculo de dinâmica molecular para o bulk de metanol.
 
-* Calcule quatro pontos para  a energia de interação entre os homodímeros para cada configuração. Obs: São quatro configurações!
+* Calcule  a energia de interação entre os homodímeros para quatro configurações distintas. 
 
-Na pasta  `lab6/Metanol` é possível encontrar quatro pastas: conf1, conf2, conf3, e conf4. Dentro dessas pastas temos outros diretórios  r1, r2,..., r24. 
+Na pasta  `Lab6/Metanol` é possível encontrar quatro pastas: conf1, conf2, conf3, e conf4. Dentro dessas pastas temos outros diretórios  r1, r2,..., r24. 
 
 
-**1.** Primeiro entre no diretório `lab6/Metanol/conf1` e  calcule o ponto escolhido pra você no arquivo (através do número USP)
+**1.** Primeiro entre no diretório `Lab6/Metanol/conf1` e  calcule o ponto escolhido pra você no arquivo (através do seu número USP)
 https://docs.google.com/document/d/1gSY29GHpGXS6kiEKzpyWHJpTDBXt0j93eBJ71_zf-Vo/edit
 
 **2.** Entre no diretório determinado através do seu número usp.
 
-**3.1** Execute o cálculo, porém antes de executar o cálculo, leia as observações:
+**3.1** Execute o cálculo, porém antes de executar o cálculo, leia a observação:
 
 ```bash
 $ pw.x <confrXXX.in> confrXXX.out 
 ```
 
-* Obs: Aqui você vai substituir rXXXX por r1, r2, r3... é muito importante seguir esse padrão, por exemplo para o ponto r10 
+* Obs: Aqui você vai substituir rXXXX por r1, r2, r3... é muito importante seguir esse padrão, por exemplo para o ponto r10 execute pw.x <confr10.in> confr10.out
 
 ```bash
 $ pw.x <confr10.in> confr10.out 
@@ -515,8 +529,8 @@ https://docs.google.com/document/d/1gSY29GHpGXS6kiEKzpyWHJpTDBXt0j93eBJ71_zf-Vo/
 **4** Calcule a energia de interação (E), calculada pela fórmula:
  E = E1 - 2(E2),
  
-* onde E1 é a energia entre os dímeros obtida no cálculo processo 3 e E2 é a energia da molécula isolada, calculada na tarefa zero.
+* onde E1,  é a energia entre os dímeros obtida no cálculo processo 3 e E2 é a energia da molécula isolada, calculada na tarefa zero.
 
 **5** Plote o gráfico da energia de interação versus distância para cada configuração. 
 
-**6** Responda: Quais são  as configurações mais atrativas? 
+**6** Responda: Qual é a configuração mais atrativa?
