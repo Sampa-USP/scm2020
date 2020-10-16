@@ -624,8 +624,8 @@ Isso é feito utilizando um *custom* `Mixing_rule`, isto é, no seu arquivo `inp
 # Mixing_Rule
 custom
 O   Si        0.0   0.0
-O   CH4_s1   96.5   3.6
-Si  CH4_s1    0.0   0.0
+O   C4_s1    96.5   3.6
+Si  C4_s1     0.0   0.0
 ```
 
 Finalmente temos então um arquivo de entrada utilizando parâmetros que descrevem as interações de maneira satisfatória.
