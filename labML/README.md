@@ -8,11 +8,15 @@ Neste tutorial, vamos utilizar um banco de dados do pacote **scikit-learn** que 
 
 ### 1) Checando dependências e carregando o banco de dados
 
-Verifique se sua instalação do python 3.8 possui das bibliotecas pandas, scikit-learn, matplolib e seaborn.
+Verifique se sua instalação do python 3.8 possui das bibliotecas pandas, scikit-learn, matplolib e seaborn. Caso alguma delas esteja faltando, instale-a utilizando o comando **pip3 install**.
 
-> pip3 list
+```bash
+sudo apt install python3-pip
+pip3 list
+pip3 install pandas sklearn matplotlib seaborn
 
-Caso alguma delas esteja faltando, instale-a utilizando o comando **pip3 install**.
+```
+
 Abra um novo arquivo e salve-o como **am1.py**.
 
 > vim am1.py
