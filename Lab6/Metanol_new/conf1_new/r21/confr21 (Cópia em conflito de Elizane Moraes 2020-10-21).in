@@ -1,0 +1,50 @@
+&CONTROL
+calculation = 'scf' 
+verbosity = 'high',
+restart_mode = 'from_scratch',
+wf_collect = .true.
+nstep = 1000,
+tstress = .true.,
+tprnfor = .true., 
+outdir = './out',
+pseudo_dir = '/home/elizane/arquivosqe',
+prefix = 'dimer',
+/  
+&SYSTEM
+        ibrav = 0, 
+         nat = 12,
+         ntyp = 3,
+      ecutwfc = 45,
+      ecutrho = 200,
+    input_dft = 'PBE',
+assume_isolated='mt',
+/    
+&ELECTRONS 
+  electron_maxstep = 500,
+  mixing_beta = 0.3 
+/ 
+&IONS 
+/
+CELL_PARAMETERS angstrom 
+15.0000        0.0000        0.0000
+0.0000        20.000        0.0000
+0.0000        0.0000        25.000
+K_POINTS {automatic}
+2 1 1 0 0 0
+ATOMIC_SPECIES
+O   15.9994   O_pbe_v1.2.uspp.F.UPF
+H    1.0080   H.pbe-rrkjus_psl.0.1.UPF
+C   12.0110   C_pbe_v1.2.uspp.F.UPF
+ATOMIC_POSITIONS angstrom
+6.927094884          9.416289343          13.884767162
+6.699094884          9.243289343          12.498767162
+7.806094884          10.045289343          14.046767162
+7.076094884          8.439289343          14.351767162
+6.053094884          9.899289343          14.328767162
+6.967645116          9.531650657          8.719252838
+6.843645116          9.603650657          7.635252838
+7.136645116          8.490650657          9.006252838
+6.067645116          9.904650657          9.211252838
+8.080645116          10.312650657          9.125252838
+7.563094884          9.291289343          12.048767162
+8.817645116          10.079650657          8.538252838

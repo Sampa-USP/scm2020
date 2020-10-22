@@ -48,7 +48,7 @@ cp -r ~/scm2020/Lab6 /home/sampa/Lab6
 
 Nesta prática de laboratório iremos otimizar uma molécula de metanol
 
-**1.** Entre no diretório `Lab6/Metanol/molecula_isolada` e abra com o seu editor de preferência o arquivo `espresso.in`;
+**1.** Entre no diretório `Lab6/Metanol_new/molecula_isolada` e abra com o seu editor de preferência o arquivo `espresso.in`;
 
 **2.** Use o Xcrysden para visualizar a estrutura no arquivo de amostra:
 
@@ -198,6 +198,24 @@ Equação do estado de Murnaghan.
 
 ```bash
 $ python fit_results.py bulk_modulus_Si.dat 
+```
+Infelizmente irão ocorrer alguns erros;
+
+Teremos que instalar duas bibliotecas diferentes do python, através do synaptic
+
+```bash
+$ sudo synaptic 
+```
+Pesquise a bibliocteca scipy.optimize e selecione as opções: python-lmfit e python-lmfit-doc. Para instalar click em apply.
+
+Faça o mesmo para instar a biblioteca python-tk.
+
+Sempre que ocorrerem erros de bibliotecas do python basta instalar com o synaptic, é rápido!
+
+**Agora execute**
+
+```bash
+$ python fit_results.py bulk_modulus_Si.dat
 ```
 
 O resultado é um gráfico com os pontos calculados, a curva de ajuste e os valores:
@@ -495,14 +513,15 @@ $ dos.x <Al.dos.in> Al.dos.out
 
 ## Sistema 3: Homodímeros de Metanol
 
-Nesta prática iremos calcular através da computação voluntária a energia de interação entre os homodímeros do metanol, através de algumas configurações. O objetivo dessa prática é obter um conjunto de dados para criar um campo de força via Machine Learning para o metanol. Depois de obter o campo de força, iremos implementar esse sistema em um cálculo de dinâmica molecular para o bulk de metanol.
+Nesta prática iremos calcular através da computação voluntária a energia de interação entre os homodímeros de metanol, através de algumas configurações distintas. O objetivo dessa prática é obter um conjunto de dados para criar um campo de força via Machine Learning para o metanol. Depois de obter o campo de força, iremos implementar esse sistema em um cálculo de dinâmica molecular para o bulk do metanol.
 
-* Calcule  a energia de interação entre os homodímeros para quatro configurações distintas. 
+* Calcule  a energia de interação entre os homodímeros para três configurações distintas.
+ 
+**Entre na pasta `Lab6/Metanol_new`**
+Na pasta  `Lab6/Metanol_new` é possível encontrar três pastas: conf1, conf2 e conf3. Dentro dessas pastas temos outros diretórios  r1, r2,..., r24. 
 
-Na pasta  `Lab6/Metanol` é possível encontrar quatro pastas: conf1, conf2, conf3, e conf4. Dentro dessas pastas temos outros diretórios  r1, r2,..., r24. 
 
-
-**1.** Primeiro entre no diretório `Lab6/Metanol/conf1` e  calcule o ponto escolhido pra você no arquivo (através do seu número USP)
+**1.** Primeiro entre no diretório `Lab6/Metanol_new/conf1` e  calcule o ponto escolhido pra você no arquivo (através do seu número USP)
 https://docs.google.com/document/d/1gSY29GHpGXS6kiEKzpyWHJpTDBXt0j93eBJ71_zf-Vo/edit
 
 **2.** Entre no diretório determinado através do seu número usp.
@@ -522,15 +541,17 @@ $ pw.x <confr10.in> confr10.out
 **3.2** Informe o valor da energia para cada ponto calculado no arquivo docs:
 https://docs.google.com/document/d/1gSY29GHpGXS6kiEKzpyWHJpTDBXt0j93eBJ71_zf-Vo/edit
 
-* Note que no arquivo do docs tem quatro configurações diferentes para o metanol.
+* Note que no arquivo do docs tem três configurações diferentes para o metanol.
 
-**3.3** Agora, repita o processo para as configurações 2, 3 e 4.
+**3.3** Agora, repita o processo para as configurações 2 e 3.
 
-**4** Calcule a energia de interação (E), calculada pela fórmula:
+**4** Calcule a energia de interação (E), usando a seguinte fórmula:
  E = E1 - 2(E2),
  
-* onde E1,  é a energia entre os dímeros obtida no cálculo processo 3 e E2 é a energia da molécula isolada, calculada na tarefa zero.
+* onde E1,  é a energia de interação entre os dímeros obtida no cálculo do processo 3 e E2 é a energia da molécula otmizada, calculada na tarefa zero. Neste caso, vocês terão que refazer a tarefa zero, pois o tamanho da caixa no cálculo dos dímeros foi modificada.
 
-**5** Plote o gráfico da energia de interação versus distância para cada configuração. 
+**5** Plote o gráfico da energia de interação versus distância para cada configuração.
 
-**6** Responda: Qual é a configuração mais atrativa?
+* Obs: Basta completar a segunda coluna dos arquivos conf1.dat conf2.dat e conf3.dat com as reespectivas energias. A primeira coluna contém as informações das distâncias (r1, r2,..., r24).
+
+**6** Sugira uma nova configuração para o dímero de metanol. Você pode esboçar o desenho dessa nova configuração ou gerar um arquivo no formato **.xyz** usando algum programa ( jmol ou avogadro).

@@ -1,0 +1,50 @@
+&CONTROL
+calculation = 'scf' 
+verbosity = 'high',
+restart_mode = 'from_scratch',
+wf_collect = .true.
+nstep = 1000,
+tstress = .true.,
+tprnfor = .true., 
+outdir = './out',
+pseudo_dir = '/home/sampa/Lab6/pseudos',
+prefix = 'dimer',
+/  
+&SYSTEM
+        ibrav = 0, 
+         nat = 12,
+         ntyp = 3,
+      ecutwfc = 45,
+      ecutrho = 200,
+    input_dft = 'PBE',
+assume_isolated='mt',
+/    
+&ELECTRONS 
+  electron_maxstep = 500,
+  mixing_beta = 0.3 
+/ 
+&IONS 
+/
+CELL_PARAMETERS angstrom 
+15.0000        0.0000        0.0000
+0.0000        20.000        0.0000
+0.0000        0.0000        25.000
+K_POINTS {automatic}
+2 1 1 0 0 0
+ATOMIC_SPECIES
+O   15.9994   O_pbe_v1.2.uspp.F.UPF
+H    1.0080   H.pbe-rrkjus_psl.0.1.UPF
+C   12.0110   C_pbe_v1.2.uspp.F.UPF
+ATOMIC_POSITIONS angstrom
+C    6.981864997          9.475099874          13.113945162
+O    6.753864997          9.302099874          11.727945162
+H    7.860864997          10.104099874          13.275945162
+H    7.130864997          8.498099874          13.580945162
+H    6.107864997          9.958099874          13.557945162
+C    6.912875003          9.472840126          9.490074838
+H    6.788875003          9.544840126          8.406074838
+H    7.081875003          8.431840126          9.777074838
+H    6.012875003          9.845840126          9.982074838
+O    8.025875003          10.253840126          9.896074838
+H    7.617864997          9.350099874          11.277945162
+H    8.762875003          10.020840126          9.309074838
