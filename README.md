@@ -9,7 +9,8 @@ Bem-vindo ao repositório da disciplina Simulação Computacional dos Materiais,
 4. [Lab 4](./lab4) Adsorção de metano em zeólita com Grand-Canonical Monte Carlo.
 5. [Lab 5](./lab5) Mecânica Quântica, Soluções da equação de Schrödinger em 1-D e dispositivos eletrônicos.
 6. [Lab 6](./Lab6) Cálculos de Primeiros Princípios.
-7. [Lab ML](./labML) Aprendizado não supervisionado.
+7. [Lab ML](./labML) Introdução ao Aprendizado de Máquina
+7. [Lab ML](./labML2) Descoberta de novos materiais para baterias com AM
 8. [Lab DFT batch](./labDFTbatch) Cálculos de DFT em lotes (batches).
 
 Conteúdos extra:
