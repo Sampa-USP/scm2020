@@ -22,6 +22,15 @@ No diretório [/jobs/data](./jobs/data), você poderá verificar que o banco de 
 
 **Dependências**
 
+Como vamos utilizar os pacotes Keras e Tensorflow, o ideal é carregar o ambiente **deepmd** do conda, que já possuí tais bibliotecas, para economizar espaço.
+
+```bash
+
+conda env --list
+conda activate deepmd
+
+```
+
 Para rodar o script **concat.py**, é necessário instalar (**pip3 install**) as seguintes bibliotecas externas:
 - numpy
 - pandas

@@ -10,7 +10,7 @@ Bem-vindo ao repositório da disciplina Simulação Computacional dos Materiais,
 5. [Lab 5](./lab5) Mecânica Quântica, Soluções da equação de Schrödinger em 1-D e dispositivos eletrônicos.
 6. [Lab 6](./Lab6) Cálculos de Primeiros Princípios.
 7. [Lab ML](./labML) Introdução ao Aprendizado de Máquina
-7. [Lab ML](./labML2) Descoberta de novos materiais para baterias com AM
+7. [Lab ML2](./labML2) Descoberta de novos materiais para baterias com AM
 8. [Lab DFT batch](./labDFTbatch) Cálculos de DFT em lotes (batches).
 
 Conteúdos extra:
