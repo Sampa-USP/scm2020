@@ -26,7 +26,7 @@ Como vamos utilizar os pacotes Keras e Tensorflow, o ideal é carregar o ambient
 
 ```bash
 
-conda env --list
+conda env list
 conda activate deepmd
 
 ```
@@ -78,6 +78,8 @@ python3 load.py
 ```
 
 O código **load.py** está realizando uma implementação direta do método de árvores aleatórias (Random Forest), que pode ser modificado no arquivo **supplement.py**. O método *RandomForest* foi escolhido por se tratar de uma técnica simples, robusta, e o que pode ser treinada rapidamente. Fique a vontade para testar os conceitos da primeira aula em seu projeto e/ou para testar outras técnicas de AM. 
+
+Obs: nas linhas 72-73 (no VIM, Ctrl+C, 72gg), você pode carregar um modelo previamente salvo ao invés de realizar o processo de treinamento novamente.
 
 
 ### Etapa 4 - Avaliação
