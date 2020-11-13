@@ -1,0 +1,10 @@
+< supplement.py >
+-- RSEED 952001
+-- FOLDS 5
+-- SEARCH 100
+-- MAX_NEURONS 1000
+
+< load.py >
+-- fdf = Batteries_final.json
+-- 2048 epochs
+
