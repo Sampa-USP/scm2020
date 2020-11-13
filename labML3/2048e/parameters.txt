@@ -3,8 +3,9 @@
 -- FOLDS 5
 -- SEARCH 100
 -- MAX_NEURONS 1000
+-- 64 epochs (l107, fit.model)
 
 < load.py >
--- fdf = Batteries_final.json
+-- fdf = Batteries_feat.json
 -- 2048 epochs
 

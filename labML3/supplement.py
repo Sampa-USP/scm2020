@@ -26,8 +26,8 @@ import random
 # Boundary conditions to be set
 RSEED = 952001       # Random seed to ensure reproducibility
 FOLDS = 5            # 5-fold cross validation, i.e. 20% reserved to testing 
-SEARCH = 100         # 20 models will be searched randomly
-MAX_NEURONS = 1000   # Max. number of neurons allowed in the hidden layers
+SEARCH = 20          # 20 models will be searched randomly
+MAX_NEURONS = 300    # Max. number of neurons allowed in the hidden layers
 np.set_printoptions(precision=3)
 
 def createRF(X, y): 
@@ -83,7 +83,7 @@ def searchNN(X, y):
 
         return model
     
-    kreg = KerasRegressor(build_fn=create_model, verbose=0)
+    kreg = KerasRegressor(build_fn=create_model, verbose=1)
 
     # to support sklearn versions > 0.21.2, avoid using np.linspace
     nrange = []
@@ -104,7 +104,7 @@ def searchNN(X, y):
                               verbose = 1, random_state=RSEED)
                               
     
-    rs_model.fit(X_train, y_train, epochs=128)
+    rs_model.fit(X_train, y_train, epochs=32)
     print('A summary of the best NN model:{}'.format(rs_model.best_params_))
     
     # Defining the number of neurons based on the best estimator

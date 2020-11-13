@@ -25,7 +25,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 from supplement import searchNN, trainNN, evaluateModel, createRF #stores custom methods/functions
 
-fdf = load_dataframe_from_json('Batteries_final.json')
+fdf = load_dataframe_from_json('Batteries_feat.json')
 print("The starting dataset has {}".format(fdf.shape))
 print (fdf.head())
 
@@ -62,8 +62,8 @@ X = pd.DataFrame(scaler.fit_transform(X), columns=X.columns, index=X.index)
 print('There are {} possible descriptors:\n{}'.format(X.shape[1], X.columns.values))
 
 print ("\nAvailable cores: {}".format(os.sched_getaffinity(0)))
-# os.sched_setaffinity(0, {0}) # running on one core
-os.sched_setaffinity(0, {0, 1, 2, 3}) # running on four cores
+os.sched_setaffinity(0, {0}) # running on one core
+# os.sched_setaffinity(0, {0, 1, 2, 3}) # running on four cores
 print ("\nRunning on core/cores {}".format(os.sched_getaffinity(0)))
 
 
@@ -71,7 +71,7 @@ print ('\nCreating a Neural Net')
 
 # Training model
 model_raw = searchNN(X, y) # search the best NN
-model = trainNN(model_raw, X, y, 2048) # train the best NN for 512 epochs
+model = trainNN(model_raw, X, y, 256) # train the best NN for 256 epochs
 # model = load_model('nn_trained.h5') # already trained?
 
 # Evaluating model
@@ -130,11 +130,32 @@ plt.subplots_adjust(left=0.16, bottom=0.16, right=0.94)
 plt.savefig('plot2.png', dpi=300)
 plt.show()
 
-# Preparing bins and residuals
-train_res = y_train - model.predict(X_train)
-bins_train = (-0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4)
-test_res = y_test - model.predict(X_test)
+# Predicting values and defining the residuals
+# ATTENTION! This is not optimized
+
+ytrain_pred = model.predict(X_train)
+train_res = []
+i = 0
+for y, value in np.ndenumerate(y_train):
+	 res = value - ytrain_pred[i]
+	 train_res.append(res)
+	 i += 1
+
+train_res = np.array(train_res)
+bins_train = np.arange(np.floor(train_res.min()), np.ceil(train_res.max()), 0.4)
+# Poor solution
+
+ytest_pred = model.predict(X_test)
+test_res = []
+j = 0
+for y, value in np.ndenumerate(y_test):
+	 res = value - ytest_pred[j]
+	 test_res.append(res)
+	 j += 1
+
+test_res = np.array(test_res)
 bins_test = np.arange(np.floor(test_res.min()), np.ceil(test_res.max()), 0.4)
+# Poor solution 
 
 # Plot 3 - Error distribution
 plt.rcParams.update({'font.size': 28, 'figure.figsize': (8,6)})
