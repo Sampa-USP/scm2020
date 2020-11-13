@@ -11,7 +11,8 @@ Bem-vindo ao repositório da disciplina Simulação Computacional dos Materiais,
 6. [Lab 6](./Lab6) Cálculos de Primeiros Princípios.
 7. [Lab ML](./labML) Introdução ao Aprendizado de Máquina
 7. [Lab ML2](./labML2) Descoberta de novos materiais para baterias com AM
-8. [Lab DFT batch](./labDFTbatch) Cálculos de DFT em lotes (batches).
+8. [Lab ML3](./labML3) Redes neurais
+9. [Lab DFT batch](./labDFTbatch) Cálculos de DFT em lotes (batches).
 
 Conteúdos extra:
 
