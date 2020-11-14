@@ -34,7 +34,23 @@ Finalmente, o modelo final será salvo no arquivo **nn_trained.h5**.
 Os mecanismos de avaliação implementados são os mesmos da última aula. Verifique os gráficos de correlação e erro, e compare-os com o modelo RandomForest.
 
 
-### Etapa 4 - Algumas questões
+### Etapa 4 - Fazendo previsões com os modelos obtidos
+
+Para fazer previsões utilizando o modelo *RandomForest* treinado durante a última aula, utilize o script **predict_RF.py**. Na linha 19, adicione as composições que você gostaria de submeter ao modelo. No script original, você irá notar que quatro entradas do *Materials Project* já foram adicionadas para ajudá-lo a entender como os dados devem ser inseridos. A primeira coluna é uma *string* (texto) arbitrária usada para identificação. A segunda coluna, outra *string* que será posteriormente transformada na *Reduced Formula* e, portanto, deve seguir a formatação indicada (ElementoQuantidade Elemento2Quantidade ...).
+
+O comando da linha 145 está utilizando pickle para carregar o modelo RF. Caso você queira testar o modelo de redes neurais que acabamos de treinar, substitua o comando pelas seguintes linhas para carregá-lo. O restante da implementação não deve mudar:
+
+```bash
+
+from keras.models import load_model
+model = load_model('nn_trained.h5')
+
+```
+
+Dica: no VIM, digite 145gg para ir até a linha 145.
+
+
+### Etapa 5 - Algumas questões
 
 O que você acha que aconteceria se pudessemos treinar uma rede neural com capacidade (número de neurons) muito superior a essa que construímos hoje? Nesse caso, você acha que o desempenho poderia melhorar? 
 
