@@ -12,7 +12,7 @@ Bem-vindo ao repositório da disciplina Simulação Computacional dos Materiais,
 7. [Lab ML](./labML) Introdução ao Aprendizado de Máquina
 7. [Lab ML2](./labML2) Descoberta de novos materiais para baterias com AM
 8. [Lab ML3](./labML3) Redes neurais
-9. [Lab ML3](./labFEM1) Elementos finitos 1
+9. [Lab FEM1](./labFEM1) Elementos finitos 1
 
 Conteúdos extra:
 
