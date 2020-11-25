@@ -58,7 +58,7 @@ Logo clique em: Mesh \> Unify Surface
 
 [<img src="media/image4.png" width="550"/>](media/image4.png)
 
-6- Difiniremos o tipo de simulação (estado estacionário). Clique em:
+6- Como estamos interessados no **estado estacionário** da distribuição de temperatura no núcleo de eletricidade da bateria, definiremos esse tipo de simulação. Clique em:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Model
 
@@ -71,7 +71,7 @@ Logo clique em: Mesh \> Unify Surface
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apply
 
 
-7- Definiremos o modelo físico por meio da eleição do tipo de equação. Clique em:
+7- Na sequência definiremos o **modelo físico** representada pela equação da difusão do calor. Clique em:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Model
 
@@ -89,7 +89,7 @@ Logo clique em: Mesh \> Unify Surface
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OK
 
-8- . Clique em:
+8- Logo definiremos o tipo de material do núcleo de eletricidade da bateria, o Lítio. Clique em:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Model
 
@@ -107,7 +107,11 @@ Logo clique em: Mesh \> Unify Surface
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OK
 
-9- Definiremos a fonte de calor. Clique em:
+9- O lado direito da equação
+
+[<img src="media/image6.png" width="200"/>](media/image6.png)
+
+representa a fonte de calor. Definiremos essa fonte fazendo clique em:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Model
 
