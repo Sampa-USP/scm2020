@@ -71,7 +71,11 @@ Logo clique em: Mesh \> Unify Surface
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apply
 
 
-7- Na sequência definiremos o **modelo físico** representada pela equação da difusão do calor. Clique em:
+7- Na sequência definiremos o **modelo físico** representado pela equação da difusão do calor
+
+[<img src="media/image6.png" width="200"/>](media/image6.png)
+
+Para isso clique em:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Model
 
@@ -159,13 +163,11 @@ Para aplicar no modelo **clique na superfície** e logo definimos as condições
 
 12- Vamos a gerar o cógido para a simulação (uma espécie de roteiro do Elmer). Clique em Sif \> Generate
 
-Podemos conferir o código por meio de Sif \> Edit \> look how your command file came out
+Podemos conferir o código por meio das opções Sif \> Edit \> look how your command file came out
 
-13- Ante qualquer eventualidade, é recomdável salvar numa pasta o nosso projeto. Clique em File \> Save Project.
+13- Ante qualquer eventualidade, é recomdável salvar o projeto em uma pasta. Clique em File \> Save Project, e a continuação crie uma pasta para salvar o seu projeto.
 
-Crie uma pasta para salvar o seu projeto.
-
-14- Finalmente podemos rodar a simulação com a opção do menu Run \> Start solver
+14- Finalmente podemos rodar a simulação com a opção Run \> Start solver
 
 15- Para visualizar os resultados utilizaremos o **Paraview**. Podemos abrir ele por meio das opções Run \> Paraview
 A interfaz gráfica do Paraview apresentará algo parecido com a seguinte imagem 
