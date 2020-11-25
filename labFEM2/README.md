@@ -184,7 +184,7 @@ Podemos conferir o código por meio das opções Sif \> Edit
 
 14- Finalmente podemos rodar a simulação com a opção Run \> Start solver
 
-Caso a simulação tenha rodao sem nenhum problema, nas últims linhas aparecerá a seguinte mensagem **Elmer Solver: ALL DONE**
+Caso a simulação tenha rodao sem nenhum problema, nas últimas linhas aparecerá a seguinte mensagem **Elmer Solver: ALL DONE**
 
 15- Para visualizar os resultados utilizaremos o **Paraview**. Podemos abrir ele por meio das opções Run \> Paraview
 A interfaz gráfica do Paraview apresentará algo parecido com a seguinte imagem 
