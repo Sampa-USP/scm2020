@@ -1,14 +1,19 @@
 # Simulação Computacional dos Materiais - IFUSP
 ## Cálculos de elementos finitos utilizando o Elmer, Laboratório 2
-Neste tutorial, vamos aprender a fazer a simulação da distribuição de temperatura em uma bateria de Li utilizando o método dos elementos finitos (FEM). O arquivo de entrada que será utilizado nas simulações se encontra no diretório [labFEM2](./) chamado AAA.stp
+Neste tutorial, vamos aprender a fazer a simulação da distribuição de temperatura em uma bateria de Li utilizando o método dos elementos finitos (FEM). O arquivo de entrada que será utilizado nas simulações se encontra no diretório [labFEM2](./) chamado AAA.stp.
+
 Iremos utilizar o software [Elmer](http://www.elmerfem.org/blog/), um programa de código aberto muito bem documentado.
 ### Ajustes na Máquina Virtual
-No terminal, tente abrir o software com o comando **ElmerGUI**. Caso o sistema acuse a ausência da biblioteca **libQt5Xml.so.5**, favor re-instalar com o comando:
+No terminal, tente abrir o software com o comando
+```bash
+ElmerGUI
+```
+Caso o sistema acuse a ausência da biblioteca **libQt5Xml.so.5**, favor re-instalar com o comando:
 ```bash
 sudo apt-get install libqt5xml5
 ```
 ### Tutorial -- Distribuição de temperatura em uma bateria de Li
-1- Baixe o arquivo AAA.stp na pasta LabFEM_2 do curso SCM2020.
+1- Baixe o arquivo AAA.stp na pasta SCM2020/LabFEM_2.
 
 
 2- No terminal, entre na pasta do curso SCM2020 e depois na pasta LabFEM_2. Ainda no terminal abra o software Elmer com o comando
