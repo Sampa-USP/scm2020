@@ -17,7 +17,9 @@ sudo apt-get install libqt5xml5
 
 
 2- No terminal, entre na pasta do curso SCM2020 e depois na pasta LabFEM_2. Ainda no terminal abra o software Elmer com o comando
-**ElmerGUI**
+```bash
+ElmerGUI
+```
 Nesta etapa, iremos importar a geometria da bateria de Li que foi gerada no software Solid Edge.
 Nesta etapa, também será realizada a discretização da estrutura.
 
@@ -46,12 +48,12 @@ Model \> Preferences
 
 No ElmerGUI clique em: Mesh \> Remesh
 
-Obterá uma malha mais refinada.
+Com isso, obteremos uma malha mais refinada.
 
 [<img src="media/image2.png" width="200"/>](media/image2.png)
 
 5- Agora precisamos unificar as superfícies para definir as condições de contorno.
-Selecionar com clique duplo + Ctrl as três superfícies.
+Selecione com **clique duplo + Ctrl** as três superfícies.
 Logo clique em: Mesh \> Unify Surface
 
 [<img src="media/image4.png" width="550"/>](media/image4.png)
