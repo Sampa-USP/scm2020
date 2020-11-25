@@ -48,7 +48,9 @@ Model \> Preferences
 
 No ElmerGUI clique em: Mesh \> Remesh
 
-Com isso, obteremos uma malha mais refinada.
+Esse processo pode demorar um pouco.
+
+Logo, obteremos uma malha mais refinada.
 
 [<img src="media/image2.png" width="200"/>](media/image2.png)
 
@@ -105,6 +107,8 @@ Para isso clique em:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Li
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OK
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apply to bodies = Body 1
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add
@@ -124,6 +128,8 @@ representa a **fonte de calor**. Definiremos essa fonte fazendo clique em:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name = Heating
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Heat Equation
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Heat Source = 0.01
 
@@ -159,15 +165,17 @@ representa a **fonte de calor**. Definiremos essa fonte fazendo clique em:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set boundary properties
 
 
-Para aplicar no modelo **clique na superfície** e logo definimos as condições previamente criadas por meio das opções: BoundaryCondition \> RoomTemp
+Para aplicar no modelo faça **clique duplo na superfície** e logo definimos as condições previamente criadas por meio das opções: BoundaryCondition \> RoomTemp \> Add
 
 12- Vamos a gerar o cógido para a simulação (uma espécie de roteiro do Elmer). Clique em Sif \> Generate
 
-Podemos conferir o código por meio das opções Sif \> Edit \> look how your command file came out
+Podemos conferir o código por meio das opções Sif \> Edit
 
 13- Ante qualquer eventualidade, é recomdável salvar o projeto em uma pasta. Clique em File \> Save Project, e a continuação crie uma pasta para salvar o seu projeto.
 
 14- Finalmente podemos rodar a simulação com a opção Run \> Start solver
+
+Caso a simulação tenha rodao sem nenhum problema, nas últims linhas aparecerá a seguinte mensagem **ElmerSolver: *** Elmer Solver: ALL DONE **
 
 15- Para visualizar os resultados utilizaremos o **Paraview**. Podemos abrir ele por meio das opções Run \> Paraview
 A interfaz gráfica do Paraview apresentará algo parecido com a seguinte imagem 
