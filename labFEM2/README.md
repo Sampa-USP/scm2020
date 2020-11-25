@@ -30,7 +30,7 @@ Nesta etapa, também será realizada a discretização da estrutura.
 
 [<img src="media/image2_2.png" width="420"/>](media/image2_2.png)
 
-O ELmer mostrará o modelo da bateria, porém com uma malha grossa. 
+O Elmer mostrará o modelo da bateria, porém com uma malha grossa. 
 
 4- Para refinar a malha clique em View \> Cad model
 
