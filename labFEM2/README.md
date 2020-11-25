@@ -188,9 +188,19 @@ Caso a simulação tenha rodao sem nenhum problema, nas últimas linhas aparecer
 
 15- Para visualizar os resultados utilizaremos o **Paraview**. Podemos abrir ele por meio das opções Run \> Start Paraview
 
-A interfaz gráfica do Paraview apresentará algo parecido com a seguinte imagem 
+### Procedimento para visualização com o Paraview
+1. Uma vez aberto o **Paraview**, clique no botão em **Apply** no menu esquerdo da interfaz gráfica. Isso gerará a imagem monocromática do modelo da bateria na janela da aplicação (é possível surgir uma janela com mensagens de erro, podem fechá-la).
+2. Como estamos interessados na distribuição de temperatura, vamos eleger a opção **temperature** do menu **Coloring**, um pouco mais em baixo do botão **Apply**. Com isto a apresentação gráfica mudará para apresentar o gradiente de temperatura no corpo simulado.
+3. Podemos rotacionar o modelo da bateria arrastando com o mouse.
+4. Vamos a trocar o mapa de cores fazendo clique no botão **Chosse preset**
 
-[<img src="media/image5.png" width="500"/>](media/image5.png)
+
+Elegiremos a opção **jet**, logo **Apply** \> **Close**
+
+5. Para visualizarmos o gradiente de temperatura ao interior da bateria, faremos clique no botão **Clip**, na parte superior esquerda e na sequencia novamente o botão **Apply**. A interfaz gráfica do Paraview apresentará algo parecido com a seguinte imagem 
+
+[<img src="media/image5.png" width="500"/>](media/image5.png) 
+
 
 
 
