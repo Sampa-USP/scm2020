@@ -47,7 +47,7 @@ Obterá uma malha mais refinada.
 Selecionar com clique duplo + Ctrl as três superfícies.
 Logo clique em: Mesh \> Unify Surface
 
-[<img src="media/image4.png" width="300"/>](media/image4.png)
+[<img src="media/image4.png" width="450"/>](media/image4.png)
 
 5- Difiniremos o tipo de simulação (estado estacionário). Clique em:
 
