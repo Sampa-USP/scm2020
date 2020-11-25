@@ -3,6 +3,15 @@
 Neste tutorial, vamos aprender a fazer a simulação da distribuição de temperatura em uma bateria de Li utilizando o método dos elementos finitos (FEM). O arquivo de entrada que será utilizado nas simulações se encontra no diretório [labFEM2](./) chamado AAA.stp.
 
 Iremos utilizar o software [Elmer](http://www.elmerfem.org/blog/), um programa de código aberto muito bem documentado.
+### Ajustes na biblioteca de materiais do Elmer
+1. Baixe o arquivo **egmaterials.xml** desta pasta.
+
+2. Desde o terminal substitua esse arquivo na pasta de instalação do Elmer com o seguinte comando
+```bash
+sudo cp egmaterials.xml /usr/share/ElmerGUI/edf/egmaterials.xml
+```
+Será necessário fornecer a senha do super usuário.
+
 ### Ajustes na Máquina Virtual
 No terminal, tente abrir o software com o comando
 ```bash
