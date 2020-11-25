@@ -89,7 +89,7 @@ Logo clique em: Mesh \> Unify Surface
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OK
 
-8- Logo definiremos o tipo de material do núcleo de eletricidade da bateria, o Lítio. Clique em:
+8- Logo definiremos o **tipo de material** do núcleo de eletricidade da bateria, o Lítio. Clique em:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Model
 
@@ -111,7 +111,7 @@ Logo clique em: Mesh \> Unify Surface
 
 [<img src="media/image6.png" width="200"/>](media/image6.png)
 
-representa a fonte de calor. Definiremos essa fonte fazendo clique em:
+representa a **fonte de calor**. Definiremos essa fonte fazendo clique em:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Model
 
@@ -130,7 +130,7 @@ representa a fonte de calor. Definiremos essa fonte fazendo clique em:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OK
 
 
-10- Definiremos as condições de contorno. Primeiro criaremos elas. Clique em:
+10- Agora é momento de definir as **condições de contorno**. Primeiro devemos criar elas fazendo clique em:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Model
 
@@ -148,24 +148,27 @@ representa a fonte de calor. Definiremos essa fonte fazendo clique em:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OK
 
-11- Agora aplicaremos as condições de contorno a nosso modelo. Primeiramente clique em:
+11- Agora **aplicaremos as condições de contorno** a nosso modelo. Primeiramente clique em:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Model
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set boundary properties
 
 
-Para aplicar no modelo clique na superfície e logo BoundaryCondition \> RoomTemp
+Para aplicar no modelo **clique na superfície** e logo definimos as condições previamente criadas por meio das opções: BoundaryCondition \> RoomTemp
 
 12- Vamos a gerar o cógido para a simulação (uma espécie de roteiro do Elmer). Clique em Sif \> Generate
 
 Podemos conferir o código por meio de Sif \> Edit \> look how your command file came out
 
-13- Ante qualquer eventualidade é recomdável salvar numa pasta o nosso projeto. Clique em File \> Save Project
+13- Ante qualquer eventualidade, é recomdável salvar numa pasta o nosso projeto. Clique em File \> Save Project.
+
+Crie uma pasta para salvar o seu projeto.
 
 14- Finalmente podemos rodar a simulação com a opção do menu Run \> Start solver
 
-15- Podemos visualizar os resultados por meio das opções Run \> Paraview
+15- Para visualizar os resultados utilizaremos o **Paraview**. Podemos abrir ele por meio das opções Run \> Paraview
+A interfaz gráfica do Paraview apresentará algo parecido com a seguinte imagem 
 
 [<img src="media/image5.png" width="500"/>](media/image5.png)
 
