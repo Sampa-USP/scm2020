@@ -212,21 +212,20 @@ A interfaz gráfica do Paraview apresentará algo parecido com a seguinte imagem
 [<img src="media/image5.png" width="800"/>](media/image5.png) 
 
 
-
-
-
 ### Referências e informações adicionais
 
+-   Elmer unofficial home and blog (these pages),
+    [www.elmerfem.org](http://www.elmerfem.org/)[/](http://www.elmerfem.org/blog)
 
-    © 2020 GitHub, Inc.
-    Terms
-    Privacy
-    Security
-    Status
-    Help
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
+-   Elmer FEM discussion forum,
+    [www.elmerfem.org/forum](http://www.elmerfem.org/forum)
+
+-   Elmer/ICE community,
+    [elmerice.elmerfem.org](http://elmerice.elmerfem.org/)
+
+-   Elmer official homepage,
+    [www.csc.fi/elmer](https://www.csc.fi/elmer)
+
+### Agradecimentos
+
+-   A toda comunidade Elmer e a todos envolvidos em seu desenvolvimento
