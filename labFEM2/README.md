@@ -211,6 +211,12 @@ A interfaz gráfica do Paraview apresentará algo parecido com a seguinte imagem
 
 [<img src="media/image5.png" width="800"/>](media/image5.png) 
 
+### Atividade
+
+Cada aluno deve efetuar a simulação da distribuição de temperatura em uma bateria de Li, seguindo o tutorial apresentado na presente aula, **utilizando os parâmetros indicados para cada aluno na tabela**:
+
+(https://docs.google.com/spreadsheets/d/1Hpp2fgiREOq3-5mYw8H9Ix1OX7K9a_jgXVok8ReKeFo/edit#gid=0)
+
 
 ### Referências e informações adicionais
 
